@@ -1,0 +1,14 @@
+{
+  "filePath": ".spec-workflow/specs/image-to-ascii/tasks.md",
+  "currentVersion": 1,
+  "snapshots": [
+    {
+      "version": 1,
+      "filename": "snapshot-001.json",
+      "timestamp": "2026-07-05T05:15:40.603Z",
+      "trigger": "initial",
+      "approvalId": "approval_1783228540600_7stgvmj0x",
+      "approvalTitle": "Tasks Specification for image-to-ascii clone"
+    }
+  ]
+}

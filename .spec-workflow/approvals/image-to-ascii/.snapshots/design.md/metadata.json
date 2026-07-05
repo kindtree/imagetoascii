@@ -1,0 +1,14 @@
+{
+  "filePath": ".spec-workflow/specs/image-to-ascii/design.md",
+  "currentVersion": 1,
+  "snapshots": [
+    {
+      "version": 1,
+      "filename": "snapshot-001.json",
+      "timestamp": "2026-07-05T05:15:13.705Z",
+      "trigger": "initial",
+      "approvalId": "approval_1783228513701_qx4qn063i",
+      "approvalTitle": "Design Specification for image-to-ascii clone"
+    }
+  ]
+}

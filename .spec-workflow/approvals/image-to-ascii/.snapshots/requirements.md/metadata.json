@@ -1,0 +1,14 @@
+{
+  "filePath": ".spec-workflow/specs/image-to-ascii/requirements.md",
+  "currentVersion": 1,
+  "snapshots": [
+    {
+      "version": 1,
+      "filename": "snapshot-001.json",
+      "timestamp": "2026-07-05T04:35:48.385Z",
+      "trigger": "initial",
+      "approvalId": "approval_1783226148384_jiiwwj97m",
+      "approvalTitle": "Requirements for image-to-ascii clone"
+    }
+  ]
+}
