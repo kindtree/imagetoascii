@@ -561,13 +561,13 @@
     flex: 0 0 clamp(300px, 40vw, 430px); margin-right: 28px;
     border: 1px solid var(--ia-edge-faint); background: var(--ia-bg);
     padding: 28px; display: flex; flex-direction: column; gap: 24px;
-    /* Floor kept high so off-centre cards read as bright as the old (undimmed)
-       marquee; the centre peaks at brightness 1 / opacity 1 — identical to the
-       hover state — with the green glow doing most of the "spotlight" work. */
-    filter: brightness(calc(0.82 + 0.18 * var(--spot)));
-    opacity: calc(0.88 + 0.12 * var(--spot));
+    /* Strong swing so the IMAGE itself visibly glows up at the centre and
+       darkens toward the edges (not just the border): centre = brightness 1 /
+       opacity 1 (identical to hover), edges fall to ~0.4. */
+    filter: brightness(calc(0.4 + 0.6 * var(--spot)));
+    opacity: calc(0.45 + 0.55 * var(--spot));
     box-shadow: 0 0 calc(var(--spot) * 30px) rgb(87 255 143 / calc(var(--spot) * 0.17));
-    border-color: rgb(87 255 143 / calc(0.1 + var(--spot) * 0.38));
+    border-color: rgb(87 255 143 / calc(0.08 + var(--spot) * 0.4));
   }
   .ia-case:hover { filter: brightness(1) !important; opacity: 1 !important; box-shadow: 0 0 26px rgb(87 255 143 / 0.13); border-color: rgb(87 255 143 / 0.4); }
   @media (prefers-reduced-motion: reduce) { .ia-cases-track { animation: none; } }
@@ -1518,8 +1518,9 @@
       var r = cards[i].getBoundingClientRect();
       // Skip cards fully outside the viewport (nothing to light).
       if (r.right < tr.left - 60 || r.left > tr.right + 60) { cards[i].style.setProperty('--spot', '0'); continue; }
+      var half = r.width * 0.3; // plateau: card holds full brightness while its centre is near the middle
       var dist = Math.abs((r.left + r.width / 2) - centre);
-      var spot = Math.max(0, 1 - dist / (r.width * 1.6));
+      var spot = dist <= half ? 1 : Math.max(0, 1 - (dist - half) / (r.width * 0.95));
       cards[i].style.setProperty('--spot', spot.toFixed(3));
     }
     if (onScreen) raf = requestAnimationFrame(frame);
