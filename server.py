@@ -18,6 +18,7 @@ from __future__ import annotations
 
 import base64
 import json
+import mimetypes
 import os
 import urllib.error
 import urllib.parse
@@ -27,6 +28,11 @@ from pathlib import Path
 from fastapi import FastAPI, HTTPException
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
+
+# Some slim base images don't register modern image types → served as
+# application/octet-stream. Register them so StaticFiles sends correct MIME.
+mimetypes.add_type("image/webp", ".webp")
+mimetypes.add_type("image/avif", ".avif")
 
 # ---------------------------------------------------------------- config ----
 ROOT = Path(__file__).parent.resolve()
