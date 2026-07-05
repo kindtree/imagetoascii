@@ -541,13 +541,27 @@
     gap: 32px; margin-bottom: 48px; padding: 0 var(--ia-inset);
   }
   .ia-cases-head .ia-h2 { max-width: 860px; }
+  .ia-cases-nav { display: flex; gap: 10px; flex-shrink: 0; }
+  .ia-cases-arrow {
+    width: 44px; height: 44px; display: grid; place-items: center; padding: 0;
+    font-family: var(--ia-mono); font-size: 18px; line-height: 1;
+    color: var(--ia-phos); background: var(--ia-bg);
+    border: 1px solid var(--ia-edge-faint); cursor: pointer;
+    transition: border-color 0.2s, background 0.2s, opacity 0.2s;
+  }
+  .ia-cases-arrow:hover { border-color: rgb(87 255 143 / 0.5); background: rgb(87 255 143 / 0.07); }
+  .ia-cases-arrow:disabled { opacity: 0.28; cursor: default; }
+  .ia-cases-arrow:disabled:hover { border-color: var(--ia-edge-faint); background: var(--ia-bg); }
   .ia-cases-grid {
     --card-w: clamp(300px, 40vw, 440px);
     display: flex; gap: 28px; overflow-x: auto; overflow-y: hidden;
     scroll-snap-type: x proximity; scroll-behavior: smooth;
     padding: 14px max(var(--ia-inset), calc(50% - var(--card-w) / 2));
     scrollbar-width: none; -ms-overflow-style: none;
+    cursor: grab;
   }
+  .ia-cases-grid.is-dragging { cursor: grabbing; scroll-behavior: auto; scroll-snap-type: none; }
+  .ia-cases-grid.is-dragging .ia-case { pointer-events: none; }
   .ia-cases-grid::-webkit-scrollbar { display: none; }
   .ia-case {
     --spot: 0;
@@ -743,6 +757,7 @@
     .ia-ask-inner { padding: 16px; gap: 24px; }
     .ia-ask-art { max-width: 480px; }
     .ia-cases-head { margin-bottom: 32px; }
+    .ia-cases-nav { display: none; }
     .ia-case { padding: 20px; }
     .ia-faq-head { margin-bottom: 32px; padding: 0 var(--ia-inset); }
     .ia-final-desc { font-size: 14px; }
@@ -1109,6 +1124,10 @@
       <div>
         <p class="ia-eyebrow">usecases</p>
         <h2 class="ia-h2" id="cases-h">Where the output actually goes</h2>
+      </div>
+      <div class="ia-cases-nav">
+        <button type="button" class="ia-cases-arrow" data-dir="-1" aria-label="Scroll to previous use cases">&larr;</button>
+        <button type="button" class="ia-cases-arrow" data-dir="1" aria-label="Scroll to next use cases">&rarr;</button>
       </div>
     </div>
     <div class="ia-cases-grid">
@@ -1483,7 +1502,10 @@
   if (!track) return;
   var cards = Array.prototype.slice.call(track.querySelectorAll('.ia-case'));
   if (!cards.length) return;
+  var nav = document.querySelector('.ia-cases-nav');
+  var arrows = nav ? Array.prototype.slice.call(nav.querySelectorAll('.ia-cases-arrow')) : [];
   var ticking = false;
+
   function update() {
     ticking = false;
     var tr = track.getBoundingClientRect();
@@ -1494,10 +1516,49 @@
       var spot = Math.max(0, 1 - dist / (r.width * 1.7));
       cards[i].style.setProperty('--spot', spot.toFixed(3));
     }
+    var maxScroll = track.scrollWidth - track.clientWidth;
+    for (var a = 0; a < arrows.length; a++) {
+      var dir = +arrows[a].getAttribute('data-dir');
+      arrows[a].disabled = dir < 0 ? track.scrollLeft <= 1 : track.scrollLeft >= maxScroll - 1;
+    }
   }
   function onScroll() { if (!ticking) { ticking = true; requestAnimationFrame(update); } }
   track.addEventListener('scroll', onScroll, { passive: true });
   addEventListener('resize', onScroll, { passive: true });
+
+  // Arrow buttons: step by one card (centre-to-centre distance).
+  function step() {
+    return cards.length > 1
+      ? Math.abs(cards[1].offsetLeft - cards[0].offsetLeft)
+      : cards[0].offsetWidth;
+  }
+  arrows.forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      track.scrollBy({ left: (+btn.getAttribute('data-dir')) * step(), behavior: 'smooth' });
+    });
+  });
+
+  // Click-and-drag to scroll (desktop pointer). Threshold avoids eating clicks.
+  var down = false, moved = false, startX = 0, startScroll = 0;
+  track.addEventListener('pointerdown', function (e) {
+    if (e.pointerType === 'touch') return; // native touch scroll handles this
+    down = true; moved = false; startX = e.clientX; startScroll = track.scrollLeft;
+  });
+  track.addEventListener('pointermove', function (e) {
+    if (!down) return;
+    var dx = e.clientX - startX;
+    if (!moved && Math.abs(dx) < 6) return;
+    if (!moved) { moved = true; track.classList.add('is-dragging'); track.setPointerCapture(e.pointerId); }
+    track.scrollLeft = startScroll - dx;
+  });
+  function endDrag() {
+    if (!down) return;
+    down = false;
+    if (moved) { track.classList.remove('is-dragging'); onScroll(); }
+  }
+  track.addEventListener('pointerup', endDrag);
+  track.addEventListener('pointercancel', endDrag);
+
   update();
   setTimeout(update, 400);
 })();
