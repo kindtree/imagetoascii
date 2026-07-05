@@ -890,15 +890,25 @@
   .eyebrow {
     display: inline-block;
     font-family: var(--font-display);
-    /* Fluid: 11px on small phones up to 16px on desktop. */
     font-size: clamp(11px, 0.4vw + 9px, 16px);
     line-height: 1.5;
-    letter-spacing: 0.15em;
-    opacity: 0.4;
+    letter-spacing: 0.14em;
+    opacity: 0.68;
     color: var(--text);
-    text-transform: uppercase;
+    text-transform: lowercase;
     margin: 0 0 clamp(8px, 1vw + 4px, 16px);
   }
+  .eyebrow::before { content: "\276F  "; color: #57ff8f; opacity: 0.9; }
+  .eyebrow::after  { content: "_"; color: #57ff8f; margin-left: 1px; animation: caret-blink 1.1s steps(1) infinite; }
+  @keyframes caret-blink { 0%, 49% { opacity: 0.9; } 50%, 100% { opacity: 0; } }
+  /* ambient ASCII rain — sits behind all content (z:0), sections are z:2 */
+  #ascii-rain {
+    position: fixed; inset: 0; z-index: 0; pointer-events: none; opacity: 0.42;
+    /* Strong at the edges (signature), fades out behind the centre content column (readability). */
+    -webkit-mask-image: radial-gradient(ellipse 58% 82% at 50% 50%, rgba(0,0,0,0.10), #000 74%);
+            mask-image: radial-gradient(ellipse 58% 82% at 50% 50%, rgba(0,0,0,0.10), #000 74%);
+  }
+  @media (prefers-reduced-motion: reduce) { #ascii-rain { display: none; } }
   .section__h2 {
     font-family: var(--font-display);
     /* Fluid: 24px on small phones → 48px on desktop. Scales linearly
@@ -2567,6 +2577,7 @@
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What is Image to ASCII?", "acceptedAnswer": {"@type": "Answer", "text": "Image to ASCII is a free online tool that turns any image into text-based ASCII art. Upload a photo or generate one with AI, pick a character style, and the conversion happens instantly in your browser. Export it as a PNG or copy the raw text."}}, {"@type": "Question", "name": "How do I convert an image to ASCII art?", "acceptedAnswer": {"@type": "Answer", "text": "Open the tool at the top of this page, drop or select an image, and it is converted to ASCII automatically. Adjust the detail, character set, invert and color, then download the PNG or copy the text. Works with JPG, PNG and WebP."}}, {"@type": "Question", "name": "Can I generate an image with AI instead of uploading one?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Switch to “Generate with AI”, describe the image you want, and the tool creates it for you and converts it straight to ASCII art — handy when you don’t have a source photo."}}, {"@type": "Question", "name": "Is it free? Do I need to sign up?", "acceptedAnswer": {"@type": "Answer", "text": "It is completely free — no signup, no watermark and no export limit. Just open the page and start converting."}}, {"@type": "Question", "name": "Do my images get uploaded to a server?", "acceptedAnswer": {"@type": "Answer", "text": "When you upload your own image the ASCII conversion runs entirely in your browser, so the file never leaves your device. Only the optional AI image generation talks to a server (it sends your text prompt to create the image)."}}, {"@type": "Question", "name": "What can I export, and can I use it commercially?", "acceptedAnswer": {"@type": "Answer", "text": "Export the result as a PNG image, or copy it as plain text to paste anywhere — chat, code, a README or social. The ASCII art you make is yours to use, personally or commercially."}}]}</script>
 </head>
 <body>
+<canvas id="ascii-rain" aria-hidden="true"></canvas>
   
 
 <!-- v1 launch strip -->
@@ -2756,7 +2767,7 @@
       <img src="assets/hero/after-green.png" alt="ASCII art example" loading="lazy">
     </div>
     <div class="askai__left">
-      <p class="eyebrow">/ASK YOUR AI</p>
+      <p class="eyebrow">ask-ai</p>
       <h2 class="section__h2" id="askai-h">Feeling fatigue? Ask AI</h2>
       <p class="section__desc">Don't feel like scrolling? Copy Context.md, paste into <a href="https://chatgpt.com" target="_blank" rel="noopener">ChatGPT</a> or <a href="https://claude.ai" target="_blank" rel="noopener">Claude</a>, it explains every style, control and export.</p>
     </div>
@@ -2786,7 +2797,7 @@
 <section class="section styles" id="styles" aria-labelledby="styles-h">
   <div class="section__inner">
     <div class="styles__header">
-      <p class="eyebrow">/STYLES</p>
+      <p class="eyebrow">styles</p>
       <h2 class="section__h2" id="styles-h">Image to ASCII, four character styles</h2>
       <p class="section__desc">Turn your image into ASCII art in four built-in character styles — tune the detail, invert and color, then export.</p>
     </div>
@@ -2798,7 +2809,7 @@
   <div class="section__inner">
     <div class="usecases__head">
       <div class="usecases__title-block">
-        <p class="eyebrow">/USECASES</p>
+        <p class="eyebrow">usecases</p>
         <h2 class="section__h2" id="usecases-h">Where can this actually work...</h2>
       </div>
       <button class="usecases__submit" type="button" id="submit-usecase-btn">Have a new one? Submit here</button>
@@ -2816,7 +2827,7 @@
 <section class="section" id="learn" aria-labelledby="learn-h">
   <div class="section__inner">
     <div class="seo-content">
-      <p class="eyebrow">/ HOW IT WORKS</p>
+      <p class="eyebrow">how-it-works</p>
       <h2 class="section__h2" id="learn-h">How the image to ASCII converter works</h2>
       <p>ASCII art is a picture made entirely out of text characters. The image to ASCII converter on this page looks at your photo one small cell at a time, measures how bright each cell is, and swaps it for a character from a ramp that runs from dense to sparse &mdash; a solid <code>@</code> stands in for the darkest areas and a light <code>.</code> or a blank space for the brightest. Line those characters up in a grid and the original picture reappears, drawn in nothing but type. Because every step runs in your browser on an HTML5 canvas, the image to ASCII conversion is instant and your photo never leaves your device.</p>
 
@@ -2846,7 +2857,7 @@
 <section class="section faq-sec" id="faq" aria-labelledby="faq-h">
   <div class="section__inner">
     <div class="faq-sec__head">
-      <p class="eyebrow">/FAQS</p>
+      <p class="eyebrow">faqs</p>
       <h2 class="section__h2" id="faq-h">Some frequently asked questions.</h2>
       <p class="section__desc">Quick answers about Image to ASCII &mdash; what it does, how it works, privacy and pricing.</p>
     </div>
@@ -2860,7 +2871,7 @@
       <img class="ctaSec__video" src="assets/hero/after-green.png" loading="lazy" decoding="async" alt="ASCII art example">
       <div class="ctaSec__mask"></div>
       <div class="ctaSec__content">
-        <p class="eyebrow" style="margin:0 0 12px;">/CREATE ART IN SECONDS</p>
+        <p class="eyebrow" style="margin:0 0 12px;">create-art</p>
         <h2 class="ctaSec__h2" id="cta-h">Images into ASCII art, in your browser.</h2>
         <p class="ctaSec__desc">Every slider, every style, every effect updates the preview instantly, export at up to 4× resolution. Free forever.</p>
         <a class="ctaSec__btn" href="#tool">
@@ -2920,7 +2931,7 @@
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
     </button>
     <form id="submit-usecase-form" class="submit-form" autocomplete="off">
-      <p class="eyebrow" style="margin:0 0 12px;">/SUBMIT</p>
+      <p class="eyebrow" style="margin:0 0 12px;">submit</p>
       <h3 id="submit-usecase-title" class="submit-form__title">Show off your use case</h3>
       <p class="submit-form__desc">Share an image, video or post showing Image to ASCII in the wild, wallpaper, website, poster, video, anything. We'll feature the best ones in the Use Cases section.</p>
       <label class="submit-form__field">
@@ -4178,5 +4189,55 @@ const FAQS = [
 
   </script>
   <script src="assets/tool.js" defer></script>
+  <script>
+  /* Ambient ASCII digital rain — our signature terminal motif. Uses our own
+     character ramp (not katakana), throttled + pauses off-screen + honours
+     prefers-reduced-motion (hidden via CSS). Sits behind all content. */
+  (function asciiRain() {
+    if (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const cv = document.getElementById('ascii-rain');
+    if (!cv) return;
+    const ctx = cv.getContext('2d', { alpha: true });
+    const RAMP = '@#S08Xx+=-;:,.';
+    const FS = 16;
+    let cols, drops, dpr;
+    function resize() {
+      dpr = Math.min(window.devicePixelRatio || 1, 2);
+      cv.width = Math.floor(innerWidth * dpr);
+      cv.height = Math.floor(innerHeight * dpr);
+      cv.style.width = innerWidth + 'px';
+      cv.style.height = innerHeight + 'px';
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      cols = Math.ceil(innerWidth / FS);
+      drops = Array.from({ length: cols }, () => Math.floor(Math.random() * -60));
+    }
+    resize();
+    addEventListener('resize', resize, { passive: true });
+    let running = true, last = 0;
+    function frame(t) {
+      if (!running) return;
+      if (t - last < 55) { requestAnimationFrame(frame); return; }  // ~18fps, cheap
+      last = t;
+      ctx.fillStyle = 'rgba(4,4,6,0.10)';                            // trail fade
+      ctx.fillRect(0, 0, innerWidth, innerHeight);
+      ctx.font = FS + 'px ui-monospace, Menlo, monospace';
+      for (let i = 0; i < cols; i++) {
+        const y = drops[i] * FS;
+        if (y > 0) {
+          ctx.fillStyle = 'rgba(120,255,150,0.85)';
+          ctx.fillText(RAMP[(Math.random() * RAMP.length) | 0], i * FS, y);
+        }
+        if (y > innerHeight && Math.random() > 0.975) drops[i] = Math.floor(Math.random() * -20);
+        drops[i]++;
+      }
+      requestAnimationFrame(frame);
+    }
+    requestAnimationFrame(frame);
+    document.addEventListener('visibilitychange', () => {
+      running = !document.hidden;
+      if (running) { last = 0; requestAnimationFrame(frame); }
+    });
+  })();
+  </script>
 </body>
 </html>
