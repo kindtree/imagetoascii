@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Image to ASCII — Free Online ASCII Art Generator</title>
-  <meta name="description" content="Image to ASCII — free online converter. Upload a photo or generate one with AI, then turn it into ASCII art in your browser. No signup, instant, export as PNG or text.">
+  <meta name="description" content="Image to ASCII — free online converter. Upload a photo or generate one with AI, then turn it into ASCII art in your browser. Export as PNG or text.">
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="icon" type="image/png" sizes="32x32" href="/assets/brand/favicon-32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="/assets/brand/favicon-16.png">
@@ -2530,7 +2530,12 @@
 .tool__btn:disabled { opacity: .5; cursor: not-allowed; }
 .tool__btn--ghost { background: transparent; color: #fff; border-color: rgba(255,255,255,.2); }
 .tool__btn--ghost:hover { background: rgba(255,255,255,.06); }
-.tool__status { font-size: .85rem; color: rgba(255,255,255,.6); min-height: 1.2em; margin-top: 2px; }
+  .seo-content { max-width: 760px; margin: 0 auto; }
+  .seo-content h3 { font-size: 1.15rem; color: #fff; margin: 28px 0 9px; letter-spacing: -.01em; }
+  .seo-content p { color: rgba(255,255,255,.62); line-height: 1.72; font-size: .97rem; margin: 0 0 15px; }
+  .seo-content strong { color: rgba(255,255,255,.9); font-weight: 600; }
+  .seo-content code { font-family: ui-monospace, Menlo, monospace; color: #FF8A3C; font-size: .9em; }
+  .tool__status { font-size: .85rem; color: rgba(255,255,255,.6); min-height: 1.2em; margin-top: 2px; }
   .tool__loading { display: flex; align-items: center; gap: 18px; margin-top: 16px; padding: 20px 22px; border: 1px solid rgba(255,255,255,.1); border-radius: 14px; background: linear-gradient(180deg,#0b0b12,#08080c); }
   .tool__loading-spin { font-family: ui-monospace, Menlo, monospace; font-size: 2.1rem; line-height: 1; color: #FF8A3C; width: 2rem; text-align: center; text-shadow: 0 0 16px rgba(255,138,60,.6); }
   .tool__loading-info { flex: 1 1 auto; min-width: 0; }
@@ -2665,9 +2670,9 @@
  <div class="hero__textblock">
   <!-- Title row: title left, CTAs far right (matches Paper grid) -->
   <div class="hero__textrow">
-    <h1 class="hero__title" aria-label="Turn your images into ASCII art, text art and block characters">
-      Turn your images<br>
-      into <span class="hero__rotator" aria-hidden="true"><span class="hero__brace hero__brace--l">{</span><span class="hero__rotator-word" id="hero-rotator-word"></span><span class="hero__brace hero__brace--r">}</span></span>
+    <h1 class="hero__title" aria-label="Turn any image to ASCII art, text art and block characters">
+      Turn any<br>
+      image to ASCII <span class="hero__rotator" aria-hidden="true"><span class="hero__brace hero__brace--l">{</span><span class="hero__rotator-word" id="hero-rotator-word"></span><span class="hero__brace hero__brace--r">}</span></span>
     </h1>
     <div class="hero__ctas">
       <a class="hero__cta-primary" href="#tool" aria-label="Open the tool, start the image stylizer">
@@ -2808,6 +2813,36 @@
 
 ===== /SECTION 7 RECIPES, uncomment when ready ===== -->
 <!-- ===== SECTION 8, FAQ ===== -->
+<section class="section" id="learn" aria-labelledby="learn-h">
+  <div class="section__inner">
+    <div class="seo-content">
+      <p class="eyebrow">/ HOW IT WORKS</p>
+      <h2 class="section__h2" id="learn-h">How the image to ASCII converter works</h2>
+      <p>ASCII art is a picture made entirely out of text characters. The image to ASCII converter on this page looks at your photo one small cell at a time, measures how bright each cell is, and swaps it for a character from a ramp that runs from dense to sparse &mdash; a solid <code>@</code> stands in for the darkest areas and a light <code>.</code> or a blank space for the brightest. Line those characters up in a grid and the original picture reappears, drawn in nothing but type. Because every step runs in your browser on an HTML5 canvas, the image to ASCII conversion is instant and your photo never leaves your device.</p>
+
+      <h3>Upload a photo or generate one with AI</h3>
+      <p>There are two ways to feed the image to ASCII tool. The first is to upload your own picture &mdash; drag a JPG, PNG or WebP onto the drop zone, or click to browse, and it is converted the moment it loads. The second is to describe an image in words and let AI create it for you: the prompt is sent to an image model, the picture comes back, and it is turned into ASCII art automatically. AI generation is handy when you don&rsquo;t have the right source photo on hand and just want a clean, high-contrast subject that reads well as text.</p>
+
+      <h3>Character styles and controls</h3>
+      <p>Not every image to ASCII conversion should look the same, so the tool ships four character styles. <strong>Characters</strong> is the classic look, mapping brightness to a configurable ramp such as <code>@#S08Xx+=-;:,.</code> <strong>Detailed</strong> uses a much larger set of glyphs for fine gradients and smooth shading. <strong>Block Chars</strong> swaps in half and full block glyphs for a bold, dense, pixel-block feel, and <strong>Minimal</strong> keeps only a handful of characters for a clean, high-contrast result. On top of the style you can push the detail slider to change how many characters make up the grid, flip the mapping with Invert, and turn Color on or off to either sample the original colours or render crisp monochrome text art.</p>
+
+      <h3>Getting the best image to ASCII results</h3>
+      <p>A few habits make a big difference. High-contrast images with one clear subject convert best &mdash; a face, an animal, a logo or a bold silhouette will always read more clearly than a busy, low-contrast scene. Simple backgrounds help too, since empty space becomes blank characters and lets the subject stand out. If your first ASCII art looks muddy, raise the detail, try the Detailed character set, or toggle Invert, because dark-on-light and light-on-dark photos each favour a different setting. When you are happy, download the result as a PNG image or copy it as plain text to paste anywhere.</p>
+
+      <h3>Where people use ASCII art</h3>
+      <p>Text art has a life far beyond the terminal. People drop ASCII renders into GitHub READMEs and code comments, use them as retro website hero backgrounds and 404 pages, post them on social media for a distinctive, on-brand look, print them as posters and zines, and set them as desktop or phone wallpapers. Because the output of the image to ASCII converter is just characters (or a PNG of them), it fits anywhere text or an image can go &mdash; a post, a chat message, a slide or a sticker.</p>
+
+      <h3>What characters make good ASCII art</h3>
+      <p>The characters that make up ASCII art are chosen for their visual weight &mdash; how much ink each one puts on the page. A dense character like <code>@</code>, <code>#</code> or a block glyph reads as a dark tone, while a thin character like <code>.</code>, <code>:</code>, <code>;</code> or a blank space reads as a light tone. Arrange them from dark to light and you have a grayscale ramp that any brightness value can map onto. The classic ramp is <code>@#S08Xx+=-;:,.</code> but you can type your own set of characters into the image to ASCII tool and watch the output change in real time: a longer ramp gives smoother gradients, and a shorter one gives a punchier, more graphic look.</p>
+
+      <h3>Image to ASCII art vs pixel art</h3>
+      <p>Image to ASCII art and pixel art both simplify a picture into a grid, but they use different building blocks. ASCII art fills each cell with a text character chosen by brightness, so the result reads like printed type and can be copied as plain text. Pixel art fills each cell with a solid block of colour, so it reads like an 8-bit video game and only works as an image. This converter focuses on the text-character approach, which is why every image to ASCII result can be exported as a PNG or copied straight into a README, a chat or a code comment.</p>
+
+      <h3>Free, private and no signup</h3>
+      <p>The image to ASCII converter is completely free. There is no signup, no watermark and no export limit, and the ASCII conversion itself runs entirely on your own device, so your uploaded photo is never sent to a server. Only the optional AI image generation talks to the network, and even then only your short text prompt is sent. Open the tool at the top of the page, drop in an image or describe one, and you have shareable ASCII art in seconds.</p>
+    </div>
+  </div>
+</section>
 <section class="section faq-sec" id="faq" aria-labelledby="faq-h">
   <div class="section__inner">
     <div class="faq-sec__head">
@@ -3573,10 +3608,10 @@ window.addEventListener('DOMContentLoaded', function initCrtDialKitDeferred() {
      second line of the title to wrap into a 3rd line at intermediate
      viewports. All remaining words fit comfortably in 2 lines. */
   const WORDS = [
-    'ASCII Art',
+    'Art',
+    'Characters',
     'Text Art',
-    'Block Art',
-    'Terminal Art'
+    'Block Art'
   ];
   const HOLD_MS = 1900;   // pause after a word is fully typed
   const DEL_MS  = 55;     // delete speed per character
