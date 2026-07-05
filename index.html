@@ -10,12 +10,12 @@
 <link rel="icon" type="image/png" sizes="16x16" href="/assets/brand/favicon-16.png">
 <link rel="apple-touch-icon" sizes="180x180" href="/assets/brand/apple-touch-icon.png">
   <meta property="og:title" content="Image to ASCII — Free Online ASCII Art Generator">
-  <meta property="og:description" content="Free ASCII art generator. Turn any image into ASCII art, braille, or block characters in your browser, no signup, no upload.">
+  <meta property="og:description" content="Turn any photo into ASCII art on your own device, or describe one and let AI create it — no signup, nothing uploaded.">
   <meta property="og:image" content="https://imagetoascii.app/og.jpg">
   <meta property="og:type" content="website">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Image to ASCII — Free Online ASCII Art Generator">
-  <meta name="twitter:description" content="Free ASCII art generator. Turn any image into ASCII art, braille, or block characters in your browser, no signup, no upload.">
+  <meta name="twitter:description" content="Turn any photo into ASCII art on your own device, or describe one and let AI create it — no signup, nothing uploaded.">
   <meta name="twitter:image" content="https://imagetoascii.app/og.jpg">
   <link rel="canonical" href="https://imagetoascii.app/">
 <style>
@@ -32,7 +32,7 @@
   }
 
   /* ============================================================
-     Design tokens, derived directly from Paper computed styles
+     Design tokens, our own design tokens
      ============================================================ */
   :root {
     --bg:            #040406;
@@ -180,7 +180,7 @@
     -webkit-backdrop-filter: blur(10px);
   }
   /* Nav inner: rail-to-rail (--side-pad) PLUS 27px internal so the logo and
-     CTA don't touch the rails (matches Paper 1HT-0 left:26, CTA right edge
+     CTA don't touch the rails (matches the left:26, CTA right edge
      ~31px from rail). */
   .nav__inner {
     max-width: var(--max-w);
@@ -344,14 +344,14 @@
   .mobile-menu__close:hover { background: rgba(255,255,255,0.06); border-color: rgba(255,255,255,0.5); }
   .mobile-menu__close svg { width: 22px; height: 22px; }
 
-  /* HERO, order: slider → title+CTAs row → subtitle (matches Paper layout) */
+  /* HERO, order: slider → title+CTAs row → subtitle (matches the layout) */
   .hero {
     position: relative;
     padding: 0 var(--side-pad);
     max-width: 1728px;
     margin: 0 auto;
   }
-  /* Slider sits flush under nav per design (top: 108 in Paper, nav height 108) */
+  /* Slider sits flush under nav per design (top: 108 in the design, nav height 108) */
   .hero .slider { margin-top: 0; }
   /* Hero sub-blocks get bottom horizontal dividers (the rails get "cut" by them). */
   .hero__slider-wrap { padding-bottom: 0; }
@@ -441,7 +441,7 @@
     margin: 24px 0 0;
     padding: 0 var(--text-inset);
   }
-  /* Primary CTA, 3px white left tab + filled white button (matches Paper 1IZ-0,
+  /* Primary CTA, 3px white left tab + filled white button (matches the,
      same family as the nav 'Open tool' button). */
   .hero__cta-primary {
     display: inline-flex; align-items: stretch;
@@ -978,7 +978,7 @@
      SECTION 2, Community creations.
      • NO section top padding, ticker starts at the section's top edge
        (touching the horizontal rail above).
-     • Section is at least 834px tall (matches Paper 1R7-0 height).
+     • Section is at least 834px tall (matches the height).
      • Left text column is vertically CENTERED within the section.
      • Right ticker column fills the full section height.
      ============================================================ */
@@ -1110,7 +1110,7 @@
   .askai__left { padding-right: 47px; }
   .askai__left .section__h2 { max-width: 559px; }
   .askai__left .section__desc { max-width: 585px; }
-  /* Context.MD button, per design 1LV-0 sits ABSOLUTELY positioned on top
+  /* Context.MD button, per design sits ABSOLUTELY positioned on top
      of the yellow cube image (around bottom-middle), overlapping intentionally.
      207×67, 1px white outline, label 20px GeistPixel at left:24,
      divider at 147, copy icon at 166. */
@@ -1507,7 +1507,7 @@
   .postfx::after,
   .recipes-sec::after,
   .styles::after { display: none !important; }
-  /* Post-FX header is centered per design 1YN-0 / 1YO-0 (both translate -50%).
+  /* Post-FX header is centered per design / (both translate -50%).
      Max-width bumped from 834 → 1080 so the title "Apply a ton of post-
      processing effects" fits on one line at desktop instead of orphaning
      "effects" on a second line. Description is constrained by its own
@@ -1529,7 +1529,7 @@
     display: grid;
     grid-template-columns: minmax(0, 1076fr) minmax(0, 402fr);
     gap: 0;
-    /* `height` was 629px (matches Paper design at desktop). On tablets
+    /* `height` was 629px (matches the design at desktop). On tablets
        and phones the grid collapses to 1-col and stretching demo+panel
        to 629px each made them 1258px tall, a wall. Use min-height +
        intrinsic sizing so the panel grows to fit content. */
@@ -1617,7 +1617,7 @@
     white-space: nowrap;
   }
   .pfx-row:hover .pfx-row__label { opacity: 0.95; }
-  /* Slider, FIXED width per Paper design (130×9), 3px track + 9px square thumb. */
+  /* Slider, FIXED width per the design (130×9), 3px track + 9px square thumb. */
   .pfx-row__slider {
     flex: 0 0 130px;           /* same width for ALL effects */
     width: 130px;
@@ -1675,7 +1675,7 @@
     width: 16px; height: 16px;
     border: 0;
   }
-  /* SQUARE toggle per design (1ZE-0): 38×19 outer outline,
+  /* SQUARE toggle per design (): 38×19 outer outline,
      13×13 inner square that slides from left:3 to left:22. */
   .pfx-toggle {
     position: relative;
@@ -1730,7 +1730,7 @@
   .postfx__cta a:hover { background: rgba(255,255,255,0.06); }
 
   /* ============================================================
-     SECTION 7, Recipes (Paper 1M1-0 = a contained card 1480×1232
+     SECTION 7, Recipes (the design = a contained card 1480×1232
      with 1px border outline). Centered header, 3 cards in a row,
      centered "View all Recipes" CTA at the bottom.
      ============================================================ */
@@ -1852,7 +1852,7 @@
     left:  max(var(--side-pad), calc((100vw - 1728px) / 2 + var(--side-pad)));
     right: max(var(--side-pad), calc((100vw - 1728px) / 2 + var(--side-pad)));
   }
-  /* FAQ header centered per design 1MO-0 / 1MP-0 (both translate -50%). */
+  /* FAQ header centered per design / (both translate -50%). */
   .faq-sec__head {
     margin: 0 0 56px;
     max-width: 834px;
@@ -2012,8 +2012,8 @@
 
   /* ============================================================
      FOOTER, 4 columns at design x-positions 171, 780, 981, 1152.
-     Cols 1, 2, 4 have stacked sub-blocks (per Paper 1PT-0 / 1Q0-0 / 1Q1-0
-     / 1QA-0 / 1QF-0 / 1QL-0 / 1R1-0 coordinates).
+     Cols 1, 2, 4 have stacked sub-blocks (per the / /
+     / / / / coordinates).
      ============================================================ */
   .footer {
     border-top: 1px solid var(--border-faint);
@@ -2678,7 +2678,7 @@
 
 
 
-<!-- Structural side rails, faint full-height vertical lines (design 1HG-0) -->
+<!-- Structural side rails, faint full-height vertical lines (design) -->
 <div class="rails" aria-hidden="true"></div>
 
 <!-- NAV -->
@@ -2733,7 +2733,7 @@
   </div>
 </div>
 
-<!-- HERO, order matches Paper: slider first, then title row, then subtitle -->
+<!-- HERO, order matches the: slider first, then title row, then subtitle -->
 <section class="hero" id="top">
  <div class="hero__slider-wrap">
   <div class="slider" id="slider" data-active-fx="Characters" style="--split: 50%;">
@@ -2772,7 +2772,7 @@
  </div>
 
  <div class="hero__textblock">
-  <!-- Title row: title left, CTAs far right (matches Paper grid) -->
+  <!-- Title row: title left, CTAs far right (matches the grid) -->
   <div class="hero__textrow">
     <h1 class="hero__title" aria-label="Turn any image to ASCII art, text art and block characters">
       Turn any<br>
@@ -2786,7 +2786,7 @@
            <button class="hero__cta-secondary" type="button" id="how-it-works-btn">How it works</button> -->
     </div>
   </div>
-  <p class="hero__subtitle">Free ASCII art generator. Turn any image into ASCII art, braille, or block characters in your browser, no upload, no signup.</p>
+  <p class="hero__subtitle">Turn any photo into ASCII art on your own device, or describe one and let AI create it &mdash; no signup, nothing uploaded.</p>
  </div>
 </section>
 
@@ -2894,7 +2894,7 @@
       <h2 class="section__h2" id="askai-h">Hand your AI the whole page</h2>
       <p class="section__desc">Don't feel like scrolling? Copy Context.md, paste into <a href="https://chatgpt.com" target="_blank" rel="noopener">ChatGPT</a> or <a href="https://claude.ai" target="_blank" rel="noopener">Claude</a>, it explains every style, control and export.</p>
     </div>
-    <!-- Context.MD button: absolutely positioned to overlap the cube (per design 1LV-0).
+    <!-- Context.MD button: absolutely positioned to overlap the cube (per design).
          Three icon states stacked in the icon slot: copy (default) → loader
          (during fetch) → tick (post-copy). JS toggles `.is-loading` /
          `.is-copied` classes on the button to fade the right one in. -->
@@ -3727,7 +3727,7 @@ function styleHref(recipe) {
         '<h3 class="style-card__title">' + s.name + '</h3>' +
         '<p class="style-card__desc">' + s.desc + '</p>' +
         '<span class="style-card__arrow" aria-hidden="true">' +
-          /* Right-pointing chevron at bottom-left (Paper 1JC-0 = chevron-up rotated 90deg). */
+          /* Right-pointing chevron at bottom-left (the design = chevron-up rotated 90deg). */
           '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>' +
         '</span>' +
       '</div>';
@@ -4078,7 +4078,7 @@ const FAQS = [
 (function initFAQ() {
   const grid = document.getElementById('faq-grid');
   if (!grid) return;
-  /* Two columns: first half left, second half right (matches Paper).
+  /* Two columns: first half left, second half right (matches the).
      On mobile (single col) FAQs 10+ get the `faq-item--hidden` class
      and a "Load more" button reveals them. CSS in the responsive layer
      does the actual hide via `body:not(.faq-show-all) .faq-item--hidden`. */
