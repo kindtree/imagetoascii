@@ -561,11 +561,13 @@
     flex: 0 0 clamp(300px, 40vw, 430px); margin-right: 28px;
     border: 1px solid var(--ia-edge-faint); background: var(--ia-bg);
     padding: 28px; display: flex; flex-direction: column; gap: 24px;
-    /* Strong swing so the IMAGE itself visibly glows up at the centre and
-       darkens toward the edges (not just the border): centre = brightness 1 /
-       opacity 1 (identical to hover), edges fall to ~0.4. */
-    filter: brightness(calc(0.4 + 0.6 * var(--spot)));
-    opacity: calc(0.45 + 0.55 * var(--spot));
+    /* Centre === hover: the card crossfades to the bright -b render (see
+       .ia-case-shot--hover) AND lifts to brightness 1 / opacity 1, so a centred
+       card is pixel-identical to its hover state. Off-centre it shows the darker
+       -a render at a gentle 0.82 floor (the a→b swap is ~3× on its own, so the
+       filter only needs to nudge). */
+    filter: brightness(calc(0.82 + 0.18 * var(--spot)));
+    opacity: calc(0.85 + 0.15 * var(--spot));
     box-shadow: 0 0 calc(var(--spot) * 30px) rgb(87 255 143 / calc(var(--spot) * 0.17));
     border-color: rgb(87 255 143 / calc(0.08 + var(--spot) * 0.4));
   }
@@ -582,7 +584,7 @@
     position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block;
     transition: opacity 0.4s ease, transform 0.5s ease;
   }
-  .ia-case-shot--hover { opacity: 0; }
+  .ia-case-shot--hover { opacity: var(--spot); } /* crossfade to the bright -b render as the card nears the centre */
   .ia-case:hover .ia-case-shot { opacity: 0; transform: scale(1.04); }
   .ia-case:hover .ia-case-shot--hover { opacity: 1; transform: scale(1.04); }
   .ia-case-title { font-family: var(--ia-display); font-size: 32px; line-height: 36px; color: var(--ia-fg); margin: 0; }
