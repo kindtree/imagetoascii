@@ -561,10 +561,13 @@
     flex: 0 0 clamp(300px, 40vw, 430px); margin-right: 28px;
     border: 1px solid var(--ia-edge-faint); background: var(--ia-bg);
     padding: 28px; display: flex; flex-direction: column; gap: 24px;
-    filter: brightness(calc(0.5 + 0.5 * var(--spot)));
-    opacity: calc(0.6 + 0.4 * var(--spot));
-    box-shadow: 0 0 calc(var(--spot) * 26px) rgb(87 255 143 / calc(var(--spot) * 0.13));
-    border-color: rgb(87 255 143 / calc(0.08 + var(--spot) * 0.32));
+    /* Floor kept high so off-centre cards read as bright as the old (undimmed)
+       marquee; the centre peaks at brightness 1 / opacity 1 — identical to the
+       hover state — with the green glow doing most of the "spotlight" work. */
+    filter: brightness(calc(0.82 + 0.18 * var(--spot)));
+    opacity: calc(0.88 + 0.12 * var(--spot));
+    box-shadow: 0 0 calc(var(--spot) * 30px) rgb(87 255 143 / calc(var(--spot) * 0.17));
+    border-color: rgb(87 255 143 / calc(0.1 + var(--spot) * 0.38));
   }
   .ia-case:hover { filter: brightness(1) !important; opacity: 1 !important; box-shadow: 0 0 26px rgb(87 255 143 / 0.13); border-color: rgb(87 255 143 / 0.4); }
   @media (prefers-reduced-motion: reduce) { .ia-cases-track { animation: none; } }
