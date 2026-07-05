@@ -1,0 +1,18 @@
+# secrets
+.env
+# python
+__pycache__/
+*.pyc
+.venv/
+venv/
+# os
+.DS_Store
+# dev tooling / scratch (not part of the app)
+.playwright-mcp/
+.agents/
+.gstack/
+.spec-workflow/
+scratch_styles.css
+local_page_preview.png
+skills-lock.json
+generated/
