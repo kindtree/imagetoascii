@@ -105,6 +105,7 @@
     img.onload = function () {
       currentImage = img;
       rerender();
+      setStatus('');
       els.result.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     };
     img.onerror = function () { setStatus('Could not load that image.', true); };

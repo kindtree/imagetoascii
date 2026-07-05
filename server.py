@@ -159,6 +159,17 @@ def apimart_poll_once(task_id: str) -> dict:
 app = FastAPI(title="Image to ASCII")
 
 
+@app.middleware("http")
+async def _cache_control(request, call_next):
+    """Tell Cloudflare/browser to revalidate the app shell + scripts so a new
+    deploy is never served stale from cache. Static images still cache normally."""
+    resp = await call_next(request)
+    path = request.url.path
+    if path == "/" or path.endswith((".html", ".js", ".css")):
+        resp.headers["Cache-Control"] = "no-cache, must-revalidate"
+    return resp
+
+
 class GenerateRequest(BaseModel):
     prompt: str
     size: str | None = "1:1"
