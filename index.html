@@ -542,15 +542,25 @@
   }
   .ia-cases-head .ia-h2 { max-width: 860px; }
   .ia-cases-grid {
-    display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px;
-    max-width: 1248px; margin: 0 auto; padding: 0 var(--ia-inset);
+    --card-w: clamp(300px, 40vw, 440px);
+    display: flex; gap: 28px; overflow-x: auto; overflow-y: hidden;
+    scroll-snap-type: x proximity; scroll-behavior: smooth;
+    padding: 14px max(var(--ia-inset), calc(50% - var(--card-w) / 2));
+    scrollbar-width: none; -ms-overflow-style: none;
   }
+  .ia-cases-grid::-webkit-scrollbar { display: none; }
   .ia-case {
-    min-width: 0; border: 1px solid var(--ia-edge-faint); background: var(--ia-bg);
+    --spot: 0;
+    flex: 0 0 var(--card-w); min-width: 0; scroll-snap-align: center;
+    border: 1px solid var(--ia-edge-faint); background: var(--ia-bg);
     padding: 28px; display: flex; flex-direction: column; gap: 24px;
-    transition: border-color 0.2s, background 0.2s;
+    filter: brightness(calc(0.5 + 0.5 * var(--spot)));
+    opacity: calc(0.6 + 0.4 * var(--spot));
+    box-shadow: 0 0 calc(var(--spot) * 26px) rgb(87 255 143 / calc(var(--spot) * 0.13));
+    border-color: rgb(87 255 143 / calc(0.08 + var(--spot) * 0.32));
+    transition: filter 0.2s linear, opacity 0.2s linear, box-shadow 0.25s linear, border-color 0.25s linear;
   }
-  .ia-case:hover { border-color: rgba(255,255,255,0.16); background: rgba(255,255,255,0.025); }
+  .ia-case:hover { filter: brightness(1) !important; opacity: 1 !important; box-shadow: 0 0 26px rgb(87 255 143 / 0.13); border-color: rgb(87 255 143 / 0.4); }
   .ia-case-bar {
     display: flex; align-items: center; margin: -28px -28px -10px; padding: 9px 16px;
     border-bottom: 1px solid var(--ia-edge-faint); font-family: var(--ia-mono);
@@ -714,7 +724,7 @@
   }
 
   @media (max-width: 900px) {
-    .ia-cases-grid { grid-template-columns: 1fr; max-width: 560px; }
+    .ia-cases-grid { --card-w: clamp(260px, 80vw, 340px); }
   }
 
   @media (max-width: 720px) {
@@ -1129,6 +1139,33 @@
         <h3 class="ia-case-title">Posters &amp; prints</h3>
         <p class="ia-case-desc">Blow an ASCII render up into a poster, sticker or zine page. The high-contrast character grid stays razor-sharp all the way to large-format print.</p>
       </div>
+      <div class="ia-case">
+        <div class="ia-case-bar" aria-hidden="true"><span class="ia-case-file">merch.ascii</span></div>
+        <div class="ia-case-media">
+          <img class="ia-case-shot" src="assets/usecases/stickers-a.webp" alt="ASCII art printed on merch and apparel" loading="lazy">
+          <img class="ia-case-shot ia-case-shot--hover" src="assets/usecases/stickers-b.webp" alt="Colorful ASCII art for a t-shirt print" loading="lazy">
+        </div>
+        <h3 class="ia-case-title">Merch &amp; apparel</h3>
+        <p class="ia-case-desc">Print an ASCII render on a tee, tote or mug. The character grid holds up crisp at any size, from a badge to a full back print.</p>
+      </div>
+      <div class="ia-case">
+        <div class="ia-case-bar" aria-hidden="true"><span class="ia-case-file">readme.ascii</span></div>
+        <div class="ia-case-media">
+          <img class="ia-case-shot" src="assets/usecases/readmes-a.webp" alt="ASCII art banner for a GitHub README" loading="lazy">
+          <img class="ia-case-shot ia-case-shot--hover" src="assets/usecases/readmes-b.webp" alt="Colorful ASCII art terminal banner" loading="lazy">
+        </div>
+        <h3 class="ia-case-title">READMEs &amp; terminals</h3>
+        <p class="ia-case-desc">Drop an ASCII banner into a GitHub README, a CLI splash screen or your dotfiles. Copy the raw text and paste it straight in, no image hosting needed.</p>
+      </div>
+      <div class="ia-case">
+        <div class="ia-case-bar" aria-hidden="true"><span class="ia-case-file">cover.ascii</span></div>
+        <div class="ia-case-media">
+          <img class="ia-case-shot" src="assets/usecases/covers-a.webp" alt="ASCII art album cover" loading="lazy">
+          <img class="ia-case-shot ia-case-shot--hover" src="assets/usecases/covers-b.webp" alt="Colorful ASCII art cover art" loading="lazy">
+        </div>
+        <h3 class="ia-case-title">Album &amp; cover art</h3>
+        <p class="ia-case-desc">Turn a photo into cover art for a playlist, mixtape or zine. Bold, textural and unmistakably yours, exported at full resolution.</p>
+      </div>
     </div>
   </div>
 </section>
@@ -1435,6 +1472,34 @@
     labelEl.textContent = 'Copied';
     setTimeout(() => { btn.classList.remove('is-copied'); labelEl.textContent = ORIG_LABEL; busy = false; }, 2000);
   });
+})();
+</script>
+<script>
+/* Use-case carousel spotlight: the card nearest the horizontal centre brightens;
+   brightness/opacity/glow fade continuously with distance (driven by the --spot
+   custom property, recomputed every scroll frame — smooth, not a snap). */
+(function caseSpotlight() {
+  var track = document.querySelector('.ia-cases-grid');
+  if (!track) return;
+  var cards = Array.prototype.slice.call(track.querySelectorAll('.ia-case'));
+  if (!cards.length) return;
+  var ticking = false;
+  function update() {
+    ticking = false;
+    var tr = track.getBoundingClientRect();
+    var centre = tr.left + tr.width / 2;
+    for (var i = 0; i < cards.length; i++) {
+      var r = cards[i].getBoundingClientRect();
+      var dist = Math.abs((r.left + r.width / 2) - centre);
+      var spot = Math.max(0, 1 - dist / (r.width * 1.7));
+      cards[i].style.setProperty('--spot', spot.toFixed(3));
+    }
+  }
+  function onScroll() { if (!ticking) { ticking = true; requestAnimationFrame(update); } }
+  track.addEventListener('scroll', onScroll, { passive: true });
+  addEventListener('resize', onScroll, { passive: true });
+  update();
+  setTimeout(update, 400);
 })();
 </script>
 <script src="assets/tool.js" defer></script>
