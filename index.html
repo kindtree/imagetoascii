@@ -938,6 +938,20 @@
     position: fixed; inset: 0; z-index: 9998; pointer-events: none;
     background: repeating-linear-gradient(0deg, rgba(0,0,0,0.11) 0 1px, transparent 1px 3px);
   }
+  body { padding-bottom: 27px; }
+  #statusbar {
+    position: fixed; left: 0; right: 0; bottom: 0; z-index: 200; height: 27px;
+    display: flex; align-items: center; gap: 0;
+    background: #07090b; border-top: 1px dashed rgba(87,255,143,0.35);
+    font-family: ui-monospace, Menlo, monospace; font-size: 11.5px; letter-spacing: 0.03em;
+    color: rgba(255,255,255,0.5); padding-right: 12px; user-select: none;
+  }
+  .statusbar__seg { padding: 0 12px; height: 100%; display: inline-flex; align-items: center; }
+  .statusbar__seg--mode { background: rgba(87,255,143,0.16); color: #57ff8f; font-weight: 600; border-right: 1px solid rgba(87,255,143,0.25); }
+  .statusbar__ok { color: #57ff8f; }
+  .statusbar__spacer { flex: 1 1 auto; }
+  .statusbar__caret { color: #57ff8f; padding: 0 2px; animation: caret-blink 1.1s steps(1) infinite; }
+  @media (max-width: 640px) { #statusbar { display: none; } body { padding-bottom: 0; } }
   #ascii-rain.rain-boost { opacity: 0.9 !important; transition: opacity 0.4s ease; -webkit-mask-image: none; mask-image: none; }
   .section__h2 {
     font-family: var(--font-display);
@@ -4331,5 +4345,15 @@ const FAQS = [
     });
   })();
   </script>
+  <div id="statusbar" aria-hidden="true">
+    <span class="statusbar__seg statusbar__seg--mode">image2ascii</span>
+    <span class="statusbar__seg">~/main</span>
+    <span class="statusbar__seg statusbar__ok">&#9679; ready</span>
+    <span class="statusbar__spacer"></span>
+    <span class="statusbar__seg">utf-8</span>
+    <span class="statusbar__seg">ascii-art</span>
+    <span class="statusbar__seg">100%</span>
+    <span class="statusbar__seg statusbar__caret">_</span>
+  </div>
 </body>
 </html>
