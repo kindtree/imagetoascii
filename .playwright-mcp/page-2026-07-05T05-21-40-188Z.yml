@@ -1,0 +1,283 @@
+- generic [active] [ref=f12e1]:
+  - generic [ref=f12e2]:
+    - generic [ref=f12e4] [cursor=pointer]:
+      - img [ref=f12e5]
+      - paragraph [ref=f12e9]: Drop an image or video here
+      - generic [ref=f12e10]: or click to browse / paste from clipboard
+      - button "Inspire Me" [ref=f12e11]:
+        - img [ref=f12e12]
+        - text: Inspire Me
+    - generic:
+      - text: Wonder where these backgrounds are from? Check out
+      - link "backgrounds.supply":
+        - /url: https://backgrounds.supply
+  - generic [ref=f12e14]:
+    - generic [ref=f12e15]:
+      - heading "ASCII Magic" [level=1] [ref=f12e16]
+      - button "Menu" [ref=f12e17] [cursor=pointer]
+    - generic [ref=f12e21]:
+      - heading "Source" [level=3] [ref=f12e22]
+      - button "Upload Image / Video" [ref=f12e23] [cursor=pointer]
+      - button "Share or Apply Recipe" [ref=f12e25] [cursor=pointer]:
+        - img [ref=f12e26]
+        - text: Share or Apply Recipe
+      - generic [ref=f12e29]:
+        - combobox [ref=f12e30] [cursor=pointer]:
+          - option "PNG" [selected]
+          - option "JPG"
+        - button "Export" [ref=f12e31] [cursor=pointer]
+      - generic [ref=f12e32]:
+        - generic [ref=f12e33]: Resolution
+        - combobox [ref=f12e35] [cursor=pointer]:
+          - option "1×"
+          - option "2×" [selected]
+          - option "3×"
+          - option "4×"
+    - generic [ref=f12e36]:
+      - heading "Crop & Rotate" [level=3] [ref=f12e37]
+      - button "Crop / Rotate" [ref=f12e38] [cursor=pointer]
+    - generic [ref=f12e39]:
+      - heading "Background" [level=3] [ref=f12e40]
+      - button "View all" [ref=f12e259] [cursor=pointer]:
+        - img [ref=f12e260]
+        - text: View all
+      - generic [ref=f12e265]:
+        - generic [ref=f12e266]: Mode
+        - combobox [ref=f12e268] [cursor=pointer]:
+          - option "Blurred Image" [selected]
+          - option "Solid Black"
+          - option "Original Image"
+          - option "None (Transparent)"
+      - generic [ref=f12e269]:
+        - generic [ref=f12e270]: Blur
+        - generic [ref=f12e271]:
+          - slider [ref=f12e272]: "8"
+          - generic [ref=f12e273]: 8px
+      - generic [ref=f12e274]:
+        - generic [ref=f12e275]: Opacity
+        - generic [ref=f12e276]:
+          - slider [ref=f12e277]: "90"
+          - generic [ref=f12e278]: 90%
+    - heading "Recipes NEW" [level=3] [ref=f12e280] [cursor=pointer]:
+      - generic [ref=f12e281]: Recipes
+      - generic [ref=f12e282]: NEW
+      - img [ref=f12e283]
+    - generic [ref=f12e285]:
+      - heading "Characters" [level=3] [ref=f12e286]
+      - generic [ref=f12e287]:
+        - generic [ref=f12e288]: Style
+        - combobox [ref=f12e290] [cursor=pointer]:
+          - option "Characters" [selected]
+          - option "Dither ▦"
+          - option "Block Characters"
+          - option "Dots"
+          - option "Lines"
+          - option "Diagonal"
+          - option "Cross"
+          - option "Diamond"
+          - option "Mixed"
+          - option "Pixel Art"
+          - option "LEGO"
+          - option "Mosaic"
+          - option "Braille"
+          - option "Voxel (Cube)"
+          - option "Disco ✨"
+      - generic [ref=f12e291]:
+        - generic [ref=f12e292]: Font Size
+        - generic [ref=f12e293]:
+          - slider [ref=f12e294]: "11"
+          - generic [ref=f12e295]: "11"
+      - generic [ref=f12e296]:
+        - generic [ref=f12e297]: Character Set
+        - combobox [ref=f12e299] [cursor=pointer]:
+          - option "Standard" [selected]
+          - option "Detailed"
+          - option "Minimal"
+      - generic [ref=f12e300]:
+        - generic [ref=f12e301]: Chars
+        - textbox [ref=f12e303]: "@#S08Xx+=-;:,."
+      - generic [ref=f12e304]:
+        - generic [ref=f12e305]: Blend Mode
+        - combobox [ref=f12e307] [cursor=pointer]:
+          - option "Normal" [selected]
+          - option "Overlay"
+          - option "Color Dodge"
+          - option "Screen"
+          - option "Lighter"
+      - generic [ref=f12e308]:
+        - generic [ref=f12e309]: Char Opacity
+        - generic [ref=f12e310]:
+          - slider [ref=f12e311]: "100"
+          - generic [ref=f12e312]: 100%
+      - generic [ref=f12e314]: Invert Mapping
+      - generic [ref=f12e317]: Dot Grid Overlay
+      - generic [ref=f12e320]: Randomize Characters
+    - generic [ref=f12e322]:
+      - heading "Intensity" [level=3] [ref=f12e323]
+      - generic [ref=f12e324]:
+        - generic [ref=f12e325]: Coverage
+        - generic [ref=f12e326]:
+          - slider [ref=f12e327]: "85"
+          - generic [ref=f12e328]: 85%
+      - generic [ref=f12e329]:
+        - generic [ref=f12e330]: Edge Emphasis
+        - generic [ref=f12e331]:
+          - slider [ref=f12e332]: "60"
+          - generic [ref=f12e333]: 60%
+      - generic [ref=f12e334]:
+        - generic [ref=f12e335]: Density
+        - generic [ref=f12e336]:
+          - slider [ref=f12e337]: "30"
+          - generic [ref=f12e338]: 30%
+      - generic [ref=f12e339]:
+        - generic [ref=f12e340]: Brightness
+        - generic [ref=f12e341]:
+          - slider [ref=f12e342]: "0"
+          - generic [ref=f12e343]: "0"
+      - generic [ref=f12e344]:
+        - generic [ref=f12e345]: Contrast
+        - generic [ref=f12e346]:
+          - slider [ref=f12e347]: "100"
+          - generic [ref=f12e348]: "100"
+    - generic [ref=f12e349]:
+      - heading "Animation" [level=3] [ref=f12e350]
+      - generic [ref=f12e352]: Animated ASCII
+    - generic [ref=f12e355]:
+      - heading "Lights" [level=3] [ref=f12e356]
+      - generic [ref=f12e358]: Enable Lights
+    - generic [ref=f12e360]:
+      - heading "Mask" [level=3] [ref=f12e361]:
+        - text: Mask
+        - img [ref=f12e363]
+      - generic [ref=f12e366]: Enable Mask
+    - generic [ref=f12e368]:
+      - heading "Color NEW" [level=3] [ref=f12e369] [cursor=pointer]:
+        - generic [ref=f12e370]: Color
+        - generic [ref=f12e371]: NEW
+        - img [ref=f12e372]
+      - generic [ref=f12e374]:
+        - button "None" [ref=f12e375] [cursor=pointer]
+        - button "B&W" [ref=f12e376] [cursor=pointer]
+        - button "Sepia" [ref=f12e377] [cursor=pointer]
+        - button "Warm" [ref=f12e378] [cursor=pointer]
+        - button "Cool" [ref=f12e379] [cursor=pointer]
+        - button "Vintage" [ref=f12e380] [cursor=pointer]
+        - button "Fade" [ref=f12e381] [cursor=pointer]
+        - button "Cyber" [ref=f12e382] [cursor=pointer]
+        - button "None" [ref=f12e383] [cursor=pointer]
+        - button "B&W" [ref=f12e384] [cursor=pointer]
+        - button "Sepia" [ref=f12e385] [cursor=pointer]
+        - button "Warm" [ref=f12e386] [cursor=pointer]
+        - button "Cool" [ref=f12e387] [cursor=pointer]
+        - button "Vintage" [ref=f12e388] [cursor=pointer]
+        - button "Fade" [ref=f12e389] [cursor=pointer]
+        - button "Cyber" [ref=f12e390] [cursor=pointer]
+      - generic [ref=f12e391]:
+        - generic [ref=f12e392]: Tint
+        - generic [ref=f12e393]:
+          - button "Pick tint colour" [ref=f12e394] [cursor=pointer]
+          - textbox: "#ff0000"
+      - generic [ref=f12e395]:
+        - generic [ref=f12e396]: Tint Opacity
+        - generic [ref=f12e397]:
+          - slider [ref=f12e398]: "0"
+          - generic [ref=f12e399]: 0%
+      - generic [ref=f12e400]:
+        - generic [ref=f12e401]: Blend
+        - combobox [ref=f12e403] [cursor=pointer]:
+          - option "Multiply" [selected]
+          - option "Overlay"
+          - option "Screen"
+          - option "Color"
+          - option "Hue"
+          - option "Saturation"
+          - option "Luminosity"
+          - option "Soft Light"
+          - option "Hard Light"
+          - option "Color Burn"
+          - option "Color Dodge"
+      - generic [ref=f12e404]:
+        - generic [ref=f12e405]: Grayscale
+        - generic [ref=f12e406]:
+          - slider [ref=f12e407]: "0"
+          - generic [ref=f12e408]: 0%
+    - generic [ref=f12e409]:
+      - heading "Blur NEW" [level=3] [ref=f12e410] [cursor=pointer]:
+        - generic [ref=f12e411]: Blur
+        - generic [ref=f12e412]: NEW
+        - img [ref=f12e413]
+      - generic [ref=f12e415]:
+        - generic [ref=f12e416]: Type
+        - combobox [ref=f12e418] [cursor=pointer]:
+          - option "Off" [selected]
+          - option "Gaussian"
+          - option "Lens"
+          - option "Tilt-Shift"
+          - option "Directional"
+          - option "Radial"
+          - option "Perspective"
+          - option "Progressive"
+    - generic [ref=f12e419]:
+      - heading "Post-Processing" [level=3] [ref=f12e420]
+      - generic [ref=f12e424] [cursor=pointer]: Vignette
+      - generic [ref=f12e428] [cursor=pointer]: Scan Lines
+      - generic [ref=f12e432] [cursor=pointer]: CRT Curvature
+      - generic [ref=f12e436] [cursor=pointer]: Chromatic
+      - generic [ref=f12e440] [cursor=pointer]: Bloom
+      - generic [ref=f12e444] [cursor=pointer]: Character Bloom
+      - generic [ref=f12e448] [cursor=pointer]: Character Chromatic
+      - generic [ref=f12e452] [cursor=pointer]: Film Grain
+      - generic [ref=f12e456] [cursor=pointer]: Glitch
+      - generic [ref=f12e460] [cursor=pointer]: RGB Split
+      - generic [ref=f12e464] [cursor=pointer]: Pixelate
+      - generic [ref=f12e468] [cursor=pointer]: Halftone
+      - generic [ref=f12e472] [cursor=pointer]: Film Dust
+  - dialog "What's new in ASCII Magic" [ref=f12e474]:
+    - button "Dismiss" [ref=f12e475] [cursor=pointer]:
+      - img [ref=f12e476]
+    - generic [ref=f12e481]:
+      - generic [ref=f12e482]: v1.0
+      - generic [ref=f12e483]: ASCII Magic v1.0 is here
+      - list [ref=f12e484]:
+        - listitem [ref=f12e485]:
+          - generic [ref=f12e486]: →
+          - generic [ref=f12e487]: New Dither Engine, 11 algorithms (Bayer, Floyd–Steinberg, Atkinson, halftone…), 16 retro palettes & animated matrices
+        - listitem [ref=f12e488]:
+          - generic [ref=f12e489]: →
+          - generic [ref=f12e490]: Recipes, one-tap curated looks you can load, tweak, export and share
+        - listitem [ref=f12e491]:
+          - generic [ref=f12e492]: →
+          - generic [ref=f12e493]: Color controls, tint with 11 blend modes (multiply, screen, soft-light, hue…) + grayscale, plus custom dither palettes & chroma modes
+        - listitem [ref=f12e494]:
+          - generic [ref=f12e495]: →
+          - generic [ref=f12e496]: Background library, a drawer to browse 70+ built-in backgrounds, filter by type, and drop any straight into the editor
+        - listitem [ref=f12e497]:
+          - generic [ref=f12e498]: →
+          - generic [ref=f12e499]: Crop & Rotate, aspect-ratio presets and drag-to-reposition
+        - listitem [ref=f12e500]:
+          - generic [ref=f12e501]: →
+          - generic [ref=f12e502]: Advanced Blur, directional, radial and progressive
+    - link "View all updates →" [ref=f12e504] [cursor=pointer]:
+      - /url: /changelog
+  - generic:
+    - generic:
+      - generic:
+        - heading "Crop & Rotate" [level=2]
+      - generic:
+        - generic:
+          - button "↺"
+          - button "↻"
+        - generic:
+          - generic: Ratio
+          - combobox "Ratio":
+            - option "Free" [selected]
+            - option "1:1 (Square)"
+            - option "4:5 (Portrait)"
+            - option "3:4"
+            - option "9:16 (Story)"
+            - option "16:9 (Wide)"
+            - option "4:3"
+            - option "3:2"
+        - generic:
+          - button "Cancel"
+          - button "Save"

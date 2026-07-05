@@ -1,0 +1,1228 @@
+- generic [active] [ref=f10e1]:
+  - generic [ref=f10e2]:
+    - link "ASCII Magic v1.0 is live, new dither engine, recipes & more" [ref=f10e3] [cursor=pointer]:
+      - /url: /app
+      - generic [ref=f10e5]:
+        - strong [ref=f10e6]: ASCII Magic v1.0 is live
+        - text: ", new dither engine, recipes & more"
+      - generic [ref=f10e7]: →
+    - button "Dismiss" [ref=f10e8] [cursor=pointer]: ×
+  - banner [ref=f10e9]:
+    - generic [ref=f10e10]:
+      - link "ASCII Magic, home" [ref=f10e11] [cursor=pointer]:
+        - /url: /
+        - img "ASCII Magic" [ref=f10e12]
+      - navigation "Primary" [ref=f10e13]:
+        - link "Usecases" [ref=f10e14] [cursor=pointer]:
+          - /url: "#usecases"
+        - link "Styles" [ref=f10e15] [cursor=pointer]:
+          - /url: /styles
+        - link "Recipes" [ref=f10e16] [cursor=pointer]:
+          - /url: /recipes
+        - link "FAQ" [ref=f10e17] [cursor=pointer]:
+          - /url: "#faq"
+        - button "Tools" [ref=f10e19] [cursor=pointer]:
+          - text: Tools
+          - img [ref=f10e20]
+        - link "Blog" [ref=f10e22] [cursor=pointer]:
+          - /url: /blog
+        - link "Changelog" [ref=f10e23] [cursor=pointer]:
+          - /url: /changelog
+      - link "Open tool" [ref=f10e26] [cursor=pointer]:
+        - /url: /app
+  - generic:
+    - button:
+      - img
+    - navigation:
+      - link:
+        - /url: "#usecases"
+        - text: Usecases
+      - link:
+        - /url: /styles
+        - text: Styles
+      - link:
+        - /url: /recipes
+        - text: Recipes
+      - link:
+        - /url: "#faq"
+        - text: FAQ
+      - link:
+        - /url: /blog
+        - text: Blog
+      - link:
+        - /url: /changelog
+        - text: Changelog
+      - link:
+        - /url: https://www.backgrounds.supply/
+        - text: Backgrounds Supply
+      - link:
+        - /url: https://dotforge.vercel.app/
+        - text: Dither animation builder
+    - generic:
+      - link:
+        - /url: /app
+        - text: Open tool
+  - generic [ref=f10e27]:
+    - generic [ref=f10e29]:
+      - generic [ref=f10e30]:
+        - img "Original image, before applying Characters" [ref=f10e31]
+        - generic: Before
+      - generic [ref=f10e32]:
+        - generic: After
+      - slider "Drag to compare before and after" [ref=f10e34]:
+        - generic [ref=f10e35]:
+          - img [ref=f10e36]
+          - img [ref=f10e38]
+      - generic [ref=f10e40]:
+        - button "Characters" [ref=f10e41] [cursor=pointer]:
+          - generic [ref=f10e42]: Characters
+        - button "Dither" [ref=f10e43] [cursor=pointer]:
+          - generic [ref=f10e44]: Dither
+        - button "Mixed" [ref=f10e45] [cursor=pointer]:
+          - generic [ref=f10e46]: Mixed
+        - button "Pixel Art" [ref=f10e47] [cursor=pointer]:
+          - generic [ref=f10e48]: Pixel Art
+        - button "Mosaic" [ref=f10e49] [cursor=pointer]:
+          - generic [ref=f10e50]: Mosaic
+        - button "LEGO" [ref=f10e51] [cursor=pointer]:
+          - generic [ref=f10e52]: LEGO
+        - button "Disco" [ref=f10e53] [cursor=pointer]:
+          - generic [ref=f10e54]: Disco
+        - button "Animated ASCII" [ref=f10e55] [cursor=pointer]:
+          - generic [ref=f10e56]: Animated ASCII
+        - button "Dots" [ref=f10e57] [cursor=pointer]:
+          - generic [ref=f10e58]: Dots
+        - button "•••" [ref=f10e60] [cursor=pointer]:
+          - generic [ref=f10e61]: •••
+        - button "Characters" [ref=f10e62] [cursor=pointer]:
+          - generic [ref=f10e63]: Characters
+        - button "Dither" [ref=f10e64] [cursor=pointer]:
+          - generic [ref=f10e65]: Dither
+        - button "Mixed" [ref=f10e66] [cursor=pointer]:
+          - generic [ref=f10e67]: Mixed
+        - button "Pixel Art" [ref=f10e68] [cursor=pointer]:
+          - generic [ref=f10e69]: Pixel Art
+        - button "Mosaic" [ref=f10e70] [cursor=pointer]:
+          - generic [ref=f10e71]: Mosaic
+        - button "LEGO" [ref=f10e72] [cursor=pointer]:
+          - generic [ref=f10e73]: LEGO
+        - button "Disco" [ref=f10e74] [cursor=pointer]:
+          - generic [ref=f10e75]: Disco
+        - button "Animated ASCII" [ref=f10e76] [cursor=pointer]:
+          - generic [ref=f10e77]: Animated ASCII
+        - button "Dots" [ref=f10e78] [cursor=pointer]:
+          - generic [ref=f10e79]: Dots
+        - button "•••" [ref=f10e81] [cursor=pointer]:
+          - generic [ref=f10e82]: •••
+    - generic [ref=f10e83]:
+      - generic [ref=f10e84]:
+        - heading "Turn your images and videos into ASCII art, pixel art, photo mosaic, voxel cubes, halftone, glitch or LEGO art" [level=1] [ref=f10e85]:
+          - text: Turn your images
+          - text: and videos into
+          - generic [ref=f10e86]:
+            - generic [ref=f10e87]: "{"
+            - generic [ref=f10e88]: Pixel Art
+            - generic [ref=f10e89]: "}"
+        - link "Open ASCII Magic, start the image and video stylizer" [ref=f10e91] [cursor=pointer]:
+          - /url: /app
+          - generic [ref=f10e92]: Open ASCII Magic
+      - paragraph [ref=f10e93]: Free ASCII art generator and image filter. Turn any photo or video into ASCII art, pixel art, voxel, mosaic, halftone, glitch or LEGO, in your browser, no upload, no signup.
+  - region "Used by thousands of people" [ref=f10e94]:
+    - generic [ref=f10e96]:
+      - generic [ref=f10e97]:
+        - paragraph [ref=f10e98]: /COMMUNITY CREATIONS
+        - heading "Used by thousands of people" [level=2] [ref=f10e99]
+        - paragraph [ref=f10e100]: Wallpapers, video intros, halftone posters, cyberpunk edits and UI mockups, see what people are making with ASCII Magic.
+        - link "View all creations →" [ref=f10e101] [cursor=pointer]:
+          - /url: /community
+      - generic "Community creations" [ref=f10e102]:
+        - generic [ref=f10e103]:
+          - link "Creation by @mandouix by @mandouix" [ref=f10e104] [cursor=pointer]:
+            - /url: https://x.com/mandouix/status/2036407080786243995
+            - img "Creation by @mandouix" [ref=f10e106]
+            - generic [ref=f10e107]:
+              - generic [ref=f10e108]: by @mandouix
+              - img [ref=f10e110]
+          - link "Creation by @92digitalartArt by @92digitalartArt" [ref=f10e114] [cursor=pointer]:
+            - /url: https://x.com/92digitalartArt/status/2040722619465384015
+            - img "Creation by @92digitalartArt" [ref=f10e116]
+            - generic [ref=f10e117]:
+              - generic [ref=f10e118]: by @92digitalartArt
+              - img [ref=f10e120]
+          - link "by @BreejeAnadkat" [ref=f10e124] [cursor=pointer]:
+            - /url: https://x.com/BreejeAnadkat/status/2040427480021155881
+            - generic [ref=f10e127]:
+              - generic [ref=f10e128]: by @BreejeAnadkat
+              - img [ref=f10e130]
+          - link "by @jordanarchivess" [ref=f10e134] [cursor=pointer]:
+            - /url: https://x.com/jordanarchivess/status/2034342164046795088
+            - generic [ref=f10e137]:
+              - generic [ref=f10e138]: by @jordanarchivess
+              - img [ref=f10e140]
+          - link "Creation by @uxsweta by @uxsweta" [ref=f10e144] [cursor=pointer]:
+            - /url: https://x.com/uxsweta/status/2049496428125339837
+            - img "Creation by @uxsweta" [ref=f10e146]
+            - generic [ref=f10e147]:
+              - generic [ref=f10e148]: by @uxsweta
+              - img [ref=f10e150]
+          - link "by @prem_uiux" [ref=f10e154] [cursor=pointer]:
+            - /url: https://x.com/prem_uiux/status/2034257761060761662
+            - generic [ref=f10e157]:
+              - generic [ref=f10e158]: by @prem_uiux
+              - img [ref=f10e160]
+          - link "Creation by @mandouix by @mandouix" [ref=f10e164] [cursor=pointer]:
+            - /url: https://x.com/mandouix/status/2036669779285795120
+            - img "Creation by @mandouix" [ref=f10e166]
+            - generic [ref=f10e167]:
+              - generic [ref=f10e168]: by @mandouix
+              - img [ref=f10e170]
+          - link "by @0xInk_" [ref=f10e174] [cursor=pointer]:
+            - /url: https://x.com/0xInk_/status/2034108541293015067
+            - generic [ref=f10e177]:
+              - generic [ref=f10e178]: by @0xInk_
+              - img [ref=f10e180]
+          - link "by @doeshitte" [ref=f10e184] [cursor=pointer]:
+            - /url: https://x.com/doeshitte/status/2043261965477528016
+            - generic [ref=f10e187]:
+              - generic [ref=f10e188]: by @doeshitte
+              - img [ref=f10e190]
+          - link "by @doeshitte" [ref=f10e194] [cursor=pointer]:
+            - /url: https://x.com/doeshitte/status/2043261965477528016
+            - generic [ref=f10e197]:
+              - generic [ref=f10e198]: by @doeshitte
+              - img [ref=f10e200]
+          - link "by @doeshitte" [ref=f10e204] [cursor=pointer]:
+            - /url: https://x.com/doeshitte/status/2043261965477528016
+            - generic [ref=f10e207]:
+              - generic [ref=f10e208]: by @doeshitte
+              - img [ref=f10e210]
+          - link "by @mxxob10" [ref=f10e214] [cursor=pointer]:
+            - /url: https://x.com/mxxob10/status/2037590035848139101
+            - generic [ref=f10e217]:
+              - generic [ref=f10e218]: by @mxxob10
+              - img [ref=f10e220]
+          - link "Creation by @uxsweta by @uxsweta" [ref=f10e224] [cursor=pointer]:
+            - /url: https://x.com/uxsweta/status/2056351598507696307
+            - img "Creation by @uxsweta" [ref=f10e226]
+            - generic [ref=f10e227]:
+              - generic [ref=f10e228]: by @uxsweta
+              - img [ref=f10e230]
+          - link "Creation by @mandouix by @mandouix" [ref=f10e234] [cursor=pointer]:
+            - /url: https://x.com/mandouix/status/2036407080786243995
+            - img "Creation by @mandouix" [ref=f10e236]
+            - generic [ref=f10e237]:
+              - generic [ref=f10e238]: by @mandouix
+              - img [ref=f10e240]
+          - link "Creation by @92digitalartArt by @92digitalartArt" [ref=f10e244] [cursor=pointer]:
+            - /url: https://x.com/92digitalartArt/status/2040722619465384015
+            - img "Creation by @92digitalartArt" [ref=f10e246]
+            - generic [ref=f10e247]:
+              - generic [ref=f10e248]: by @92digitalartArt
+              - img [ref=f10e250]
+          - link "by @BreejeAnadkat" [ref=f10e254] [cursor=pointer]:
+            - /url: https://x.com/BreejeAnadkat/status/2040427480021155881
+            - generic [ref=f10e257]:
+              - generic [ref=f10e258]: by @BreejeAnadkat
+              - img [ref=f10e260]
+          - link "by @jordanarchivess" [ref=f10e264] [cursor=pointer]:
+            - /url: https://x.com/jordanarchivess/status/2034342164046795088
+            - generic [ref=f10e267]:
+              - generic [ref=f10e268]: by @jordanarchivess
+              - img [ref=f10e270]
+          - link "Creation by @uxsweta by @uxsweta" [ref=f10e274] [cursor=pointer]:
+            - /url: https://x.com/uxsweta/status/2049496428125339837
+            - img "Creation by @uxsweta" [ref=f10e276]
+            - generic [ref=f10e277]:
+              - generic [ref=f10e278]: by @uxsweta
+              - img [ref=f10e280]
+          - link "by @prem_uiux" [ref=f10e284] [cursor=pointer]:
+            - /url: https://x.com/prem_uiux/status/2034257761060761662
+            - generic [ref=f10e287]:
+              - generic [ref=f10e288]: by @prem_uiux
+              - img [ref=f10e290]
+          - link "Creation by @mandouix by @mandouix" [ref=f10e294] [cursor=pointer]:
+            - /url: https://x.com/mandouix/status/2036669779285795120
+            - img "Creation by @mandouix" [ref=f10e296]
+            - generic [ref=f10e297]:
+              - generic [ref=f10e298]: by @mandouix
+              - img [ref=f10e300]
+          - link "by @0xInk_" [ref=f10e304] [cursor=pointer]:
+            - /url: https://x.com/0xInk_/status/2034108541293015067
+            - generic [ref=f10e307]:
+              - generic [ref=f10e308]: by @0xInk_
+              - img [ref=f10e310]
+          - link "by @doeshitte" [ref=f10e314] [cursor=pointer]:
+            - /url: https://x.com/doeshitte/status/2043261965477528016
+            - generic [ref=f10e317]:
+              - generic [ref=f10e318]: by @doeshitte
+              - img [ref=f10e320]
+          - link "by @doeshitte" [ref=f10e324] [cursor=pointer]:
+            - /url: https://x.com/doeshitte/status/2043261965477528016
+            - generic [ref=f10e327]:
+              - generic [ref=f10e328]: by @doeshitte
+              - img [ref=f10e330]
+          - link "by @doeshitte" [ref=f10e334] [cursor=pointer]:
+            - /url: https://x.com/doeshitte/status/2043261965477528016
+            - generic [ref=f10e337]:
+              - generic [ref=f10e338]: by @doeshitte
+              - img [ref=f10e340]
+          - link "by @mxxob10" [ref=f10e344] [cursor=pointer]:
+            - /url: https://x.com/mxxob10/status/2037590035848139101
+            - generic [ref=f10e347]:
+              - generic [ref=f10e348]: by @mxxob10
+              - img [ref=f10e350]
+          - link "Creation by @uxsweta by @uxsweta" [ref=f10e354] [cursor=pointer]:
+            - /url: https://x.com/uxsweta/status/2056351598507696307
+            - img "Creation by @uxsweta" [ref=f10e356]
+            - generic [ref=f10e357]:
+              - generic [ref=f10e358]: by @uxsweta
+              - img [ref=f10e360]
+          - link "Creation by @mandouix by @mandouix" [ref=f10e364] [cursor=pointer]:
+            - /url: https://x.com/mandouix/status/2036407080786243995
+            - img "Creation by @mandouix" [ref=f10e366]
+            - generic [ref=f10e367]:
+              - generic [ref=f10e368]: by @mandouix
+              - img [ref=f10e370]
+          - link "Creation by @92digitalartArt by @92digitalartArt" [ref=f10e374] [cursor=pointer]:
+            - /url: https://x.com/92digitalartArt/status/2040722619465384015
+            - img "Creation by @92digitalartArt" [ref=f10e376]
+            - generic [ref=f10e377]:
+              - generic [ref=f10e378]: by @92digitalartArt
+              - img [ref=f10e380]
+          - link "by @BreejeAnadkat" [ref=f10e384] [cursor=pointer]:
+            - /url: https://x.com/BreejeAnadkat/status/2040427480021155881
+            - generic [ref=f10e387]:
+              - generic [ref=f10e388]: by @BreejeAnadkat
+              - img [ref=f10e390]
+          - link "by @jordanarchivess" [ref=f10e394] [cursor=pointer]:
+            - /url: https://x.com/jordanarchivess/status/2034342164046795088
+            - generic [ref=f10e397]:
+              - generic [ref=f10e398]: by @jordanarchivess
+              - img [ref=f10e400]
+          - link "Creation by @uxsweta by @uxsweta" [ref=f10e404] [cursor=pointer]:
+            - /url: https://x.com/uxsweta/status/2049496428125339837
+            - img "Creation by @uxsweta" [ref=f10e406]
+            - generic [ref=f10e407]:
+              - generic [ref=f10e408]: by @uxsweta
+              - img [ref=f10e410]
+          - link "by @prem_uiux" [ref=f10e414] [cursor=pointer]:
+            - /url: https://x.com/prem_uiux/status/2034257761060761662
+            - generic [ref=f10e417]:
+              - generic [ref=f10e418]: by @prem_uiux
+              - img [ref=f10e420]
+          - link "Creation by @mandouix by @mandouix" [ref=f10e424] [cursor=pointer]:
+            - /url: https://x.com/mandouix/status/2036669779285795120
+            - img "Creation by @mandouix" [ref=f10e426]
+            - generic [ref=f10e427]:
+              - generic [ref=f10e428]: by @mandouix
+              - img [ref=f10e430]
+          - link "by @0xInk_" [ref=f10e434] [cursor=pointer]:
+            - /url: https://x.com/0xInk_/status/2034108541293015067
+            - generic [ref=f10e437]:
+              - generic [ref=f10e438]: by @0xInk_
+              - img [ref=f10e440]
+          - link "by @doeshitte" [ref=f10e444] [cursor=pointer]:
+            - /url: https://x.com/doeshitte/status/2043261965477528016
+            - generic [ref=f10e447]:
+              - generic [ref=f10e448]: by @doeshitte
+              - img [ref=f10e450]
+          - link "by @doeshitte" [ref=f10e454] [cursor=pointer]:
+            - /url: https://x.com/doeshitte/status/2043261965477528016
+            - generic [ref=f10e457]:
+              - generic [ref=f10e458]: by @doeshitte
+              - img [ref=f10e460]
+          - link "by @doeshitte" [ref=f10e464] [cursor=pointer]:
+            - /url: https://x.com/doeshitte/status/2043261965477528016
+            - generic [ref=f10e467]:
+              - generic [ref=f10e468]: by @doeshitte
+              - img [ref=f10e470]
+          - link "by @mxxob10" [ref=f10e474] [cursor=pointer]:
+            - /url: https://x.com/mxxob10/status/2037590035848139101
+            - generic [ref=f10e477]:
+              - generic [ref=f10e478]: by @mxxob10
+              - img [ref=f10e480]
+          - link "Creation by @uxsweta by @uxsweta" [ref=f10e484] [cursor=pointer]:
+            - /url: https://x.com/uxsweta/status/2056351598507696307
+            - img "Creation by @uxsweta" [ref=f10e486]
+            - generic [ref=f10e487]:
+              - generic [ref=f10e488]: by @uxsweta
+              - img [ref=f10e490]
+          - link "Creation by @mandouix by @mandouix" [ref=f10e494] [cursor=pointer]:
+            - /url: https://x.com/mandouix/status/2036407080786243995
+            - img "Creation by @mandouix" [ref=f10e496]
+            - generic [ref=f10e497]:
+              - generic [ref=f10e498]: by @mandouix
+              - img [ref=f10e500]
+          - link "Creation by @92digitalartArt by @92digitalartArt" [ref=f10e504] [cursor=pointer]:
+            - /url: https://x.com/92digitalartArt/status/2040722619465384015
+            - img "Creation by @92digitalartArt" [ref=f10e506]
+            - generic [ref=f10e507]:
+              - generic [ref=f10e508]: by @92digitalartArt
+              - img [ref=f10e510]
+          - link "by @BreejeAnadkat" [ref=f10e514] [cursor=pointer]:
+            - /url: https://x.com/BreejeAnadkat/status/2040427480021155881
+            - generic [ref=f10e517]:
+              - generic [ref=f10e518]: by @BreejeAnadkat
+              - img [ref=f10e520]
+          - link "by @jordanarchivess" [ref=f10e524] [cursor=pointer]:
+            - /url: https://x.com/jordanarchivess/status/2034342164046795088
+            - generic [ref=f10e527]:
+              - generic [ref=f10e528]: by @jordanarchivess
+              - img [ref=f10e530]
+          - link "Creation by @uxsweta by @uxsweta" [ref=f10e534] [cursor=pointer]:
+            - /url: https://x.com/uxsweta/status/2049496428125339837
+            - img "Creation by @uxsweta" [ref=f10e536]
+            - generic [ref=f10e537]:
+              - generic [ref=f10e538]: by @uxsweta
+              - img [ref=f10e540]
+          - link "by @prem_uiux" [ref=f10e544] [cursor=pointer]:
+            - /url: https://x.com/prem_uiux/status/2034257761060761662
+            - generic [ref=f10e547]:
+              - generic [ref=f10e548]: by @prem_uiux
+              - img [ref=f10e550]
+          - link "Creation by @mandouix by @mandouix" [ref=f10e554] [cursor=pointer]:
+            - /url: https://x.com/mandouix/status/2036669779285795120
+            - img "Creation by @mandouix" [ref=f10e556]
+            - generic [ref=f10e557]:
+              - generic [ref=f10e558]: by @mandouix
+              - img [ref=f10e560]
+          - link "by @0xInk_" [ref=f10e564] [cursor=pointer]:
+            - /url: https://x.com/0xInk_/status/2034108541293015067
+            - generic [ref=f10e567]:
+              - generic [ref=f10e568]: by @0xInk_
+              - img [ref=f10e570]
+          - link "by @doeshitte" [ref=f10e574] [cursor=pointer]:
+            - /url: https://x.com/doeshitte/status/2043261965477528016
+            - generic [ref=f10e577]:
+              - generic [ref=f10e578]: by @doeshitte
+              - img [ref=f10e580]
+          - link "by @doeshitte" [ref=f10e584] [cursor=pointer]:
+            - /url: https://x.com/doeshitte/status/2043261965477528016
+            - generic [ref=f10e587]:
+              - generic [ref=f10e588]: by @doeshitte
+              - img [ref=f10e590]
+          - link "by @doeshitte" [ref=f10e594] [cursor=pointer]:
+            - /url: https://x.com/doeshitte/status/2043261965477528016
+            - generic [ref=f10e597]:
+              - generic [ref=f10e598]: by @doeshitte
+              - img [ref=f10e600]
+          - link "by @mxxob10" [ref=f10e604] [cursor=pointer]:
+            - /url: https://x.com/mxxob10/status/2037590035848139101
+            - generic [ref=f10e607]:
+              - generic [ref=f10e608]: by @mxxob10
+              - img [ref=f10e610]
+          - link "Creation by @uxsweta by @uxsweta" [ref=f10e614] [cursor=pointer]:
+            - /url: https://x.com/uxsweta/status/2056351598507696307
+            - img "Creation by @uxsweta" [ref=f10e616]
+            - generic [ref=f10e617]:
+              - generic [ref=f10e618]: by @uxsweta
+              - img [ref=f10e620]
+  - region "Feeling fatigue? Ask AI" [ref=f10e624]:
+    - generic [ref=f10e625]:
+      - generic [ref=f10e627]:
+        - paragraph [ref=f10e628]: /ASK YOUR AI
+        - heading "Feeling fatigue? Ask AI" [level=2] [ref=f10e629]
+        - paragraph [ref=f10e630]:
+          - text: Don't feel like scrolling? Copy Context.md, paste into
+          - link "ChatGPT" [ref=f10e631] [cursor=pointer]:
+            - /url: https://chatgpt.com
+          - text: or
+          - link "Claude" [ref=f10e632] [cursor=pointer]:
+            - /url: https://claude.ai
+          - text: ", it explains every style, control and export."
+      - button "Copy Context.md to clipboard" [ref=f10e633] [cursor=pointer]:
+        - generic [ref=f10e634]: Context.MD
+        - generic [ref=f10e636]:
+          - img [ref=f10e637]
+          - img [ref=f10e640]
+          - img [ref=f10e642]
+  - region "Thirteen art styles, one source." [ref=f10e644]:
+    - generic [ref=f10e645]:
+      - generic [ref=f10e646]:
+        - paragraph [ref=f10e647]: /STYLES
+        - heading "Thirteen art styles, one source." [level=2] [ref=f10e648]
+        - paragraph [ref=f10e649]: Thirteen image-to-art converters in one tool, ASCII, pixel art, voxel, mosaic, halftone, glitch, LEGO and more.
+      - generic [ref=f10e650]:
+        - link "Characters, ASCII Art Generator example Characters, ASCII Art Generator Classic ASCII art, turn any image or video into ASCII using a configurable character ramp @#S08Xx+=-;:,. mapped to brightness." [ref=f10e651] [cursor=pointer]:
+          - /url: /styles/ascii-art
+          - img "Characters, ASCII Art Generator example" [ref=f10e653]
+          - generic [ref=f10e654]:
+            - heading "Characters, ASCII Art Generator" [level=3] [ref=f10e655]
+            - paragraph [ref=f10e656]: Classic ASCII art, turn any image or video into ASCII using a configurable character ramp @#S08Xx+=-;:,. mapped to brightness.
+            - img [ref=f10e658]
+        - link "Dither, Dithering Generator example Dither, Dithering Generator Floyd–Steinberg, Atkinson, ordered/Bayer, halftone & line dithers across 16 retro palettes (C64, Game Boy, PICO-8), with animated matrices." [ref=f10e660] [cursor=pointer]:
+          - /url: /styles/dither
+          - img "Dither, Dithering Generator example" [ref=f10e662]
+          - generic [ref=f10e663]:
+            - heading "Dither, Dithering Generator" [level=3] [ref=f10e664]
+            - paragraph [ref=f10e665]: Floyd–Steinberg, Atkinson, ordered/Bayer, halftone & line dithers across 16 retro palettes (C64, Game Boy, PICO-8), with animated matrices.
+            - img [ref=f10e667]
+        - link "Block Characters example Block Characters Half-block, quarter-block and full-block Unicode glyphs render dense, pixel-art-like detail, perfect for terminal aesthetics." [ref=f10e669] [cursor=pointer]:
+          - /url: /styles/block
+          - img "Block Characters example" [ref=f10e671]
+          - generic [ref=f10e672]:
+            - heading "Block Characters" [level=3] [ref=f10e673]
+            - paragraph [ref=f10e674]: Half-block, quarter-block and full-block Unicode glyphs render dense, pixel-art-like detail, perfect for terminal aesthetics.
+            - img [ref=f10e676]
+        - link "Pixel Art Generator example Pixel Art Generator Quantised colour blocks with subtle grid lines, turn photos into clean, posterised pixel-art tiles." [ref=f10e678] [cursor=pointer]:
+          - /url: /styles/pixel-art
+          - img "Pixel Art Generator example" [ref=f10e680]
+          - generic [ref=f10e681]:
+            - heading "Pixel Art Generator" [level=3] [ref=f10e682]
+            - paragraph [ref=f10e683]: Quantised colour blocks with subtle grid lines, turn photos into clean, posterised pixel-art tiles.
+            - img [ref=f10e685]
+        - link "Photo Mosaic example Photo Mosaic Every cell becomes a coloured tile sampled from the original photo. Pick square, wide or tall shapes for different feels." [ref=f10e687] [cursor=pointer]:
+          - /url: /styles/mosaic
+          - img "Photo Mosaic example" [ref=f10e689]
+          - generic [ref=f10e690]:
+            - heading "Photo Mosaic" [level=3] [ref=f10e691]
+            - paragraph [ref=f10e692]: Every cell becomes a coloured tile sampled from the original photo. Pick square, wide or tall shapes for different feels.
+            - img [ref=f10e694]
+        - link "LEGO Bricks example LEGO Bricks Posterised LEGO-style studded tiles with raised-dot highlights, looks like a brick mosaic of your photo." [ref=f10e696] [cursor=pointer]:
+          - /url: /styles/lego
+          - img "LEGO Bricks example" [ref=f10e698]
+          - generic [ref=f10e699]:
+            - heading "LEGO Bricks" [level=3] [ref=f10e700]
+            - paragraph [ref=f10e701]: Posterised LEGO-style studded tiles with raised-dot highlights, looks like a brick mosaic of your photo.
+            - img [ref=f10e703]
+        - link "Disco, Mirror Sphere example Disco, Mirror Sphere Glitter-tile rendering that wraps your image onto a mirror-ball sphere with bloom and lens flares." [ref=f10e705] [cursor=pointer]:
+          - /url: /styles/disco
+          - img "Disco, Mirror Sphere example" [ref=f10e707]
+          - generic [ref=f10e708]:
+            - heading "Disco, Mirror Sphere" [level=3] [ref=f10e709]
+            - paragraph [ref=f10e710]: Glitter-tile rendering that wraps your image onto a mirror-ball sphere with bloom and lens flares.
+            - img [ref=f10e712]
+        - link "Dots, Halftone Print example Dots, Halftone Print Dot matrix mode draws filled circles instead of glyphs, circles scale with brightness for a halftone-print effect." [ref=f10e714] [cursor=pointer]:
+          - /url: /styles/dots
+          - img "Dots, Halftone Print example" [ref=f10e716]
+          - generic [ref=f10e717]:
+            - heading "Dots, Halftone Print" [level=3] [ref=f10e718]
+            - paragraph [ref=f10e719]: Dot matrix mode draws filled circles instead of glyphs, circles scale with brightness for a halftone-print effect.
+            - img [ref=f10e721]
+        - link "Cross, Crosshatch example Cross, Crosshatch Crosshatch glyphs ✕ scale with brightness for a woven, cross-stitch texture across your photo." [ref=f10e723] [cursor=pointer]:
+          - /url: /styles/cross
+          - img "Cross, Crosshatch example" [ref=f10e725]
+          - generic [ref=f10e726]:
+            - heading "Cross, Crosshatch" [level=3] [ref=f10e727]
+            - paragraph [ref=f10e728]: Crosshatch glyphs ✕ scale with brightness for a woven, cross-stitch texture across your photo.
+            - img [ref=f10e730]
+        - link "Voxel Cubes example Voxel Cubes 3D isometric cubes with per-face shading, adjustable cell size and outline, turn a photo into voxel art." [ref=f10e732] [cursor=pointer]:
+          - /url: /styles/voxel
+          - img "Voxel Cubes example" [ref=f10e734]
+          - generic [ref=f10e735]:
+            - heading "Voxel Cubes" [level=3] [ref=f10e736]
+            - paragraph [ref=f10e737]: 3D isometric cubes with per-face shading, adjustable cell size and outline, turn a photo into voxel art.
+            - img [ref=f10e739]
+        - link "Diamond Glyphs example Diamond Glyphs Sharp jewel-like diamond glyphs ◆ with brightness-driven sizing." [ref=f10e741] [cursor=pointer]:
+          - /url: /styles/diamond
+          - img "Diamond Glyphs example" [ref=f10e743]
+          - generic [ref=f10e744]:
+            - heading "Diamond Glyphs" [level=3] [ref=f10e745]
+            - paragraph [ref=f10e746]: Sharp jewel-like diamond glyphs ◆ with brightness-driven sizing.
+            - img [ref=f10e748]
+        - link "Lines, Vertical Strokes example Lines, Vertical Strokes Vertical line glyphs that read like rain or barcode static, minimal, graphic, hypnotic." [ref=f10e750] [cursor=pointer]:
+          - /url: /styles/lines
+          - img "Lines, Vertical Strokes example" [ref=f10e752]
+          - generic [ref=f10e753]:
+            - heading "Lines, Vertical Strokes" [level=3] [ref=f10e754]
+            - paragraph [ref=f10e755]: Vertical line glyphs that read like rain or barcode static, minimal, graphic, hypnotic.
+            - img [ref=f10e757]
+        - link "Diagonal, Hatched Strokes example Diagonal, Hatched Strokes Slanted stroke glyphs build a hatched, engraved, woven texture across your photo." [ref=f10e759] [cursor=pointer]:
+          - /url: /styles/diagonal
+          - img "Diagonal, Hatched Strokes example" [ref=f10e761]
+          - generic [ref=f10e762]:
+            - heading "Diagonal, Hatched Strokes" [level=3] [ref=f10e763]
+            - paragraph [ref=f10e764]: Slanted stroke glyphs build a hatched, engraved, woven texture across your photo.
+            - img [ref=f10e766]
+        - link "Mixed, Multi-Glyph Art example Mixed, Multi-Glyph Art Multiple glyph pools blended per cell for a rich, textured ASCII render no single ramp can match." [ref=f10e768] [cursor=pointer]:
+          - /url: /styles/mixed
+          - img "Mixed, Multi-Glyph Art example" [ref=f10e770]
+          - generic [ref=f10e771]:
+            - heading "Mixed, Multi-Glyph Art" [level=3] [ref=f10e772]
+            - paragraph [ref=f10e773]: Multiple glyph pools blended per cell for a rich, textured ASCII render no single ramp can match.
+            - img [ref=f10e775]
+        - generic [ref=f10e777]:
+          - heading "More coming soon..." [level=3] [ref=f10e778]
+          - paragraph [ref=f10e779]: If you have a specific style in mind and you would like to have it added to AsciiMagic, ping me or email me here.
+          - button "Copy email address" [ref=f10e780] [cursor=pointer]:
+            - generic [ref=f10e781]: hello.kailashsr@gmail.com
+            - generic [ref=f10e783]:
+              - img [ref=f10e784]
+              - img [ref=f10e787]
+        - link "Characters, ASCII Art Generator example Characters, ASCII Art Generator Classic ASCII art, turn any image or video into ASCII using a configurable character ramp @#S08Xx+=-;:,. mapped to brightness." [ref=f10e789] [cursor=pointer]:
+          - /url: /styles/ascii-art
+          - img "Characters, ASCII Art Generator example" [ref=f10e791]
+          - generic [ref=f10e792]:
+            - heading "Characters, ASCII Art Generator" [level=3] [ref=f10e793]
+            - paragraph [ref=f10e794]: Classic ASCII art, turn any image or video into ASCII using a configurable character ramp @#S08Xx+=-;:,. mapped to brightness.
+            - img [ref=f10e796]
+        - link "Dither, Dithering Generator example Dither, Dithering Generator Floyd–Steinberg, Atkinson, ordered/Bayer, halftone & line dithers across 16 retro palettes (C64, Game Boy, PICO-8), with animated matrices." [ref=f10e798] [cursor=pointer]:
+          - /url: /styles/dither
+          - img "Dither, Dithering Generator example" [ref=f10e800]
+          - generic [ref=f10e801]:
+            - heading "Dither, Dithering Generator" [level=3] [ref=f10e802]
+            - paragraph [ref=f10e803]: Floyd–Steinberg, Atkinson, ordered/Bayer, halftone & line dithers across 16 retro palettes (C64, Game Boy, PICO-8), with animated matrices.
+            - img [ref=f10e805]
+        - link "Block Characters example Block Characters Half-block, quarter-block and full-block Unicode glyphs render dense, pixel-art-like detail, perfect for terminal aesthetics." [ref=f10e807] [cursor=pointer]:
+          - /url: /styles/block
+          - img "Block Characters example" [ref=f10e809]
+          - generic [ref=f10e810]:
+            - heading "Block Characters" [level=3] [ref=f10e811]
+            - paragraph [ref=f10e812]: Half-block, quarter-block and full-block Unicode glyphs render dense, pixel-art-like detail, perfect for terminal aesthetics.
+            - img [ref=f10e814]
+        - link "Pixel Art Generator example Pixel Art Generator Quantised colour blocks with subtle grid lines, turn photos into clean, posterised pixel-art tiles." [ref=f10e816] [cursor=pointer]:
+          - /url: /styles/pixel-art
+          - img "Pixel Art Generator example" [ref=f10e818]
+          - generic [ref=f10e819]:
+            - heading "Pixel Art Generator" [level=3] [ref=f10e820]
+            - paragraph [ref=f10e821]: Quantised colour blocks with subtle grid lines, turn photos into clean, posterised pixel-art tiles.
+            - img [ref=f10e823]
+        - link "Photo Mosaic example Photo Mosaic Every cell becomes a coloured tile sampled from the original photo. Pick square, wide or tall shapes for different feels." [ref=f10e825] [cursor=pointer]:
+          - /url: /styles/mosaic
+          - img "Photo Mosaic example" [ref=f10e827]
+          - generic [ref=f10e828]:
+            - heading "Photo Mosaic" [level=3] [ref=f10e829]
+            - paragraph [ref=f10e830]: Every cell becomes a coloured tile sampled from the original photo. Pick square, wide or tall shapes for different feels.
+            - img [ref=f10e832]
+        - link "LEGO Bricks example LEGO Bricks Posterised LEGO-style studded tiles with raised-dot highlights, looks like a brick mosaic of your photo." [ref=f10e834] [cursor=pointer]:
+          - /url: /styles/lego
+          - img "LEGO Bricks example" [ref=f10e836]
+          - generic [ref=f10e837]:
+            - heading "LEGO Bricks" [level=3] [ref=f10e838]
+            - paragraph [ref=f10e839]: Posterised LEGO-style studded tiles with raised-dot highlights, looks like a brick mosaic of your photo.
+            - img [ref=f10e841]
+        - link "Disco, Mirror Sphere example Disco, Mirror Sphere Glitter-tile rendering that wraps your image onto a mirror-ball sphere with bloom and lens flares." [ref=f10e843] [cursor=pointer]:
+          - /url: /styles/disco
+          - img "Disco, Mirror Sphere example" [ref=f10e845]
+          - generic [ref=f10e846]:
+            - heading "Disco, Mirror Sphere" [level=3] [ref=f10e847]
+            - paragraph [ref=f10e848]: Glitter-tile rendering that wraps your image onto a mirror-ball sphere with bloom and lens flares.
+            - img [ref=f10e850]
+        - link "Dots, Halftone Print example Dots, Halftone Print Dot matrix mode draws filled circles instead of glyphs, circles scale with brightness for a halftone-print effect." [ref=f10e852] [cursor=pointer]:
+          - /url: /styles/dots
+          - img "Dots, Halftone Print example" [ref=f10e854]
+          - generic [ref=f10e855]:
+            - heading "Dots, Halftone Print" [level=3] [ref=f10e856]
+            - paragraph [ref=f10e857]: Dot matrix mode draws filled circles instead of glyphs, circles scale with brightness for a halftone-print effect.
+            - img [ref=f10e859]
+        - link "Cross, Crosshatch example Cross, Crosshatch Crosshatch glyphs ✕ scale with brightness for a woven, cross-stitch texture across your photo." [ref=f10e861] [cursor=pointer]:
+          - /url: /styles/cross
+          - img "Cross, Crosshatch example" [ref=f10e863]
+          - generic [ref=f10e864]:
+            - heading "Cross, Crosshatch" [level=3] [ref=f10e865]
+            - paragraph [ref=f10e866]: Crosshatch glyphs ✕ scale with brightness for a woven, cross-stitch texture across your photo.
+            - img [ref=f10e868]
+        - link "Voxel Cubes example Voxel Cubes 3D isometric cubes with per-face shading, adjustable cell size and outline, turn a photo into voxel art." [ref=f10e870] [cursor=pointer]:
+          - /url: /styles/voxel
+          - img "Voxel Cubes example" [ref=f10e872]
+          - generic [ref=f10e873]:
+            - heading "Voxel Cubes" [level=3] [ref=f10e874]
+            - paragraph [ref=f10e875]: 3D isometric cubes with per-face shading, adjustable cell size and outline, turn a photo into voxel art.
+            - img [ref=f10e877]
+        - link "Diamond Glyphs example Diamond Glyphs Sharp jewel-like diamond glyphs ◆ with brightness-driven sizing." [ref=f10e879] [cursor=pointer]:
+          - /url: /styles/diamond
+          - img "Diamond Glyphs example" [ref=f10e881]
+          - generic [ref=f10e882]:
+            - heading "Diamond Glyphs" [level=3] [ref=f10e883]
+            - paragraph [ref=f10e884]: Sharp jewel-like diamond glyphs ◆ with brightness-driven sizing.
+            - img [ref=f10e886]
+        - link "Lines, Vertical Strokes example Lines, Vertical Strokes Vertical line glyphs that read like rain or barcode static, minimal, graphic, hypnotic." [ref=f10e888] [cursor=pointer]:
+          - /url: /styles/lines
+          - img "Lines, Vertical Strokes example" [ref=f10e890]
+          - generic [ref=f10e891]:
+            - heading "Lines, Vertical Strokes" [level=3] [ref=f10e892]
+            - paragraph [ref=f10e893]: Vertical line glyphs that read like rain or barcode static, minimal, graphic, hypnotic.
+            - img [ref=f10e895]
+        - link "Diagonal, Hatched Strokes example Diagonal, Hatched Strokes Slanted stroke glyphs build a hatched, engraved, woven texture across your photo." [ref=f10e897] [cursor=pointer]:
+          - /url: /styles/diagonal
+          - img "Diagonal, Hatched Strokes example" [ref=f10e899]
+          - generic [ref=f10e900]:
+            - heading "Diagonal, Hatched Strokes" [level=3] [ref=f10e901]
+            - paragraph [ref=f10e902]: Slanted stroke glyphs build a hatched, engraved, woven texture across your photo.
+            - img [ref=f10e904]
+        - link "Mixed, Multi-Glyph Art example Mixed, Multi-Glyph Art Multiple glyph pools blended per cell for a rich, textured ASCII render no single ramp can match." [ref=f10e906] [cursor=pointer]:
+          - /url: /styles/mixed
+          - img "Mixed, Multi-Glyph Art example" [ref=f10e908]
+          - generic [ref=f10e909]:
+            - heading "Mixed, Multi-Glyph Art" [level=3] [ref=f10e910]
+            - paragraph [ref=f10e911]: Multiple glyph pools blended per cell for a rich, textured ASCII render no single ramp can match.
+            - img [ref=f10e913]
+        - generic [ref=f10e915]:
+          - heading "More coming soon..." [level=3] [ref=f10e916]
+          - paragraph [ref=f10e917]: If you have a specific style in mind and you would like to have it added to AsciiMagic, ping me or email me here.
+          - button "Copy email address" [ref=f10e918] [cursor=pointer]:
+            - generic [ref=f10e919]: hello.kailashsr@gmail.com
+            - generic [ref=f10e921]:
+              - img [ref=f10e922]
+              - img [ref=f10e925]
+  - region "Where can this actually work..." [ref=f10e927]:
+    - generic [ref=f10e928]:
+      - generic [ref=f10e929]:
+        - generic [ref=f10e930]:
+          - paragraph [ref=f10e931]: /USECASES
+          - heading "Where can this actually work..." [level=2] [ref=f10e932]
+        - button "Have a new one? Submit here" [ref=f10e933] [cursor=pointer]
+      - generic [ref=f10e935]:
+        - generic [ref=f10e936]:
+          - generic [ref=f10e937]:
+            - img "Websites use case example" [ref=f10e938]
+            - img "Websites use case example" [ref=f10e939]
+          - heading "Websites" [level=3] [ref=f10e940]
+          - paragraph [ref=f10e941]: Drop ASCII art and pixel-art renders into hero backgrounds, section dividers, loading states and 404 pages. Export PNG or animated MP4 and use it as-is in any framework, the aesthetic stands out instantly from the standard SaaS landing template.
+        - generic [ref=f10e942]:
+          - generic [ref=f10e943]:
+            - img "Wallpapers use case example" [ref=f10e944]
+            - img "Wallpapers use case example" [ref=f10e945]
+          - heading "Wallpapers" [level=3] [ref=f10e946]
+          - paragraph [ref=f10e947]: Free ASCII wallpaper generator for desktop and phone. Drop in any source photo, pick a style, export at up to 4K, print-quality wallpapers in seconds, no upload, no watermark.
+        - generic [ref=f10e948]:
+          - generic [ref=f10e949]:
+            - img "Posters use case example" [ref=f10e950]
+            - img "Posters use case example" [ref=f10e951]
+          - heading "Posters" [level=3] [ref=f10e952]
+          - paragraph [ref=f10e953]: Print-ready ASCII art and pixel-art posters for events, gigs, zines and exhibitions. Mosaic and Pixel Art styles scale beautifully to A2 and A1 print, export at 4× resolution.
+        - generic [ref=f10e954]:
+          - heading "Cool Videos" [level=3] [ref=f10e958]
+          - paragraph [ref=f10e959]: ASCII video generator for YouTube intros, transitions and social loops. Drop a clip, pick a style, export as MP4 with the look applied to every frame.
+        - generic [ref=f10e960]:
+          - generic [ref=f10e961]:
+            - img "Websites use case example" [ref=f10e962]
+            - img "Websites use case example" [ref=f10e963]
+          - heading "Websites" [level=3] [ref=f10e964]
+          - paragraph [ref=f10e965]: Drop ASCII art and pixel-art renders into hero backgrounds, section dividers, loading states and 404 pages. Export PNG or animated MP4 and use it as-is in any framework, the aesthetic stands out instantly from the standard SaaS landing template.
+        - generic [ref=f10e966]:
+          - generic [ref=f10e967]:
+            - img "Wallpapers use case example" [ref=f10e968]
+            - img "Wallpapers use case example" [ref=f10e969]
+          - heading "Wallpapers" [level=3] [ref=f10e970]
+          - paragraph [ref=f10e971]: Free ASCII wallpaper generator for desktop and phone. Drop in any source photo, pick a style, export at up to 4K, print-quality wallpapers in seconds, no upload, no watermark.
+        - generic [ref=f10e972]:
+          - generic [ref=f10e973]:
+            - img "Posters use case example" [ref=f10e974]
+            - img "Posters use case example" [ref=f10e975]
+          - heading "Posters" [level=3] [ref=f10e976]
+          - paragraph [ref=f10e977]: Print-ready ASCII art and pixel-art posters for events, gigs, zines and exhibitions. Mosaic and Pixel Art styles scale beautifully to A2 and A1 print, export at 4× resolution.
+        - generic [ref=f10e978]:
+          - heading "Cool Videos" [level=3] [ref=f10e982]
+          - paragraph [ref=f10e983]: ASCII video generator for YouTube intros, transitions and social loops. Drop a clip, pick a style, export as MP4 with the look applied to every frame.
+        - generic [ref=f10e984]:
+          - generic [ref=f10e985]:
+            - img "Websites use case example" [ref=f10e986]
+            - img "Websites use case example" [ref=f10e987]
+          - heading "Websites" [level=3] [ref=f10e988]
+          - paragraph [ref=f10e989]: Drop ASCII art and pixel-art renders into hero backgrounds, section dividers, loading states and 404 pages. Export PNG or animated MP4 and use it as-is in any framework, the aesthetic stands out instantly from the standard SaaS landing template.
+        - generic [ref=f10e990]:
+          - generic [ref=f10e991]:
+            - img "Wallpapers use case example" [ref=f10e992]
+            - img "Wallpapers use case example" [ref=f10e993]
+          - heading "Wallpapers" [level=3] [ref=f10e994]
+          - paragraph [ref=f10e995]: Free ASCII wallpaper generator for desktop and phone. Drop in any source photo, pick a style, export at up to 4K, print-quality wallpapers in seconds, no upload, no watermark.
+        - generic [ref=f10e996]:
+          - generic [ref=f10e997]:
+            - img "Posters use case example" [ref=f10e998]
+            - img "Posters use case example" [ref=f10e999]
+          - heading "Posters" [level=3] [ref=f10e1000]
+          - paragraph [ref=f10e1001]: Print-ready ASCII art and pixel-art posters for events, gigs, zines and exhibitions. Mosaic and Pixel Art styles scale beautifully to A2 and A1 print, export at 4× resolution.
+        - generic [ref=f10e1002]:
+          - heading "Cool Videos" [level=3] [ref=f10e1006]
+          - paragraph [ref=f10e1007]: ASCII video generator for YouTube intros, transitions and social loops. Drop a clip, pick a style, export as MP4 with the look applied to every frame.
+        - generic [ref=f10e1008]:
+          - generic [ref=f10e1009]:
+            - img "Websites use case example" [ref=f10e1010]
+            - img "Websites use case example" [ref=f10e1011]
+          - heading "Websites" [level=3] [ref=f10e1012]
+          - paragraph [ref=f10e1013]: Drop ASCII art and pixel-art renders into hero backgrounds, section dividers, loading states and 404 pages. Export PNG or animated MP4 and use it as-is in any framework, the aesthetic stands out instantly from the standard SaaS landing template.
+        - generic [ref=f10e1014]:
+          - generic [ref=f10e1015]:
+            - img "Wallpapers use case example" [ref=f10e1016]
+            - img "Wallpapers use case example" [ref=f10e1017]
+          - heading "Wallpapers" [level=3] [ref=f10e1018]
+          - paragraph [ref=f10e1019]: Free ASCII wallpaper generator for desktop and phone. Drop in any source photo, pick a style, export at up to 4K, print-quality wallpapers in seconds, no upload, no watermark.
+        - generic [ref=f10e1020]:
+          - generic [ref=f10e1021]:
+            - img "Posters use case example" [ref=f10e1022]
+            - img "Posters use case example" [ref=f10e1023]
+          - heading "Posters" [level=3] [ref=f10e1024]
+          - paragraph [ref=f10e1025]: Print-ready ASCII art and pixel-art posters for events, gigs, zines and exhibitions. Mosaic and Pixel Art styles scale beautifully to A2 and A1 print, export at 4× resolution.
+        - generic [ref=f10e1026]:
+          - heading "Cool Videos" [level=3] [ref=f10e1030]
+          - paragraph [ref=f10e1031]: ASCII video generator for YouTube intros, transitions and social loops. Drop a clip, pick a style, export as MP4 with the look applied to every frame.
+  - region "Apply a ton of post-processing effects" [ref=f10e1032]:
+    - generic [ref=f10e1033]:
+      - generic [ref=f10e1034]:
+        - paragraph [ref=f10e1035]: /POST-PROCESSING
+        - heading "Apply a ton of post-processing effects" [level=2] [ref=f10e1036]
+        - paragraph [ref=f10e1037]: Stack glitch, bloom, CRT, scanlines, halftone, vignette and more, every effect renders in real-time, in the browser.
+      - generic [ref=f10e1041]:
+        - generic [ref=f10e1042]: Post-processing effects
+        - generic [ref=f10e1043]:
+          - generic [ref=f10e1044] [cursor=pointer]:
+            - button "Toggle Vignette" [ref=f10e1045]
+            - generic [ref=f10e1046]: Vignette
+          - generic [ref=f10e1047] [cursor=pointer]:
+            - button "Toggle Scan Lines" [ref=f10e1048]
+            - generic [ref=f10e1049]: Scan Lines
+          - generic [ref=f10e1050] [cursor=pointer]:
+            - button "Toggle CRT Curvature" [ref=f10e1051]
+            - generic [ref=f10e1052]: CRT Curvature
+          - generic [ref=f10e1053] [cursor=pointer]:
+            - button "Toggle Chromatic Aberration" [ref=f10e1054]
+            - generic [ref=f10e1055]: Chromatic Abr.
+          - generic [ref=f10e1056] [cursor=pointer]:
+            - button "Toggle Bloom" [ref=f10e1057]
+            - generic [ref=f10e1058]: Bloom
+          - generic [ref=f10e1059] [cursor=pointer]:
+            - button "Toggle Character Bloom" [ref=f10e1060]
+            - generic [ref=f10e1061]: Character Bloom
+          - generic [ref=f10e1062] [cursor=pointer]:
+            - button "Toggle Film Grain" [ref=f10e1063]
+            - generic [ref=f10e1064]: Film Grain
+          - generic [ref=f10e1065] [cursor=pointer]:
+            - button "Toggle Glitch" [ref=f10e1066]
+            - generic [ref=f10e1067]: Glitch
+          - generic [ref=f10e1068] [cursor=pointer]:
+            - button "Toggle RGB Split" [ref=f10e1069]
+            - generic [ref=f10e1070]: RGB Split
+          - generic [ref=f10e1071] [cursor=pointer]:
+            - button "Toggle Blur" [ref=f10e1072]
+            - generic [ref=f10e1073]: Blur
+          - generic [ref=f10e1074] [cursor=pointer]:
+            - button "Toggle Halftone" [ref=f10e1075]
+            - generic [ref=f10e1076]: Halftone
+          - generic [ref=f10e1077] [cursor=pointer]:
+            - button "Toggle Pixelate" [ref=f10e1078]
+            - generic [ref=f10e1079]: Pixelate
+          - generic [ref=f10e1080] [cursor=pointer]:
+            - button "Toggle Film Dust" [ref=f10e1081]
+            - generic [ref=f10e1082]: Film Dust
+          - generic [ref=f10e1083] [cursor=pointer]:
+            - button "Toggle Color Overlay" [ref=f10e1084]
+            - generic [ref=f10e1085]: Color Overlay
+        - link "Explore more effects on the tool →" [ref=f10e1087] [cursor=pointer]:
+          - /url: /app
+  - region "Some frequently asked questions." [ref=f10e1088]:
+    - generic [ref=f10e1089]:
+      - generic [ref=f10e1090]:
+        - paragraph [ref=f10e1091]: /FAQS
+        - heading "Some frequently asked questions." [level=2] [ref=f10e1092]
+        - paragraph [ref=f10e1093]: Quick answers about ASCII Magic, what it does, how it works, file formats, privacy and pricing. For everything else, paste the Context.md into your favourite AI.
+      - generic [ref=f10e1094]:
+        - generic [ref=f10e1095]:
+          - group [ref=f10e1096]:
+            - generic "Q. What is the best free ASCII art generator?" [ref=f10e1097] [cursor=pointer]:
+              - generic [ref=f10e1098]:
+                - generic [ref=f10e1099]: Q.
+                - text: What is the best free ASCII art generator?
+              - img [ref=f10e1101]
+          - group [ref=f10e1103]:
+            - generic "Q. How do I convert an image to ASCII art online?" [ref=f10e1104] [cursor=pointer]:
+              - generic [ref=f10e1105]:
+                - generic [ref=f10e1106]: Q.
+                - text: How do I convert an image to ASCII art online?
+              - img [ref=f10e1108]
+          - group [ref=f10e1110]:
+            - generic "Q. Can I turn a video into ASCII art?" [ref=f10e1111] [cursor=pointer]:
+              - generic [ref=f10e1112]:
+                - generic [ref=f10e1113]: Q.
+                - text: Can I turn a video into ASCII art?
+              - img [ref=f10e1115]
+          - group [ref=f10e1117]:
+            - generic "Q. Is ASCII Magic actually free?" [ref=f10e1118] [cursor=pointer]:
+              - generic [ref=f10e1119]:
+                - generic [ref=f10e1120]: Q.
+                - text: Is ASCII Magic actually free?
+              - img [ref=f10e1122]
+          - group [ref=f10e1124]:
+            - generic "Q. Does it upload my photos or videos to a server?" [ref=f10e1125] [cursor=pointer]:
+              - generic [ref=f10e1126]:
+                - generic [ref=f10e1127]: Q.
+                - text: Does it upload my photos or videos to a server?
+              - img [ref=f10e1129]
+          - group [ref=f10e1131]:
+            - generic "Q. How do I make pixel art from a photo?" [ref=f10e1132] [cursor=pointer]:
+              - generic [ref=f10e1133]:
+                - generic [ref=f10e1134]: Q.
+                - text: How do I make pixel art from a photo?
+              - img [ref=f10e1136]
+          - group [ref=f10e1138]:
+            - generic "Q. How do I make a dithered image online?" [ref=f10e1139] [cursor=pointer]:
+              - generic [ref=f10e1140]:
+                - generic [ref=f10e1141]: Q.
+                - text: How do I make a dithered image online?
+              - img [ref=f10e1143]
+          - group [ref=f10e1145]:
+            - generic "Q. What dithering algorithms and palettes does ASCII Magic support?" [ref=f10e1146] [cursor=pointer]:
+              - generic [ref=f10e1147]:
+                - generic [ref=f10e1148]: Q.
+                - text: What dithering algorithms and palettes does ASCII Magic support?
+              - img [ref=f10e1150]
+          - group [ref=f10e1152]:
+            - generic "Q. Can I make a Game Boy or 1-bit retro filter?" [ref=f10e1153] [cursor=pointer]:
+              - generic [ref=f10e1154]:
+                - generic [ref=f10e1155]: Q.
+                - text: Can I make a Game Boy or 1-bit retro filter?
+              - img [ref=f10e1157]
+          - group [ref=f10e1159]:
+            - generic "Q. How do I make a photo mosaic online?" [ref=f10e1160] [cursor=pointer]:
+              - generic [ref=f10e1161]:
+                - generic [ref=f10e1162]: Q.
+                - text: How do I make a photo mosaic online?
+              - img [ref=f10e1164]
+        - generic [ref=f10e1166]:
+          - group [ref=f10e1167]:
+            - generic "Q. What is voxel art and how do I make it?" [ref=f10e1168] [cursor=pointer]:
+              - generic [ref=f10e1169]:
+                - generic [ref=f10e1170]: Q.
+                - text: What is voxel art and how do I make it?
+              - img [ref=f10e1172]
+          - group [ref=f10e1174]:
+            - generic "Q. Can I use the exported art commercially?" [ref=f10e1175] [cursor=pointer]:
+              - generic [ref=f10e1176]:
+                - generic [ref=f10e1177]: Q.
+                - text: Can I use the exported art commercially?
+              - img [ref=f10e1179]
+          - group [ref=f10e1181]:
+            - generic "Q. Does ASCII Magic work on mobile?" [ref=f10e1182] [cursor=pointer]:
+              - generic [ref=f10e1183]:
+                - generic [ref=f10e1184]: Q.
+                - text: Does ASCII Magic work on mobile?
+              - img [ref=f10e1186]
+          - group [ref=f10e1188]:
+            - generic "Q. What file formats can I export?" [ref=f10e1189] [cursor=pointer]:
+              - generic [ref=f10e1190]:
+                - generic [ref=f10e1191]: Q.
+                - text: What file formats can I export?
+              - img [ref=f10e1193]
+          - group [ref=f10e1195]:
+            - generic "Q. How is ASCII art different from pixel art?" [ref=f10e1196] [cursor=pointer]:
+              - generic [ref=f10e1197]:
+                - generic [ref=f10e1198]: Q.
+                - text: How is ASCII art different from pixel art?
+              - img [ref=f10e1200]
+          - group [ref=f10e1202]:
+            - generic "Q. How fast is ASCII Magic? Does it render in real time?" [ref=f10e1203] [cursor=pointer]:
+              - generic [ref=f10e1204]:
+                - generic [ref=f10e1205]: Q.
+                - text: How fast is ASCII Magic? Does it render in real time?
+              - img [ref=f10e1207]
+          - group [ref=f10e1209]:
+            - generic "Q. Can I share my exact look with someone else?" [ref=f10e1210] [cursor=pointer]:
+              - generic [ref=f10e1211]:
+                - generic [ref=f10e1212]: Q.
+                - text: Can I share my exact look with someone else?
+              - img [ref=f10e1214]
+          - group [ref=f10e1216]:
+            - generic "Q. What's the best ASCII art generator for designers and artists?" [ref=f10e1217] [cursor=pointer]:
+              - generic [ref=f10e1218]:
+                - generic [ref=f10e1219]: Q.
+                - text: What's the best ASCII art generator for designers and artists?
+              - img [ref=f10e1221]
+          - group [ref=f10e1223]:
+            - generic "Q. Do I need to install anything?" [ref=f10e1224] [cursor=pointer]:
+              - generic [ref=f10e1225]:
+                - generic [ref=f10e1226]: Q.
+                - text: Do I need to install anything?
+              - img [ref=f10e1228]
+          - group [ref=f10e1230]:
+            - generic "Q. Can I make halftone posters or retro CRT-style images?" [ref=f10e1231] [cursor=pointer]:
+              - generic [ref=f10e1232]:
+                - generic [ref=f10e1233]: Q.
+                - text: Can I make halftone posters or retro CRT-style images?
+              - img [ref=f10e1235]
+        - generic [ref=f10e1237]:
+          - group [ref=f10e1238]:
+            - generic "Q. What is the best free ASCII art generator?" [ref=f10e1239] [cursor=pointer]:
+              - generic [ref=f10e1240]:
+                - generic [ref=f10e1241]: Q.
+                - text: What is the best free ASCII art generator?
+              - img [ref=f10e1243]
+          - group [ref=f10e1245]:
+            - generic "Q. How do I convert an image to ASCII art online?" [ref=f10e1246] [cursor=pointer]:
+              - generic [ref=f10e1247]:
+                - generic [ref=f10e1248]: Q.
+                - text: How do I convert an image to ASCII art online?
+              - img [ref=f10e1250]
+          - group [ref=f10e1252]:
+            - generic "Q. Can I turn a video into ASCII art?" [ref=f10e1253] [cursor=pointer]:
+              - generic [ref=f10e1254]:
+                - generic [ref=f10e1255]: Q.
+                - text: Can I turn a video into ASCII art?
+              - img [ref=f10e1257]
+          - group [ref=f10e1259]:
+            - generic "Q. Is ASCII Magic actually free?" [ref=f10e1260] [cursor=pointer]:
+              - generic [ref=f10e1261]:
+                - generic [ref=f10e1262]: Q.
+                - text: Is ASCII Magic actually free?
+              - img [ref=f10e1264]
+          - group [ref=f10e1266]:
+            - generic "Q. Does it upload my photos or videos to a server?" [ref=f10e1267] [cursor=pointer]:
+              - generic [ref=f10e1268]:
+                - generic [ref=f10e1269]: Q.
+                - text: Does it upload my photos or videos to a server?
+              - img [ref=f10e1271]
+          - group [ref=f10e1273]:
+            - generic "Q. How do I make pixel art from a photo?" [ref=f10e1274] [cursor=pointer]:
+              - generic [ref=f10e1275]:
+                - generic [ref=f10e1276]: Q.
+                - text: How do I make pixel art from a photo?
+              - img [ref=f10e1278]
+          - group [ref=f10e1280]:
+            - generic "Q. How do I make a dithered image online?" [ref=f10e1281] [cursor=pointer]:
+              - generic [ref=f10e1282]:
+                - generic [ref=f10e1283]: Q.
+                - text: How do I make a dithered image online?
+              - img [ref=f10e1285]
+          - group [ref=f10e1287]:
+            - generic "Q. What dithering algorithms and palettes does ASCII Magic support?" [ref=f10e1288] [cursor=pointer]:
+              - generic [ref=f10e1289]:
+                - generic [ref=f10e1290]: Q.
+                - text: What dithering algorithms and palettes does ASCII Magic support?
+              - img [ref=f10e1292]
+          - group [ref=f10e1294]:
+            - generic "Q. Can I make a Game Boy or 1-bit retro filter?" [ref=f10e1295] [cursor=pointer]:
+              - generic [ref=f10e1296]:
+                - generic [ref=f10e1297]: Q.
+                - text: Can I make a Game Boy or 1-bit retro filter?
+              - img [ref=f10e1299]
+          - group [ref=f10e1301]:
+            - generic "Q. How do I make a photo mosaic online?" [ref=f10e1302] [cursor=pointer]:
+              - generic [ref=f10e1303]:
+                - generic [ref=f10e1304]: Q.
+                - text: How do I make a photo mosaic online?
+              - img [ref=f10e1306]
+        - generic [ref=f10e1308]:
+          - group [ref=f10e1309]:
+            - generic "Q. What is voxel art and how do I make it?" [ref=f10e1310] [cursor=pointer]:
+              - generic [ref=f10e1311]:
+                - generic [ref=f10e1312]: Q.
+                - text: What is voxel art and how do I make it?
+              - img [ref=f10e1314]
+          - group [ref=f10e1316]:
+            - generic "Q. Can I use the exported art commercially?" [ref=f10e1317] [cursor=pointer]:
+              - generic [ref=f10e1318]:
+                - generic [ref=f10e1319]: Q.
+                - text: Can I use the exported art commercially?
+              - img [ref=f10e1321]
+          - group [ref=f10e1323]:
+            - generic "Q. Does ASCII Magic work on mobile?" [ref=f10e1324] [cursor=pointer]:
+              - generic [ref=f10e1325]:
+                - generic [ref=f10e1326]: Q.
+                - text: Does ASCII Magic work on mobile?
+              - img [ref=f10e1328]
+          - group [ref=f10e1330]:
+            - generic "Q. What file formats can I export?" [ref=f10e1331] [cursor=pointer]:
+              - generic [ref=f10e1332]:
+                - generic [ref=f10e1333]: Q.
+                - text: What file formats can I export?
+              - img [ref=f10e1335]
+          - group [ref=f10e1337]:
+            - generic "Q. How is ASCII art different from pixel art?" [ref=f10e1338] [cursor=pointer]:
+              - generic [ref=f10e1339]:
+                - generic [ref=f10e1340]: Q.
+                - text: How is ASCII art different from pixel art?
+              - img [ref=f10e1342]
+          - group [ref=f10e1344]:
+            - generic "Q. How fast is ASCII Magic? Does it render in real time?" [ref=f10e1345] [cursor=pointer]:
+              - generic [ref=f10e1346]:
+                - generic [ref=f10e1347]: Q.
+                - text: How fast is ASCII Magic? Does it render in real time?
+              - img [ref=f10e1349]
+          - group [ref=f10e1351]:
+            - generic "Q. Can I share my exact look with someone else?" [ref=f10e1352] [cursor=pointer]:
+              - generic [ref=f10e1353]:
+                - generic [ref=f10e1354]: Q.
+                - text: Can I share my exact look with someone else?
+              - img [ref=f10e1356]
+          - group [ref=f10e1358]:
+            - generic "Q. What's the best ASCII art generator for designers and artists?" [ref=f10e1359] [cursor=pointer]:
+              - generic [ref=f10e1360]:
+                - generic [ref=f10e1361]: Q.
+                - text: What's the best ASCII art generator for designers and artists?
+              - img [ref=f10e1363]
+          - group [ref=f10e1365]:
+            - generic "Q. Do I need to install anything?" [ref=f10e1366] [cursor=pointer]:
+              - generic [ref=f10e1367]:
+                - generic [ref=f10e1368]: Q.
+                - text: Do I need to install anything?
+              - img [ref=f10e1370]
+          - group [ref=f10e1372]:
+            - generic "Q. Can I make halftone posters or retro CRT-style images?" [ref=f10e1373] [cursor=pointer]:
+              - generic [ref=f10e1374]:
+                - generic [ref=f10e1375]: Q.
+                - text: Can I make halftone posters or retro CRT-style images?
+              - img [ref=f10e1377]
+  - region "Photos and videos into art, in your browser." [ref=f10e1379]:
+    - generic [ref=f10e1383]:
+      - paragraph [ref=f10e1384]: /CREATE ART IN SECONDS
+      - heading "Photos and videos into art, in your browser." [level=2] [ref=f10e1385]
+      - paragraph [ref=f10e1386]: Every slider, every style, every effect updates the preview instantly, export at up to 4× resolution. Free forever.
+      - link "Try it out now" [ref=f10e1387] [cursor=pointer]:
+        - /url: /app
+        - generic [ref=f10e1389]: Try it out now
+  - contentinfo [ref=f10e1390]:
+    - generic [ref=f10e1391]:
+      - generic [ref=f10e1392]:
+        - generic [ref=f10e1393]:
+          - link "ASCII Magic, home" [ref=f10e1394] [cursor=pointer]:
+            - /url: /
+            - img "ASCII Magic" [ref=f10e1395]
+          - paragraph [ref=f10e1396]: A free browser-based image & video stylizer, turn any photo or video into ASCII, pixel art, voxel, mosaic, halftone, glitch or LEGO.
+          - paragraph [ref=f10e1397]:
+            - text: Project by
+            - link "Kailash" [ref=f10e1398] [cursor=pointer]:
+              - /url: https://x.com/kail_designs
+        - generic [ref=f10e1399]:
+          - generic [ref=f10e1400]:
+            - heading "Core" [level=4] [ref=f10e1401]
+            - list [ref=f10e1402]:
+              - listitem [ref=f10e1403]:
+                - link "Home" [ref=f10e1404] [cursor=pointer]:
+                  - /url: /
+              - listitem [ref=f10e1405]:
+                - link "Usecases" [ref=f10e1406] [cursor=pointer]:
+                  - /url: "#usecases"
+              - listitem [ref=f10e1407]:
+                - link "Styles" [ref=f10e1408] [cursor=pointer]:
+                  - /url: /styles
+              - listitem [ref=f10e1409]:
+                - link "Community" [ref=f10e1410] [cursor=pointer]:
+                  - /url: /community
+              - listitem [ref=f10e1411]:
+                - link "Blog" [ref=f10e1412] [cursor=pointer]:
+                  - /url: /blog
+              - listitem [ref=f10e1413]:
+                - link "Recipes" [ref=f10e1414] [cursor=pointer]:
+                  - /url: /recipes
+              - listitem [ref=f10e1415]:
+                - link "FAQs" [ref=f10e1416] [cursor=pointer]:
+                  - /url: "#faq"
+              - listitem [ref=f10e1417]:
+                - link "Changelog" [ref=f10e1418] [cursor=pointer]:
+                  - /url: /changelog
+          - generic [ref=f10e1419]:
+            - heading "Other Tools" [level=4] [ref=f10e1420]
+            - list [ref=f10e1421]:
+              - listitem [ref=f10e1422]:
+                - link "Text to ASCII" [ref=f10e1423] [cursor=pointer]:
+                  - /url: /text-to-ascii
+              - listitem [ref=f10e1424]:
+                - link "Backgrounds Supply" [ref=f10e1425] [cursor=pointer]:
+                  - /url: https://www.backgrounds.supply/
+              - listitem [ref=f10e1426]:
+                - link "Gradient Shader Coming soon" [disabled] [ref=f10e1427]:
+                  - /url: "#"
+                  - text: Gradient Shader
+                  - generic [ref=f10e1428]: Coming soon
+              - listitem [ref=f10e1429]:
+                - link "Dither animation builder" [ref=f10e1430] [cursor=pointer]:
+                  - /url: https://dotforge.vercel.app/
+        - generic [ref=f10e1432]:
+          - heading "Styles" [level=4] [ref=f10e1433]
+          - list [ref=f10e1434]:
+            - listitem [ref=f10e1435]:
+              - link "Characters" [ref=f10e1436] [cursor=pointer]:
+                - /url: /styles/ascii-art
+            - listitem [ref=f10e1437]:
+              - link "Dither" [ref=f10e1438] [cursor=pointer]:
+                - /url: /styles/dither
+            - listitem [ref=f10e1439]:
+              - link "Block Chars" [ref=f10e1440] [cursor=pointer]:
+                - /url: /styles/block
+            - listitem [ref=f10e1441]:
+              - link "Pixel Art" [ref=f10e1442] [cursor=pointer]:
+                - /url: /styles/pixel-art
+            - listitem [ref=f10e1443]:
+              - link "Mosaic" [ref=f10e1444] [cursor=pointer]:
+                - /url: /styles/mosaic
+            - listitem [ref=f10e1445]:
+              - link "LEGO" [ref=f10e1446] [cursor=pointer]:
+                - /url: /styles/lego
+            - listitem [ref=f10e1447]:
+              - link "Disco" [ref=f10e1448] [cursor=pointer]:
+                - /url: /styles/disco
+            - listitem [ref=f10e1449]:
+              - link "Animated ASCII" [ref=f10e1450] [cursor=pointer]:
+                - /url: /styles/video-to-ascii
+            - listitem [ref=f10e1451]:
+              - link "Dots" [ref=f10e1452] [cursor=pointer]:
+                - /url: /styles/dots
+            - listitem [ref=f10e1453]:
+              - link "Cross" [ref=f10e1454] [cursor=pointer]:
+                - /url: /styles/cross
+            - listitem [ref=f10e1455]:
+              - link "Diagonal" [ref=f10e1456] [cursor=pointer]:
+                - /url: /styles/diagonal
+            - listitem [ref=f10e1457]:
+              - link "Diamond" [ref=f10e1458] [cursor=pointer]:
+                - /url: /styles/diamond
+            - listitem [ref=f10e1459]:
+              - link "Lines" [ref=f10e1460] [cursor=pointer]:
+                - /url: /styles/lines
+            - listitem [ref=f10e1461]:
+              - link "Voxel Cubes" [ref=f10e1462] [cursor=pointer]:
+                - /url: /styles/voxel
+            - listitem [ref=f10e1463]:
+              - link "Mixed" [ref=f10e1464] [cursor=pointer]:
+                - /url: /styles/mixed
+        - generic [ref=f10e1465]:
+          - generic [ref=f10e1466]:
+            - heading "Usecases" [level=4] [ref=f10e1467]
+            - list [ref=f10e1468]:
+              - listitem [ref=f10e1469]:
+                - link "Websites" [ref=f10e1470] [cursor=pointer]:
+                  - /url: "#usecases"
+              - listitem [ref=f10e1471]:
+                - link "Posters" [ref=f10e1472] [cursor=pointer]:
+                  - /url: "#usecases"
+              - listitem [ref=f10e1473]:
+                - link "Wallpapers" [ref=f10e1474] [cursor=pointer]:
+                  - /url: "#usecases"
+              - listitem [ref=f10e1475]:
+                - link "Cool Videos" [ref=f10e1476] [cursor=pointer]:
+                  - /url: "#usecases"
+          - generic [ref=f10e1477]:
+            - heading "Guides" [level=4] [ref=f10e1478]
+            - list [ref=f10e1479]:
+              - listitem [ref=f10e1480]:
+                - link "Photo to ASCII art" [ref=f10e1481] [cursor=pointer]:
+                  - /url: /blog/how-to-make-ascii-art-from-a-photo
+              - listitem [ref=f10e1482]:
+                - link "ASCII characters guide" [ref=f10e1483] [cursor=pointer]:
+                  - /url: /blog/ascii-characters-full-guide
+              - listitem [ref=f10e1484]:
+                - link "Video to ASCII" [ref=f10e1485] [cursor=pointer]:
+                  - /url: /blog/how-to-convert-video-to-ascii
+              - listitem [ref=f10e1486]:
+                - link "Image to dots" [ref=f10e1487] [cursor=pointer]:
+                  - /url: /blog/how-to-convert-image-to-ascii-dots
+              - listitem [ref=f10e1488]:
+                - link "ASCII text art" [ref=f10e1489] [cursor=pointer]:
+                  - /url: /blog/how-to-make-ascii-text-art
+              - listitem [ref=f10e1490]:
+                - link "Photo to mosaic" [ref=f10e1491] [cursor=pointer]:
+                  - /url: /blog/how-to-turn-a-photo-into-a-mosaic
+              - listitem [ref=f10e1492]:
+                - link "Dithering guide" [ref=f10e1493] [cursor=pointer]:
+                  - /url: /blog/complete-guide-to-dithering
+        - generic [ref=f10e1494]:
+          - generic [ref=f10e1495]:
+            - heading "Compare" [level=4] [ref=f10e1496]
+            - list [ref=f10e1497]:
+              - listitem [ref=f10e1498]:
+                - link "ASCII Magic vs Asciinator" [ref=f10e1499] [cursor=pointer]:
+                  - /url: /blog/ascii-magic-vs-asciinator
+              - listitem [ref=f10e1500]:
+                - link "ASCII Magic vs ASCIIcraft" [ref=f10e1501] [cursor=pointer]:
+                  - /url: /blog/ascii-magic-vs-asciicraft
+          - generic [ref=f10e1502]:
+            - heading "Legal" [level=4] [ref=f10e1503]
+            - list [ref=f10e1504]:
+              - listitem [ref=f10e1505]:
+                - link "Privacy Policy" [ref=f10e1506] [cursor=pointer]:
+                  - /url: /privacy
+              - listitem [ref=f10e1507]:
+                - link "Terms and Conditions" [ref=f10e1508] [cursor=pointer]:
+                  - /url: /terms
+      - generic [ref=f10e1509]:
+        - generic [ref=f10e1510]: © 2026 ASCII Magic. All rights reserved.
+        - generic [ref=f10e1511]: Thanks for scrolling this far. You’re awesome!

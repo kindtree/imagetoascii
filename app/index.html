@@ -2264,9 +2264,7 @@
 
   </style>
   
-  <!-- External dependencies retrieved from the target page script list -->
-  <script src="https://cdn.jsdelivr.net/npm/mp4-muxer@5.1.3/build/mp4-muxer.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/gif.js@0.2.0/dist/gif.min.js"></script>
+  <!-- Image-only build: video/animation export dependencies removed -->
 </head>
 <body>
   
@@ -2277,14 +2275,13 @@
   </div>
   <canvas id="output-canvas"></canvas>
   <canvas id="mask-overlay" style="display:none"></canvas>
-  <video id="source-video" style="display:none" muted="" loop="" playsinline=""></video>
   <div id="drop-zone">
     <svg viewBox="0 0 64 64">
       <rect x="8" y="8" width="48" height="48" rx="4"></rect>
       <circle cx="24" cy="26" r="5"></circle>
       <polyline points="8,44 22,32 34,42 42,34 56,46"></polyline>
     </svg>
-    <p>Drop an image or video here</p>
+    <p>Drop an image here</p>
     <span>or click to browse / paste from clipboard</span>
     <button id="btn-inspire-hero" class="btn-inspire-float" style="display:inline-flex; position:static; margin-top:14px;" onclick="event.stopPropagation(); loadNextDemo('hero');">
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9.663 17h4.674M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path></svg>
@@ -2318,8 +2315,8 @@
   <!-- Source section -->
   <div class="panel-section">
     <h3>Source</h3>
-    <input type="file" id="file-input" accept="image/*,video/*">
-    <button class="btn btn-secondary" id="btn-upload">Upload Image / Video</button>
+    <input type="file" id="file-input" accept="image/*">
+    <button class="btn btn-secondary" id="btn-upload">Upload Image</button>
     <!-- Recipe button, single combined entry. Opens the modal where the user
          picks Share or Apply via the tab inside the modal. -->
     <div class="recipes-action-row">
@@ -2332,9 +2329,6 @@
       <select id="export-format" style="flex: 1 1 0%; background-image: url(&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' fill='none' stroke='%23999' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E&quot;); background-size: ; background-attachment: ; background-origin: ; background-clip: ; background-color: ; color: var(--text-secondary); border: 1px solid var(--border-control); border-radius: 6px; padding: 10px 28px 10px 8px; font-size: 13px; outline: none; cursor: pointer; appearance: none; background-repeat: no-repeat; background-position: right 10px center;" class="themed-select">
         <option value="png">PNG</option>
         <option value="jpg">JPG</option>
-        <option value="gif" class="anim-export-opt" style="display:none">GIF (Animated)</option>
-        <option value="mp4-video" class="video-export-opt" style="display:none">MP4 (Video)</option>
-        <option value="mp4-anim" class="anim-export-opt" style="display:none">MP4 (Animation)</option>
       </select>
       <button class="btn btn-primary" id="btn-export" style="flex:1; margin-bottom:0">Export</button>
     </div>
@@ -2360,67 +2354,6 @@
     </div>
   </div>
 
-  <!-- Animation Export Settings (shown when animation is ON) -->
-  <div class="panel-section" id="anim-export-section" style="display:none">
-    <h3>Animation Export</h3>
-    <div class="control-row">
-      <label>Duration</label>
-      <div class="right">
-        <select id="animDuration" style="background-image: url(&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' fill='none' stroke='%23999' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E&quot;);">
-          <option value="3">3 seconds</option>
-          <option value="5" selected="">5 seconds</option>
-          <option value="10">10 seconds</option>
-          <option value="15">15 seconds</option>
-        </select>
-      </div>
-    </div>
-    <div class="control-row">
-      <label>Frame Rate</label>
-      <div class="right">
-        <select id="animFPS" style="background-image: url(&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' fill='none' stroke='%23999' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E&quot;);">
-          <option value="15">15 fps</option>
-          <option value="20">20 fps</option>
-          <option value="24">24 fps</option>
-          <option value="30" selected="">30 fps</option>
-          <option value="60">60 fps</option>
-        </select>
-      </div>
-    </div>
-  </div>
-
-  <!-- Playback (video only) -->
-  <div class="panel-section" id="playback-section" style="display:none">
-    <h3>Playback</h3>
-    <div style="display:flex; gap:8px; margin-bottom:12px;">
-      <button class="btn btn-secondary" id="btn-play" style="flex:1; margin-bottom:0">Play</button>
-      <button class="btn btn-secondary" id="btn-stop" style="flex:1; margin-bottom:0">Stop</button>
-    </div>
-    <div class="control-row">
-      <label>Seek</label>
-      <div class="right">
-        <input type="range" id="videoSeek" min="0" max="100" value="0" step="0.1">
-        <span class="value" id="videoSeek-val">0:00</span>
-      </div>
-    </div>
-    <div class="control-row">
-      <label>Speed</label>
-      <div class="right">
-        <select id="videoSpeed" style="background-image: url(&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' fill='none' stroke='%23999' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E&quot;);">
-          <option value="0.25">0.25x</option>
-          <option value="0.5">0.5x</option>
-          <option value="1" selected="">1x</option>
-          <option value="1.5">1.5x</option>
-          <option value="2">2x</option>
-        </select>
-      </div>
-    </div>
-    <div class="control-row">
-      <label>FPS</label>
-      <div class="right">
-        <span class="value" id="fps-display">--</span>
-      </div>
-    </div>
-  </div>
 
   <!-- Crop & Rotate -->
   <div class="panel-section" id="crop-section">
@@ -2432,7 +2365,7 @@
   <div class="panel-section" id="backgrounds-section">
     <h3>Background</h3>
     <div class="bg-gallery-wrap">
-      <div id="bg-gallery" class="bg-gallery-grid"><div class="bg-thumb bg-thumb-video" data-demo-idx="0"><img src="demos/demo-v3-thumb.jpg" loading="lazy" decoding="async" alt=""></div><div class="bg-thumb" data-demo-idx="1"><img src="https://pub-76499eb758d942ca8ea20206de006180.r2.dev/backgrounds/thumbs/image-55.jpg" loading="lazy" decoding="async" alt=""></div><div class="bg-thumb" data-demo-idx="2"><img src="https://pub-76499eb758d942ca8ea20206de006180.r2.dev/backgrounds/thumbs/image-14.jpg" loading="lazy" decoding="async" alt=""></div><div class="bg-thumb" data-demo-idx="3"><img src="https://pub-76499eb758d942ca8ea20206de006180.r2.dev/backgrounds/thumbs/image-28.jpg" loading="lazy" decoding="async" alt=""></div><div class="bg-thumb" data-demo-idx="4"><img src="demos/demo-31.jpg" loading="lazy" decoding="async" alt=""></div><div class="bg-thumb" data-demo-idx="5"><img src="demos/demo-2.jpg" loading="lazy" decoding="async" alt=""></div><div class="bg-thumb" data-demo-idx="6"><img src="https://pub-76499eb758d942ca8ea20206de006180.r2.dev/backgrounds/thumbs/image-25.jpg" loading="lazy" decoding="async" alt=""></div><div class="bg-thumb" data-demo-idx="7"><img src="demos/demo-22.jpg" loading="lazy" decoding="async" alt=""></div><div class="bg-thumb" data-demo-idx="8"><img src="https://pub-76499eb758d942ca8ea20206de006180.r2.dev/backgrounds/thumbs/image-58.jpg" loading="lazy" decoding="async" alt=""></div><div class="bg-thumb" data-demo-idx="9"><img src="demos/demo-17.jpg" loading="lazy" decoding="async" alt=""></div><div class="bg-thumb" data-demo-idx="10"><img src="https://pub-76499eb758d942ca8ea20206de006180.r2.dev/backgrounds/thumbs/image-8.jpg" loading="lazy" decoding="async" alt=""></div><div class="bg-thumb" data-demo-idx="11"><img src="https://pub-76499eb758d942ca8ea20206de006180.r2.dev/backgrounds/thumbs/image-56.jpg" loading="lazy" decoding="async" alt=""></div><div class="bg-thumb" data-demo-idx="12"><img src="https://pub-76499eb758d942ca8ea20206de006180.r2.dev/backgrounds/thumbs/image-39.jpg" loading="lazy" decoding="async" alt=""></div><div class="bg-thumb" data-demo-idx="13"><img src="https://pub-76499eb758d942ca8ea20206de006180.r2.dev/backgrounds/thumbs/image-6.jpg" loading="lazy" decoding="async" alt=""></div><div class="bg-thumb" data-demo-idx="14"><img src="demos/demo-28.jpg" loading="lazy" decoding="async" alt=""></div><div class="bg-thumb" data-demo-idx="15"><img src="demos/demo-20.jpg" loading="lazy" decoding="async" alt=""></div><div class="bg-thumb" data-demo-idx="16"><img src="https://pub-76499eb758d942ca8ea20206de006180.r2.dev/backgrounds/thumbs/image-62.jpg" loading="lazy" decoding="async" alt=""></div><div class="bg-thumb" data-demo-idx="17"><img src="https://pub-76499eb758d942ca8ea20206de006180.r2.dev/backgrounds/thumbs/image-12.jpg" loading="lazy" decoding="async" alt=""></div><div class="bg-thumb" data-demo-idx="18"><img src="https://pub-76499eb758d942ca8ea20206de006180.r2.dev/backgrounds/thumbs/image-31.jpg" loading="lazy" decoding="async" alt=""></div><div class="bg-thumb" data-demo-idx="19"><img src="https://pub-76499eb758d942ca8ea20206de006180.r2.dev/backgrounds/thumbs/image-54.jpg" loading="lazy" decoding="async" alt=""></div><div class="bg-thumb" data-demo-idx="20"><img src="https://pub-76499eb758d942ca8ea20206de006180.r2.dev/backgrounds/thumbs/image-51.jpg" loading="lazy" decoding="async" alt=""></div><div class="bg-thumb" data-demo-idx="21"><img src="https://pub-76499eb758d942ca8ea20206de006180.r2.dev/backgrounds/thumbs/image-29.jpg" loading="lazy" decoding="async" alt=""></div><div class="bg-thumb" data-demo-idx="22"><img src="demos/demo-15.jpg" loading="lazy" decoding="async" alt=""></div><div class="bg-thumb" data-demo-idx="23"><img src="demos/bg-1.jpg" loading="lazy" decoding="async" alt=""></div><div class="bg-thumb" data-demo-idx="24"><img src="demos/demo-1.jpg" loading="lazy" decoding="async" alt=""></div><div class="bg-thumb" data-demo-idx="25"><img src="demos/demo-16.jpg" loading="lazy" decoding="async" alt=""></div><div class="bg-thumb" data-demo-idx="26"><img src="https://pub-76499eb758d942ca8ea20206de006180.r2.dev/backgrounds/thumbs/image-37.jpg" loading="lazy" decoding="async" alt=""></div><div class="bg-thumb" data-demo-idx="27"><img src="https://pub-76499eb758d942ca8ea20206de006180.r2.dev/backgrounds/thumbs/image-66.jpg" loading="lazy" decoding="async" alt=""></div><div class="bg-thumb" data-demo-idx="28"><img src="https://pub-76499eb758d942ca8ea20206de006180.r2.dev/backgrounds/thumbs/image-47.jpg" loading="lazy" decoding="async" alt=""></div><div class="bg-thumb" data-demo-idx="29"><img src="https://pub-76499eb758d942ca8ea20206de006180.r2.dev/backgrounds/thumbs/image-49.jpg" loading="lazy" decoding="async" alt=""></div><div class="bg-thumb" data-demo-idx="30"><img src="https://pub-76499eb758d942ca8ea20206de006180.r2.dev/backgrounds/thumbs/image-36.jpg" loading="lazy" decoding="async" alt=""></div><div class="bg-thumb" data-demo-idx="31"><img src="demos/demo-14.jpg" loading="lazy" decoding="async" alt=""></div><div class="bg-thumb" data-demo-idx="32"><img src="demos/demo-8.jpg" loading="lazy" decoding="async" alt=""></div><div class="bg-thumb" data-demo-idx="33"><img src="https://pub-76499eb758d942ca8ea20206de006180.r2.dev/backgrounds/thumbs/image-46.jpg" loading="lazy" decoding="async" alt=""></div><div class="bg-thumb" data-demo-idx="34"><img src="https://pub-76499eb758d942ca8ea20206de006180.r2.dev/backgrounds/thumbs/image-27.jpg" loading="lazy" decoding="async" alt=""></div><div class="bg-thumb" data-demo-idx="35"><img src="https://pub-76499eb758d942ca8ea20206de006180.r2.dev/backgrounds/thumbs/image-68.jpg" loading="lazy" decoding="async" alt=""></div><div class="bg-thumb" data-demo-idx="36"><img src="demos/demo-19.jpg" loading="lazy" decoding="async" alt=""></div><div class="bg-thumb" data-demo-idx="37"><img src="demos/bg-2.jpg" loading="lazy" decoding="async" alt=""></div><div class="bg-thumb" data-demo-idx="38"><img src="https://pub-76499eb758d942ca8ea20206de006180.r2.dev/backgrounds/thumbs/image-34.jpg" loading="lazy" decoding="async" alt=""></div><div class="bg-thumb" data-demo-idx="39"><img src="https://pub-76499eb758d942ca8ea20206de006180.r2.dev/backgrounds/thumbs/image-17.jpg" loading="lazy" decoding="async" alt=""></div><div class="bg-thumb" data-demo-idx="40"><img src="https://pub-76499eb758d942ca8ea20206de006180.r2.dev/backgrounds/thumbs/image-61.jpg" loading="lazy" decoding="async" alt=""></div><div class="bg-thumb" data-demo-idx="41"><img src="https://pub-76499eb758d942ca8ea20206de006180.r2.dev/backgrounds/thumbs/image-71.jpg" loading="lazy" decoding="async" alt=""></div><div class="bg-thumb" data-demo-idx="42"><img src="https://pub-76499eb758d942ca8ea20206de006180.r2.dev/backgrounds/thumbs/image-16.jpg" loading="lazy" decoding="async" alt=""></div><div class="bg-thumb" data-demo-idx="43"><img src="demos/demo-6.jpg" loading="lazy" decoding="async" alt=""></div><div class="bg-thumb" data-demo-idx="44"><img src="https://pub-76499eb758d942ca8ea20206de006180.r2.dev/backgrounds/thumbs/image-45.jpg" loading="lazy" decoding="async" alt=""></div><div class="bg-thumb" data-demo-idx="45"><img src="https://pub-76499eb758d942ca8ea20206de006180.r2.dev/backgrounds/thumbs/image-24.jpg" loading="lazy" decoding="async" alt=""></div><div class="bg-thumb" data-demo-idx="46"><img src="https://pub-76499eb758d942ca8ea20206de006180.r2.dev/backgrounds/thumbs/image-9.jpg" loading="lazy" decoding="async" alt=""></div><div class="bg-thumb" data-demo-idx="47"><img src="https://pub-76499eb758d942ca8ea20206de006180.r2.dev/backgrounds/thumbs/image-4.jpg" loading="lazy" decoding="async" alt=""></div><div class="bg-thumb" data-demo-idx="48"><img src="https://pub-76499eb758d942ca8ea20206de006180.r2.dev/backgrounds/thumbs/image-64.jpg" loading="lazy" decoding="async" alt=""></div><div class="bg-thumb" data-demo-idx="49"><img src="demos/demo-7.jpg" loading="lazy" decoding="async" alt=""></div><div class="bg-thumb" data-demo-idx="50"><img src="demos/demo-13.jpg" loading="lazy" decoding="async" alt=""></div><div class="bg-thumb" data-demo-idx="51"><img src="https://pub-76499eb758d942ca8ea20206de006180.r2.dev/backgrounds/thumbs/image-43.jpg" loading="lazy" decoding="async" alt=""></div><div class="bg-thumb" data-demo-idx="52"><img src="https://pub-76499eb758d942ca8ea20206de006180.r2.dev/backgrounds/thumbs/image-69.jpg" loading="lazy" decoding="async" alt=""></div><div class="bg-thumb" data-demo-idx="53"><img src="demos/demo-9.jpg" loading="lazy" decoding="async" alt=""></div><div class="bg-thumb" data-demo-idx="54"><img src="demos/demo-29.jpg" loading="lazy" decoding="async" alt=""></div><div class="bg-thumb" data-demo-idx="55"><img src="https://pub-76499eb758d942ca8ea20206de006180.r2.dev/backgrounds/thumbs/image-10.jpg" loading="lazy" decoding="async" alt=""></div><div class="bg-thumb" data-demo-idx="56"><img src="https://pub-76499eb758d942ca8ea20206de006180.r2.dev/backgrounds/thumbs/image-67.jpg" loading="lazy" decoding="async" alt=""></div><div class="bg-thumb" data-demo-idx="57"><img src="https://pub-76499eb758d942ca8ea20206de006180.r2.dev/backgrounds/thumbs/image-26.jpg" loading="lazy" decoding="async" alt=""></div><div class="bg-thumb" data-demo-idx="58"><img src="https://pub-76499eb758d942ca8ea20206de006180.r2.dev/backgrounds/thumbs/image-3.jpg" loading="lazy" decoding="async" alt=""></div><div class="bg-thumb" data-demo-idx="59"><img src="demos/bg-3.jpg" loading="lazy" decoding="async" alt=""></div><div class="bg-thumb" data-demo-idx="60"><img src="https://pub-76499eb758d942ca8ea20206de006180.r2.dev/backgrounds/thumbs/image-57.jpg" loading="lazy" decoding="async" alt=""></div><div class="bg-thumb" data-demo-idx="61"><img src="demos/demo-23.jpg" loading="lazy" decoding="async" alt=""></div><div class="bg-thumb" data-demo-idx="62"><img src="https://pub-76499eb758d942ca8ea20206de006180.r2.dev/backgrounds/thumbs/image-23.jpg" loading="lazy" decoding="async" alt=""></div><div class="bg-thumb" data-demo-idx="63"><img src="https://pub-76499eb758d942ca8ea20206de006180.r2.dev/backgrounds/thumbs/image-65.jpg" loading="lazy" decoding="async" alt=""></div><div class="bg-thumb" data-demo-idx="64"><img src="https://pub-76499eb758d942ca8ea20206de006180.r2.dev/backgrounds/thumbs/image-5.jpg" loading="lazy" decoding="async" alt=""></div><div class="bg-thumb" data-demo-idx="65"><img src="https://pub-76499eb758d942ca8ea20206de006180.r2.dev/backgrounds/thumbs/image-53.jpg" loading="lazy" decoding="async" alt=""></div><div class="bg-thumb" data-demo-idx="66"><img src="https://pub-76499eb758d942ca8ea20206de006180.r2.dev/backgrounds/thumbs/image-44.jpg" loading="lazy" decoding="async" alt=""></div><div class="bg-thumb" data-demo-idx="67"><img src="demos/demo-5.jpg" loading="lazy" decoding="async" alt=""></div><div class="bg-thumb" data-demo-idx="68"><img src="https://pub-76499eb758d942ca8ea20206de006180.r2.dev/backgrounds/thumbs/image-20.jpg" loading="lazy" decoding="async" alt=""></div><div class="bg-thumb" data-demo-idx="69"><img src="https://pub-76499eb758d942ca8ea20206de006180.r2.dev/backgrounds/thumbs/image-32.jpg" loading="lazy" decoding="async" alt=""></div><div class="bg-thumb" data-demo-idx="70"><img src="https://pub-76499eb758d942ca8ea20206de006180.r2.dev/backgrounds/thumbs/image-52.jpg" loading="lazy" decoding="async" alt=""></div><div class="bg-thumb" data-demo-idx="71"><img src="demos/demo-26.jpg" loading="lazy" decoding="async" alt=""></div><div class="bg-thumb" data-demo-idx="72"><img src="demos/demo-4.jpg" loading="lazy" decoding="async" alt=""></div><div class="bg-thumb" data-demo-idx="73"><img src="https://pub-76499eb758d942ca8ea20206de006180.r2.dev/backgrounds/thumbs/image-19.jpg" loading="lazy" decoding="async" alt=""></div><div class="bg-thumb" data-demo-idx="74"><img src="https://pub-76499eb758d942ca8ea20206de006180.r2.dev/backgrounds/thumbs/image-70.jpg" loading="lazy" decoding="async" alt=""></div><div class="bg-thumb" data-demo-idx="75"><img src="https://pub-76499eb758d942ca8ea20206de006180.r2.dev/backgrounds/thumbs/image-1.jpg" loading="lazy" decoding="async" alt=""></div><div class="bg-thumb" data-demo-idx="76"><img src="https://pub-76499eb758d942ca8ea20206de006180.r2.dev/backgrounds/thumbs/image-21.jpg" loading="lazy" decoding="async" alt=""></div><div class="bg-thumb" data-demo-idx="77"><img src="https://pub-76499eb758d942ca8ea20206de006180.r2.dev/backgrounds/thumbs/image-59.jpg" loading="lazy" decoding="async" alt=""></div><div class="bg-thumb" data-demo-idx="78"><img src="https://pub-76499eb758d942ca8ea20206de006180.r2.dev/backgrounds/thumbs/image-15.jpg" loading="lazy" decoding="async" alt=""></div><div class="bg-thumb" data-demo-idx="79"><img src="https://pub-76499eb758d942ca8ea20206de006180.r2.dev/backgrounds/thumbs/image-42.jpg" loading="lazy" decoding="async" alt=""></div><div class="bg-thumb" data-demo-idx="80"><img src="demos/demo-27.jpg" loading="lazy" decoding="async" alt=""></div><div class="bg-thumb" data-demo-idx="81"><img src="demos/demo-21.jpg" loading="lazy" decoding="async" alt=""></div><div class="bg-thumb" data-demo-idx="82"><img src="https://pub-76499eb758d942ca8ea20206de006180.r2.dev/backgrounds/thumbs/image-63.jpg" loading="lazy" decoding="async" alt=""></div><div class="bg-thumb" data-demo-idx="83"><img src="https://pub-76499eb758d942ca8ea20206de006180.r2.dev/backgrounds/thumbs/image-38.jpg" loading="lazy" decoding="async" alt=""></div><div class="bg-thumb" data-demo-idx="84"><img src="https://pub-76499eb758d942ca8ea20206de006180.r2.dev/backgrounds/thumbs/image-40.jpg" loading="lazy" decoding="async" alt=""></div><div class="bg-thumb" data-demo-idx="85"><img src="https://pub-76499eb758d942ca8ea20206de006180.r2.dev/backgrounds/thumbs/image-33.jpg" loading="lazy" decoding="async" alt=""></div><div class="bg-thumb" data-demo-idx="86"><img src="https://pub-76499eb758d942ca8ea20206de006180.r2.dev/backgrounds/thumbs/image-30.jpg" loading="lazy" decoding="async" alt=""></div><div class="bg-thumb" data-demo-idx="87"><img src="https://pub-76499eb758d942ca8ea20206de006180.r2.dev/backgrounds/thumbs/image-48.jpg" loading="lazy" decoding="async" alt=""></div><div class="bg-thumb" data-demo-idx="88"><img src="https://pub-76499eb758d942ca8ea20206de006180.r2.dev/backgrounds/thumbs/image-22.jpg" loading="lazy" decoding="async" alt=""></div><div class="bg-thumb" data-demo-idx="89"><img src="demos/demo-18.jpg" loading="lazy" decoding="async" alt=""></div><div class="bg-thumb" data-demo-idx="90"><img src="https://pub-76499eb758d942ca8ea20206de006180.r2.dev/backgrounds/thumbs/image-41.jpg" loading="lazy" decoding="async" alt=""></div><div class="bg-thumb" data-demo-idx="91"><img src="demos/demo-25.jpg" loading="lazy" decoding="async" alt=""></div><div class="bg-thumb" data-demo-idx="92"><img src="demos/demo-24.jpg" loading="lazy" decoding="async" alt=""></div><div class="bg-thumb" data-demo-idx="93"><img src="demos/demo-10.jpg" loading="lazy" decoding="async" alt=""></div><div class="bg-thumb bg-thumb-video" data-demo-idx="94"><img src="demos/demo-v2-thumb.jpg" loading="lazy" decoding="async" alt=""></div><div class="bg-thumb" data-demo-idx="95"><img src="https://pub-76499eb758d942ca8ea20206de006180.r2.dev/backgrounds/thumbs/image-50.jpg" loading="lazy" decoding="async" alt=""></div><div class="bg-thumb" data-demo-idx="96"><img src="demos/demo-30.jpg" loading="lazy" decoding="async" alt=""></div><div class="bg-thumb" data-demo-idx="97"><img src="https://pub-76499eb758d942ca8ea20206de006180.r2.dev/backgrounds/thumbs/image-13.jpg" loading="lazy" decoding="async" alt=""></div><div class="bg-thumb" data-demo-idx="98"><img src="https://pub-76499eb758d942ca8ea20206de006180.r2.dev/backgrounds/thumbs/image-18.jpg" loading="lazy" decoding="async" alt=""></div><div class="bg-thumb" data-demo-idx="99"><img src="https://pub-76499eb758d942ca8ea20206de006180.r2.dev/backgrounds/thumbs/image-7.jpg" loading="lazy" decoding="async" alt=""></div><div class="bg-thumb" data-demo-idx="100"><img src="https://pub-76499eb758d942ca8ea20206de006180.r2.dev/backgrounds/thumbs/image-11.jpg" loading="lazy" decoding="async" alt=""></div><div class="bg-thumb" data-demo-idx="101"><img src="demos/demo-3.jpg" loading="lazy" decoding="async" alt=""></div><div class="bg-thumb bg-thumb-video" data-demo-idx="102"><img src="demos/demo-v1-thumb.jpg" loading="lazy" decoding="async" alt=""></div><div class="bg-thumb" data-demo-idx="103"><img src="demos/demo-11.jpg" loading="lazy" decoding="async" alt=""></div><div class="bg-thumb" data-demo-idx="104"><img src="https://pub-76499eb758d942ca8ea20206de006180.r2.dev/backgrounds/thumbs/image-60.jpg" loading="lazy" decoding="async" alt=""></div><div class="bg-thumb" data-demo-idx="105"><img src="https://pub-76499eb758d942ca8ea20206de006180.r2.dev/backgrounds/thumbs/image-35.jpg" loading="lazy" decoding="async" alt=""></div><div class="bg-thumb" data-demo-idx="106"><img src="demos/demo-12.jpg" loading="lazy" decoding="async" alt=""></div><div class="bg-thumb" data-demo-idx="107"><img src="https://pub-76499eb758d942ca8ea20206de006180.r2.dev/backgrounds/thumbs/image-2.jpg" loading="lazy" decoding="async" alt=""></div></div>
+      <div id="bg-gallery" class="bg-gallery-grid"><div class="bg-thumb" data-demo-idx="1"><img src="https://pub-76499eb758d942ca8ea20206de006180.r2.dev/backgrounds/thumbs/image-55.jpg" loading="lazy" decoding="async" alt=""></div><div class="bg-thumb" data-demo-idx="2"><img src="https://pub-76499eb758d942ca8ea20206de006180.r2.dev/backgrounds/thumbs/image-14.jpg" loading="lazy" decoding="async" alt=""></div><div class="bg-thumb" data-demo-idx="3"><img src="https://pub-76499eb758d942ca8ea20206de006180.r2.dev/backgrounds/thumbs/image-28.jpg" loading="lazy" decoding="async" alt=""></div><div class="bg-thumb" data-demo-idx="4"><img src="demos/demo-31.jpg" loading="lazy" decoding="async" alt=""></div><div class="bg-thumb" data-demo-idx="5"><img src="demos/demo-2.jpg" loading="lazy" decoding="async" alt=""></div><div class="bg-thumb" data-demo-idx="6"><img src="https://pub-76499eb758d942ca8ea20206de006180.r2.dev/backgrounds/thumbs/image-25.jpg" loading="lazy" decoding="async" alt=""></div><div class="bg-thumb" data-demo-idx="7"><img src="demos/demo-22.jpg" loading="lazy" decoding="async" alt=""></div><div class="bg-thumb" data-demo-idx="8"><img src="https://pub-76499eb758d942ca8ea20206de006180.r2.dev/backgrounds/thumbs/image-58.jpg" loading="lazy" decoding="async" alt=""></div><div class="bg-thumb" data-demo-idx="9"><img src="demos/demo-17.jpg" loading="lazy" decoding="async" alt=""></div><div class="bg-thumb" data-demo-idx="10"><img src="https://pub-76499eb758d942ca8ea20206de006180.r2.dev/backgrounds/thumbs/image-8.jpg" loading="lazy" decoding="async" alt=""></div><div class="bg-thumb" data-demo-idx="11"><img src="https://pub-76499eb758d942ca8ea20206de006180.r2.dev/backgrounds/thumbs/image-56.jpg" loading="lazy" decoding="async" alt=""></div><div class="bg-thumb" data-demo-idx="12"><img src="https://pub-76499eb758d942ca8ea20206de006180.r2.dev/backgrounds/thumbs/image-39.jpg" loading="lazy" decoding="async" alt=""></div><div class="bg-thumb" data-demo-idx="13"><img src="https://pub-76499eb758d942ca8ea20206de006180.r2.dev/backgrounds/thumbs/image-6.jpg" loading="lazy" decoding="async" alt=""></div><div class="bg-thumb" data-demo-idx="14"><img src="demos/demo-28.jpg" loading="lazy" decoding="async" alt=""></div><div class="bg-thumb" data-demo-idx="15"><img src="demos/demo-20.jpg" loading="lazy" decoding="async" alt=""></div><div class="bg-thumb" data-demo-idx="16"><img src="https://pub-76499eb758d942ca8ea20206de006180.r2.dev/backgrounds/thumbs/image-62.jpg" loading="lazy" decoding="async" alt=""></div><div class="bg-thumb" data-demo-idx="17"><img src="https://pub-76499eb758d942ca8ea20206de006180.r2.dev/backgrounds/thumbs/image-12.jpg" loading="lazy" decoding="async" alt=""></div><div class="bg-thumb" data-demo-idx="18"><img src="https://pub-76499eb758d942ca8ea20206de006180.r2.dev/backgrounds/thumbs/image-31.jpg" loading="lazy" decoding="async" alt=""></div><div class="bg-thumb" data-demo-idx="19"><img src="https://pub-76499eb758d942ca8ea20206de006180.r2.dev/backgrounds/thumbs/image-54.jpg" loading="lazy" decoding="async" alt=""></div><div class="bg-thumb" data-demo-idx="20"><img src="https://pub-76499eb758d942ca8ea20206de006180.r2.dev/backgrounds/thumbs/image-51.jpg" loading="lazy" decoding="async" alt=""></div><div class="bg-thumb" data-demo-idx="21"><img src="https://pub-76499eb758d942ca8ea20206de006180.r2.dev/backgrounds/thumbs/image-29.jpg" loading="lazy" decoding="async" alt=""></div><div class="bg-thumb" data-demo-idx="22"><img src="demos/demo-15.jpg" loading="lazy" decoding="async" alt=""></div><div class="bg-thumb" data-demo-idx="23"><img src="demos/bg-1.jpg" loading="lazy" decoding="async" alt=""></div><div class="bg-thumb" data-demo-idx="24"><img src="demos/demo-1.jpg" loading="lazy" decoding="async" alt=""></div><div class="bg-thumb" data-demo-idx="25"><img src="demos/demo-16.jpg" loading="lazy" decoding="async" alt=""></div><div class="bg-thumb" data-demo-idx="26"><img src="https://pub-76499eb758d942ca8ea20206de006180.r2.dev/backgrounds/thumbs/image-37.jpg" loading="lazy" decoding="async" alt=""></div><div class="bg-thumb" data-demo-idx="27"><img src="https://pub-76499eb758d942ca8ea20206de006180.r2.dev/backgrounds/thumbs/image-66.jpg" loading="lazy" decoding="async" alt=""></div><div class="bg-thumb" data-demo-idx="28"><img src="https://pub-76499eb758d942ca8ea20206de006180.r2.dev/backgrounds/thumbs/image-47.jpg" loading="lazy" decoding="async" alt=""></div><div class="bg-thumb" data-demo-idx="29"><img src="https://pub-76499eb758d942ca8ea20206de006180.r2.dev/backgrounds/thumbs/image-49.jpg" loading="lazy" decoding="async" alt=""></div><div class="bg-thumb" data-demo-idx="30"><img src="https://pub-76499eb758d942ca8ea20206de006180.r2.dev/backgrounds/thumbs/image-36.jpg" loading="lazy" decoding="async" alt=""></div><div class="bg-thumb" data-demo-idx="31"><img src="demos/demo-14.jpg" loading="lazy" decoding="async" alt=""></div><div class="bg-thumb" data-demo-idx="32"><img src="demos/demo-8.jpg" loading="lazy" decoding="async" alt=""></div><div class="bg-thumb" data-demo-idx="33"><img src="https://pub-76499eb758d942ca8ea20206de006180.r2.dev/backgrounds/thumbs/image-46.jpg" loading="lazy" decoding="async" alt=""></div><div class="bg-thumb" data-demo-idx="34"><img src="https://pub-76499eb758d942ca8ea20206de006180.r2.dev/backgrounds/thumbs/image-27.jpg" loading="lazy" decoding="async" alt=""></div><div class="bg-thumb" data-demo-idx="35"><img src="https://pub-76499eb758d942ca8ea20206de006180.r2.dev/backgrounds/thumbs/image-68.jpg" loading="lazy" decoding="async" alt=""></div><div class="bg-thumb" data-demo-idx="36"><img src="demos/demo-19.jpg" loading="lazy" decoding="async" alt=""></div><div class="bg-thumb" data-demo-idx="37"><img src="demos/bg-2.jpg" loading="lazy" decoding="async" alt=""></div><div class="bg-thumb" data-demo-idx="38"><img src="https://pub-76499eb758d942ca8ea20206de006180.r2.dev/backgrounds/thumbs/image-34.jpg" loading="lazy" decoding="async" alt=""></div><div class="bg-thumb" data-demo-idx="39"><img src="https://pub-76499eb758d942ca8ea20206de006180.r2.dev/backgrounds/thumbs/image-17.jpg" loading="lazy" decoding="async" alt=""></div><div class="bg-thumb" data-demo-idx="40"><img src="https://pub-76499eb758d942ca8ea20206de006180.r2.dev/backgrounds/thumbs/image-61.jpg" loading="lazy" decoding="async" alt=""></div><div class="bg-thumb" data-demo-idx="41"><img src="https://pub-76499eb758d942ca8ea20206de006180.r2.dev/backgrounds/thumbs/image-71.jpg" loading="lazy" decoding="async" alt=""></div><div class="bg-thumb" data-demo-idx="42"><img src="https://pub-76499eb758d942ca8ea20206de006180.r2.dev/backgrounds/thumbs/image-16.jpg" loading="lazy" decoding="async" alt=""></div><div class="bg-thumb" data-demo-idx="43"><img src="demos/demo-6.jpg" loading="lazy" decoding="async" alt=""></div><div class="bg-thumb" data-demo-idx="44"><img src="https://pub-76499eb758d942ca8ea20206de006180.r2.dev/backgrounds/thumbs/image-45.jpg" loading="lazy" decoding="async" alt=""></div><div class="bg-thumb" data-demo-idx="45"><img src="https://pub-76499eb758d942ca8ea20206de006180.r2.dev/backgrounds/thumbs/image-24.jpg" loading="lazy" decoding="async" alt=""></div><div class="bg-thumb" data-demo-idx="46"><img src="https://pub-76499eb758d942ca8ea20206de006180.r2.dev/backgrounds/thumbs/image-9.jpg" loading="lazy" decoding="async" alt=""></div><div class="bg-thumb" data-demo-idx="47"><img src="https://pub-76499eb758d942ca8ea20206de006180.r2.dev/backgrounds/thumbs/image-4.jpg" loading="lazy" decoding="async" alt=""></div><div class="bg-thumb" data-demo-idx="48"><img src="https://pub-76499eb758d942ca8ea20206de006180.r2.dev/backgrounds/thumbs/image-64.jpg" loading="lazy" decoding="async" alt=""></div><div class="bg-thumb" data-demo-idx="49"><img src="demos/demo-7.jpg" loading="lazy" decoding="async" alt=""></div><div class="bg-thumb" data-demo-idx="50"><img src="demos/demo-13.jpg" loading="lazy" decoding="async" alt=""></div><div class="bg-thumb" data-demo-idx="51"><img src="https://pub-76499eb758d942ca8ea20206de006180.r2.dev/backgrounds/thumbs/image-43.jpg" loading="lazy" decoding="async" alt=""></div><div class="bg-thumb" data-demo-idx="52"><img src="https://pub-76499eb758d942ca8ea20206de006180.r2.dev/backgrounds/thumbs/image-69.jpg" loading="lazy" decoding="async" alt=""></div><div class="bg-thumb" data-demo-idx="53"><img src="demos/demo-9.jpg" loading="lazy" decoding="async" alt=""></div><div class="bg-thumb" data-demo-idx="54"><img src="demos/demo-29.jpg" loading="lazy" decoding="async" alt=""></div><div class="bg-thumb" data-demo-idx="55"><img src="https://pub-76499eb758d942ca8ea20206de006180.r2.dev/backgrounds/thumbs/image-10.jpg" loading="lazy" decoding="async" alt=""></div><div class="bg-thumb" data-demo-idx="56"><img src="https://pub-76499eb758d942ca8ea20206de006180.r2.dev/backgrounds/thumbs/image-67.jpg" loading="lazy" decoding="async" alt=""></div><div class="bg-thumb" data-demo-idx="57"><img src="https://pub-76499eb758d942ca8ea20206de006180.r2.dev/backgrounds/thumbs/image-26.jpg" loading="lazy" decoding="async" alt=""></div><div class="bg-thumb" data-demo-idx="58"><img src="https://pub-76499eb758d942ca8ea20206de006180.r2.dev/backgrounds/thumbs/image-3.jpg" loading="lazy" decoding="async" alt=""></div><div class="bg-thumb" data-demo-idx="59"><img src="demos/bg-3.jpg" loading="lazy" decoding="async" alt=""></div><div class="bg-thumb" data-demo-idx="60"><img src="https://pub-76499eb758d942ca8ea20206de006180.r2.dev/backgrounds/thumbs/image-57.jpg" loading="lazy" decoding="async" alt=""></div><div class="bg-thumb" data-demo-idx="61"><img src="demos/demo-23.jpg" loading="lazy" decoding="async" alt=""></div><div class="bg-thumb" data-demo-idx="62"><img src="https://pub-76499eb758d942ca8ea20206de006180.r2.dev/backgrounds/thumbs/image-23.jpg" loading="lazy" decoding="async" alt=""></div><div class="bg-thumb" data-demo-idx="63"><img src="https://pub-76499eb758d942ca8ea20206de006180.r2.dev/backgrounds/thumbs/image-65.jpg" loading="lazy" decoding="async" alt=""></div><div class="bg-thumb" data-demo-idx="64"><img src="https://pub-76499eb758d942ca8ea20206de006180.r2.dev/backgrounds/thumbs/image-5.jpg" loading="lazy" decoding="async" alt=""></div><div class="bg-thumb" data-demo-idx="65"><img src="https://pub-76499eb758d942ca8ea20206de006180.r2.dev/backgrounds/thumbs/image-53.jpg" loading="lazy" decoding="async" alt=""></div><div class="bg-thumb" data-demo-idx="66"><img src="https://pub-76499eb758d942ca8ea20206de006180.r2.dev/backgrounds/thumbs/image-44.jpg" loading="lazy" decoding="async" alt=""></div><div class="bg-thumb" data-demo-idx="67"><img src="demos/demo-5.jpg" loading="lazy" decoding="async" alt=""></div><div class="bg-thumb" data-demo-idx="68"><img src="https://pub-76499eb758d942ca8ea20206de006180.r2.dev/backgrounds/thumbs/image-20.jpg" loading="lazy" decoding="async" alt=""></div><div class="bg-thumb" data-demo-idx="69"><img src="https://pub-76499eb758d942ca8ea20206de006180.r2.dev/backgrounds/thumbs/image-32.jpg" loading="lazy" decoding="async" alt=""></div><div class="bg-thumb" data-demo-idx="70"><img src="https://pub-76499eb758d942ca8ea20206de006180.r2.dev/backgrounds/thumbs/image-52.jpg" loading="lazy" decoding="async" alt=""></div><div class="bg-thumb" data-demo-idx="71"><img src="demos/demo-26.jpg" loading="lazy" decoding="async" alt=""></div><div class="bg-thumb" data-demo-idx="72"><img src="demos/demo-4.jpg" loading="lazy" decoding="async" alt=""></div><div class="bg-thumb" data-demo-idx="73"><img src="https://pub-76499eb758d942ca8ea20206de006180.r2.dev/backgrounds/thumbs/image-19.jpg" loading="lazy" decoding="async" alt=""></div><div class="bg-thumb" data-demo-idx="74"><img src="https://pub-76499eb758d942ca8ea20206de006180.r2.dev/backgrounds/thumbs/image-70.jpg" loading="lazy" decoding="async" alt=""></div><div class="bg-thumb" data-demo-idx="75"><img src="https://pub-76499eb758d942ca8ea20206de006180.r2.dev/backgrounds/thumbs/image-1.jpg" loading="lazy" decoding="async" alt=""></div><div class="bg-thumb" data-demo-idx="76"><img src="https://pub-76499eb758d942ca8ea20206de006180.r2.dev/backgrounds/thumbs/image-21.jpg" loading="lazy" decoding="async" alt=""></div><div class="bg-thumb" data-demo-idx="77"><img src="https://pub-76499eb758d942ca8ea20206de006180.r2.dev/backgrounds/thumbs/image-59.jpg" loading="lazy" decoding="async" alt=""></div><div class="bg-thumb" data-demo-idx="78"><img src="https://pub-76499eb758d942ca8ea20206de006180.r2.dev/backgrounds/thumbs/image-15.jpg" loading="lazy" decoding="async" alt=""></div><div class="bg-thumb" data-demo-idx="79"><img src="https://pub-76499eb758d942ca8ea20206de006180.r2.dev/backgrounds/thumbs/image-42.jpg" loading="lazy" decoding="async" alt=""></div><div class="bg-thumb" data-demo-idx="80"><img src="demos/demo-27.jpg" loading="lazy" decoding="async" alt=""></div><div class="bg-thumb" data-demo-idx="81"><img src="demos/demo-21.jpg" loading="lazy" decoding="async" alt=""></div><div class="bg-thumb" data-demo-idx="82"><img src="https://pub-76499eb758d942ca8ea20206de006180.r2.dev/backgrounds/thumbs/image-63.jpg" loading="lazy" decoding="async" alt=""></div><div class="bg-thumb" data-demo-idx="83"><img src="https://pub-76499eb758d942ca8ea20206de006180.r2.dev/backgrounds/thumbs/image-38.jpg" loading="lazy" decoding="async" alt=""></div><div class="bg-thumb" data-demo-idx="84"><img src="https://pub-76499eb758d942ca8ea20206de006180.r2.dev/backgrounds/thumbs/image-40.jpg" loading="lazy" decoding="async" alt=""></div><div class="bg-thumb" data-demo-idx="85"><img src="https://pub-76499eb758d942ca8ea20206de006180.r2.dev/backgrounds/thumbs/image-33.jpg" loading="lazy" decoding="async" alt=""></div><div class="bg-thumb" data-demo-idx="86"><img src="https://pub-76499eb758d942ca8ea20206de006180.r2.dev/backgrounds/thumbs/image-30.jpg" loading="lazy" decoding="async" alt=""></div><div class="bg-thumb" data-demo-idx="87"><img src="https://pub-76499eb758d942ca8ea20206de006180.r2.dev/backgrounds/thumbs/image-48.jpg" loading="lazy" decoding="async" alt=""></div><div class="bg-thumb" data-demo-idx="88"><img src="https://pub-76499eb758d942ca8ea20206de006180.r2.dev/backgrounds/thumbs/image-22.jpg" loading="lazy" decoding="async" alt=""></div><div class="bg-thumb" data-demo-idx="89"><img src="demos/demo-18.jpg" loading="lazy" decoding="async" alt=""></div><div class="bg-thumb" data-demo-idx="90"><img src="https://pub-76499eb758d942ca8ea20206de006180.r2.dev/backgrounds/thumbs/image-41.jpg" loading="lazy" decoding="async" alt=""></div><div class="bg-thumb" data-demo-idx="91"><img src="demos/demo-25.jpg" loading="lazy" decoding="async" alt=""></div><div class="bg-thumb" data-demo-idx="92"><img src="demos/demo-24.jpg" loading="lazy" decoding="async" alt=""></div><div class="bg-thumb" data-demo-idx="93"><img src="demos/demo-10.jpg" loading="lazy" decoding="async" alt=""></div><div class="bg-thumb" data-demo-idx="95"><img src="https://pub-76499eb758d942ca8ea20206de006180.r2.dev/backgrounds/thumbs/image-50.jpg" loading="lazy" decoding="async" alt=""></div><div class="bg-thumb" data-demo-idx="96"><img src="demos/demo-30.jpg" loading="lazy" decoding="async" alt=""></div><div class="bg-thumb" data-demo-idx="97"><img src="https://pub-76499eb758d942ca8ea20206de006180.r2.dev/backgrounds/thumbs/image-13.jpg" loading="lazy" decoding="async" alt=""></div><div class="bg-thumb" data-demo-idx="98"><img src="https://pub-76499eb758d942ca8ea20206de006180.r2.dev/backgrounds/thumbs/image-18.jpg" loading="lazy" decoding="async" alt=""></div><div class="bg-thumb" data-demo-idx="99"><img src="https://pub-76499eb758d942ca8ea20206de006180.r2.dev/backgrounds/thumbs/image-7.jpg" loading="lazy" decoding="async" alt=""></div><div class="bg-thumb" data-demo-idx="100"><img src="https://pub-76499eb758d942ca8ea20206de006180.r2.dev/backgrounds/thumbs/image-11.jpg" loading="lazy" decoding="async" alt=""></div><div class="bg-thumb" data-demo-idx="101"><img src="demos/demo-3.jpg" loading="lazy" decoding="async" alt=""></div><div class="bg-thumb" data-demo-idx="103"><img src="demos/demo-11.jpg" loading="lazy" decoding="async" alt=""></div><div class="bg-thumb" data-demo-idx="104"><img src="https://pub-76499eb758d942ca8ea20206de006180.r2.dev/backgrounds/thumbs/image-60.jpg" loading="lazy" decoding="async" alt=""></div><div class="bg-thumb" data-demo-idx="105"><img src="https://pub-76499eb758d942ca8ea20206de006180.r2.dev/backgrounds/thumbs/image-35.jpg" loading="lazy" decoding="async" alt=""></div><div class="bg-thumb" data-demo-idx="106"><img src="demos/demo-12.jpg" loading="lazy" decoding="async" alt=""></div><div class="bg-thumb" data-demo-idx="107"><img src="https://pub-76499eb758d942ca8ea20206de006180.r2.dev/backgrounds/thumbs/image-2.jpg" loading="lazy" decoding="async" alt=""></div></div>
       <button id="bg-viewall" class="bg-viewall-btn" type="button">
         <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect></svg>
         View all
@@ -2501,7 +2434,6 @@
           <option value="braille">Braille</option>
           <option value="3d">Voxel (Cube)</option>
           <!-- <option value="shapes">Shapes</option> -->
-          <option value="disco">Disco ✨</option>
         </select>
       </div>
     </div>
@@ -2850,30 +2782,6 @@
       <label>Angle</label>
       <div class="right"><input type="range" id="ditherAngle" min="0" max="180" value="0"><span class="value" id="ditherAngle-val">0°</span></div>
     </div>
-    <div class="control-row" id="dither-animate-row">
-      <label>Animate Matrix</label>
-      <div class="right" style="justify-content:flex-end"><div class="toggle" id="ditherAnimateToggle"></div></div>
-    </div>
-    <div class="control-row" id="dither-animdir-row" style="display:none">
-      <label>Direction</label>
-      <div class="right">
-        <select id="ditherAnimDir" style="background-image: url(&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' fill='none' stroke='%23999' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E&quot;);">
-          <option value="right">→ Right</option>
-          <option value="left">← Left</option>
-          <option value="down">↓ Down</option>
-          <option value="up">↑ Up</option>
-          <option value="downright">↘ Down-right</option>
-          <option value="downleft">↙ Down-left</option>
-          <option value="upright">↗ Up-right</option>
-          <option value="upleft">↖ Up-left</option>
-          <option value="shimmer">✦ Shimmer (in place)</option>
-        </select>
-      </div>
-    </div>
-    <div class="control-row" id="dither-animspeed-row" style="display:none">
-      <label>Speed</label>
-      <div class="right"><input type="range" id="ditherAnimSpeed" min="1" max="10" value="4"><span class="value" id="ditherAnimSpeed-val">4</span></div>
-    </div>
   </div>
 
   <!-- ASCII Intensity -->
@@ -2916,53 +2824,6 @@
     </div>
   </div>
 
-
-  <!-- Animation -->
-  <div class="panel-section" id="animation-section">
-    <h3>Animation</h3>
-    <div class="control-row">
-      <label>Animated ASCII</label>
-      <div class="right">
-        <div class="toggle" id="animToggle"></div>
-      </div>
-    </div>
-    <div id="anim-controls" style="display:none">
-      <div class="control-row">
-        <label>Animation Style</label>
-        <div class="right">
-          <select id="animPreset" style="background-image: url(&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' fill='none' stroke='%23999' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E&quot;);">
-            <option value="wave">Wave</option>
-            <option value="cascade-lr">Cascade Left → Right</option>
-            <option value="cascade-rl">Cascade Right → Left</option>
-            <option value="cascade-tb">Cascade Top → Bottom</option>
-            <option value="reveal">Reveal</option>
-            <option value="pulse">Pulse</option>
-          </select>
-        </div>
-      </div>
-      <div class="control-row">
-        <label>Speed</label>
-        <div class="right">
-          <input type="range" id="animSpeed" min="1000" max="8000" value="3000" step="100">
-          <span class="value" id="animSpeed-val">3.0s</span>
-        </div>
-      </div>
-      <div class="control-row">
-        <label>Intensity</label>
-        <div class="right">
-          <input type="range" id="animIntensity" min="0" max="100" value="60">
-          <span class="value" id="animIntensity-val">60%</span>
-        </div>
-      </div>
-      <div class="control-row">
-        <label>Randomness</label>
-        <div class="right">
-          <input type="range" id="animRandomness" min="0" max="100" value="50">
-          <span class="value" id="animRandomness-val">50%</span>
-        </div>
-      </div>
-    </div>
-  </div>
 
   <!-- Point Lights -->
   <div class="panel-section" id="lights-section">
@@ -3232,11 +3093,8 @@
   <div class="about-content">
     <!-- Hero (top card with looping video + title + close) -->
     <div class="about-hero">
-      <!-- Video is lazy-loaded: data-src is only assigned to .src when the
-           modal opens, and cleared when it closes (see JS below) so the
-           bytes are never fetched on page load. Static .jpg poster is the
-           same first frame, used for OG/Twitter and as a fallback. -->
-      <video class="about-hero-media" id="about-hero-video" data-src="/about-hero.mp4" loop="" muted="" playsinline="" preload="none" poster="/about-hero.jpg" aria-hidden="true"></video>
+      <!-- Static hero image (image-only build: promo video removed) -->
+      <img class="about-hero-media ready" id="about-hero-video" src="/about-hero.jpg" alt="" aria-hidden="true">
       <button class="about-close-x" id="about-close" aria-label="Close">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
       </button>
@@ -3328,7 +3186,6 @@
       <div class="bg-tray-pills" id="bg-tray-pills">
         <button class="bg-pill active" type="button" data-filter="all">All</button>
         <button class="bg-pill" type="button" data-filter="image">Images</button>
-        <button class="bg-pill" type="button" data-filter="video">Videos</button>
       </div>
     </div>
     <div id="bg-tray-grid" class="bg-tray-grid"></div>
@@ -3445,7 +3302,42 @@
 
   
   <script>
-    
+// ---- Image-only build compatibility shim ----
+// Video / animation UI has been removed from the DOM. This recreates the
+// removed control nodes as hidden, inert stubs so residual wiring code
+// (addEventListener, .value, .style, .classList) resolves without throwing.
+// These stubs are never surfaced and video ingest is blocked at the entry
+// point (accept="image/*" + drop handler rejects video), so the app is
+// effectively image-only. A full code-level purge can follow later.
+(function installImageOnlyStubs() {
+  const holder = document.createElement('div');
+  holder.id = '__removed-controls-stub__';
+  holder.style.display = 'none';
+  holder.setAttribute('aria-hidden', 'true');
+  const stubs = [
+    ['animToggle','div',''],['animPreset','select','wave'],['animSpeed','input','3000'],
+    ['animIntensity','input','60'],['animRandomness','input','50'],
+    ['animSpeed-val','span',''],['animIntensity-val','span',''],['animRandomness-val','span',''],
+    ['anim-controls','div',''],
+    ['ditherAnimateToggle','div',''],['ditherAnimDir','select','right'],
+    ['ditherAnimSpeed','input','4'],['ditherAnimSpeed-val','span',''],
+    ['dither-animate-row','div',''],['dither-animdir-row','div',''],['dither-animspeed-row','div',''],
+    ['playback-section','div',''],['anim-export-section','div',''],
+    ['btn-play','div',''],['btn-stop','div',''],
+    ['videoSeek','input','0'],['videoSeek-val','span',''],['videoSpeed','select','1'],
+    ['fps-display','span',''],['animDuration','select','5'],['animFPS','select','30'],
+  ];
+  for (const [id, tag, val] of stubs) {
+    if (document.getElementById(id)) continue;
+    const el = document.createElement(tag);
+    el.id = id;
+    if (tag === 'select') { const o = document.createElement('option'); o.value = val; o.selected = true; el.appendChild(o); }
+    else if (val !== '') { el.value = val; }
+    holder.appendChild(el);
+  }
+  (document.body || document.documentElement).appendChild(holder);
+})();
+
 // ---- Analytics helpers ----
 // Thin wrapper, safe no-op if PostHog is blocked / unloaded.
 function track(event, props) {
@@ -3672,7 +3564,9 @@ function _nextExportName(ext) {
   try { localStorage.setItem('ascii-magic-export-counter', String(n)); } catch (e) {}
   return `ascii-magic-${n}.${ext}`;
 }
-const videoEl = document.getElementById('source-video');
+// Image-only build: source-video element removed from DOM. Use a detached
+// <video> as a harmless fallback so any residual videoEl.* calls are no-ops.
+const videoEl = document.getElementById('source-video') || document.createElement('video');
 
 // Offscreen canvas for pixel sampling
 const offscreen = document.createElement('canvas');
@@ -3759,18 +3653,9 @@ function handleFile(file) {
   const sizeMB = file.size / 1024 / 1024;
 
   if (isVideo) {
-    if (file.size > UPLOAD_MAX_VIDEO_BYTES) {
-      const limitMB = Math.round(UPLOAD_MAX_VIDEO_BYTES / 1024 / 1024);
-      alert(
-        `This video can't be uploaded.\n\n` +
-        `Your file:\n` +
-        `  • File size: ${sizeMB.toFixed(1)} MB  ✗ (too large)\n\n` +
-        `Upload limits:\n` +
-        `  • Max file size: ${limitMB} MB\n\n` +
-        `Please use a smaller file.`
-      );
-      return;
-    }
+    // Image-only build: video ingest is disabled.
+    alert('Videos are not supported.\n\nThis tool converts images to ASCII art. Please upload an image file (JPG, PNG, WebP, GIF).');
+    return;
   } else {
     // Hard ceiling: fast-reject genuinely absurd image files before attempting
     // to decode (multi-GB drops would OOM the tab during decode).
@@ -8633,11 +8518,7 @@ const demos = [
   { type: 'image', src: 'demos/demo-29.jpg', settings: { fontSize: 10, pfx: { vignette:{enabled:true,intensity:50}, scanLines:{enabled:true,intensity:32}, crtCurve:{enabled:true,intensity:28} } } },
   { type: 'image', src: 'demos/demo-30.jpg', settings: { renderMode: 'dither', ditherAlgo: 'sierraLite', ditherPalette: 'mono',    ditherScale: 2, ditherContrast: 140 } },
   { type: 'image', src: 'demos/demo-31.jpg', settings: { renderMode: 'braille' } },
-  // Videos pin to Dots in Inspire, smooth on motion and avoids lego (flagged)
-  // / heavy per-frame error-diffusion. Gallery clicks still keep the prior style.
-  { type: 'video', src: 'demos/demo-v1.mp4', thumb: 'demos/demo-v1-thumb.jpg', inspire: { renderMode: 'dots', fontSize: 7, bgBlur: 0 } },
-  { type: 'video', src: 'demos/demo-v2.mp4', thumb: 'demos/demo-v2-thumb.jpg', settings: { renderMode: 'dots', fontSize: 6 }, inspire: { renderMode: 'dots', fontSize: 6, bgBlur: 0 } },
-  { type: 'video', src: 'demos/demo-v3.mp4', thumb: 'demos/demo-v3-thumb.jpg', settings: { bgBlur: 3, fontSize: 12 }, inspire: { renderMode: 'dots', fontSize: 8, bgBlur: 0 } },
+  // Image-only build: video demos removed.
   // Curated backgrounds with bundled presets. `preset: true` means INSPIRE
   // clicks apply the full preset (Style + animation + sizing); gallery
   // clicks still only swap the image (Style is preserved). Filenames are
@@ -9490,28 +9371,11 @@ function openAbout() {
   track('about_opened');
   closeMenu();
   aboutModal.classList.add('open');
-  if (aboutVideo && !aboutVideo.src) {
-    aboutVideo.src = aboutVideo.dataset.src;          // triggers fetch
-    aboutVideo.load();
-    // Fade in once the first frame is decoded
-    const onReady = () => { aboutVideo.classList.add('ready'); };
-    aboutVideo.addEventListener('loadeddata', onReady, { once: true });
-    // Best-effort autoplay (muted + playsinline → allowed everywhere)
-    aboutVideo.play().catch(() => {});
-  } else if (aboutVideo) {
-    aboutVideo.play().catch(() => {});
-  }
+  // Image-only build: hero media is a static <img>, nothing to play.
+  if (aboutVideo) aboutVideo.classList.add('ready');
 }
 function closeAbout() {
   aboutModal.classList.remove('open');
-  if (aboutVideo) {
-    aboutVideo.pause();
-    aboutVideo.classList.remove('ready');
-    // Drop the src so the browser releases the buffered bytes from memory.
-    // Next open will re-fetch (cached by the HTTP layer if visited recently).
-    aboutVideo.removeAttribute('src');
-    aboutVideo.load();
-  }
 }
 document.getElementById('menu-privacy').addEventListener('click', () => { track('privacy_opened'); });
 document.getElementById('menu-about').addEventListener('click', openAbout);
@@ -10291,7 +10155,7 @@ const STYLE_PRESETS = [
   // Pixel Pop → r7: pixel mode, solid bg, light post-pixelate on the rainbow scream.
   { name:'Pixel Pop',   source:R2BG+'image-20.jpg',       thumb:'/demos/recipes/r7.jpg',  tint:'linear-gradient(135deg,#ff5e7e,#5b3bff)', recipe:{ renderMode:'pixel', fontSize:16, bgMode:'solid', bgBlur:2, brightness:12, pfx:{ pixelate:{size:5} } } },
   // Mosaic → r8: mosaic tiles on the blooming-flower video (animated).
-  { name:'Mosaic',      source:'/demos/demo-v2.mp4',      thumb:'/demos/recipes/mosaic.jpg', tint:'linear-gradient(135deg,#ff3cac,#3bd0ff)', recipe:{ renderMode:'mosaic', fontSize:16, bgMode:'solid', bgBlur:2, brightness:12, pfx:{ pixelate:{size:5} } } },
+  { name:'Mosaic',      source:'/demos/demo-2.jpg',      thumb:'/demos/recipes/mosaic.jpg', tint:'linear-gradient(135deg,#ff3cac,#3bd0ff)', recipe:{ renderMode:'mosaic', fontSize:16, bgMode:'solid', bgBlur:2, brightness:12, pfx:{ pixelate:{size:5} } } },
   // Inferno → r9: dots, red overlay, vignette + bloom on the desk/fire scene.
   { name:'Inferno',     source:R2BG+'image-69.jpg',       thumb:'/demos/recipes/r9.jpg',  tint:'linear-gradient(135deg,#ff3b1f,#3a0a00)', recipe:{ renderMode:'dots', fontSize:10, overlayColor:'#ff3b1f', overlayOpacity:32, overlayBlend:'overlay', pfx:{ vignette:{enabled:true,intensity:55}, bloom:{enabled:true,intensity:45} } } },
   { name:'Acid',        source:'/demos/demo-35.jpg',      thumb:'/demos/recipes/acid.jpg',     tint:'linear-gradient(135deg,#aaff00,#1a2a00)', recipe:{ renderMode:'characters', fontSize:9, overlayColor:'#aaff00', overlayOpacity:36, overlayBlend:'overlay', pfx:{ scanLines:{enabled:true,intensity:24}, chromatic:{enabled:true,offset:4} } } },

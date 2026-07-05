@@ -1,0 +1,2377 @@
+<link href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700&amp;display=swap" rel="stylesheet">
+<style>
+  /* ============================================================
+     Self-hosted Geist Pixel, the display face used across the design
+     ============================================================ */
+  @font-face {
+    font-family: "GeistPixel-Square";
+    src: url("/landing-assets/fonts/GeistPixel-Square.woff2") format("woff2"),
+         url("/landing-assets/fonts/GeistPixel-Square.ttf") format("truetype");
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  /* ============================================================
+     Design tokens, derived directly from Paper computed styles
+     ============================================================ */
+  :root {
+    --bg:            #040406;
+    --bg-elevated:   color(display-p3 0.016 0.016 0.023);
+    --border-faint:  color(display-p3 0.102 0.102 0.109);
+    --border:        rgba(255, 255, 255, 0.10);
+    --border-active: #FFFFFF;
+    --text:          #FFFFFF;
+    --text-80:       rgba(255, 255, 255, 0.8);
+    --text-70:       rgba(255, 255, 255, 0.7);
+    --text-50:       rgba(255, 255, 255, 0.5);
+    --text-40:       rgba(255, 255, 255, 0.4);
+    --accent:        #FFFFFF;
+    --accent-text:   #040406;
+    --font-display:  "GeistPixel-Square", ui-monospace, "SF Mono", Menlo, monospace;
+    --font-body:     "Satoshi", "Satoshi-Regular", system-ui, -apple-system, "Segoe UI", sans-serif;
+    /* Layout, content runs rail-to-rail.
+       --max-w  is the artboard width (1728).
+       --side-pad is the gap from viewport edge to rail/content edge (129).
+       --content-w is the gap between rails = max-w - 2*side-pad = 1470px.
+       Used for bordered "card" sections (Ask AI, Recipes, CTA panel) so the
+       border sits exactly at the rail position, no extra padding outside. */
+    --max-w:         1728px;
+    --side-pad:      129px;
+    --content-w:     1470px;
+    /* Text inset, text headings/descriptions get internal padding INSIDE the
+       rail-to-rail area so they don't visually touch the rails. Cards / grids /
+       tickers leave this off and run rail-to-rail. */
+    --text-inset:    47px;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; }
+
+  /* Site-wide text selection, branded dark gray instead of the default
+     OS blue. Applies anywhere a user drags to highlight text. */
+  ::selection      { background: #353535; color: #FFFFFF; }
+  ::-moz-selection { background: #353535; color: #FFFFFF; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-body);
+    font-size: 16px;
+    line-height: 20px;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+    position: relative;
+  }
+
+  /* ============================================================
+     STRUCTURAL SIDE RAILS, two faint vertical 2px lines that run
+     the full page height. They sit ABOVE section content so an image
+     that visually reaches the rail position doesn't hide the rail.
+     ============================================================ */
+  .rails {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 5;                          /* on top of section content (z:2) */
+    max-width: 1728px;
+    margin: 0 auto;
+    left: 0; right: 0;
+  }
+  .rails::before, .rails::after {
+    content: "";
+    position: absolute;
+    top: 0; bottom: 0;
+    width: 2px;
+    background: #DDDDDD;
+    opacity: 0.10;
+  }
+  .rails::before { left: var(--side-pad); }
+  .rails::after  { right: var(--side-pad); }
+  /* Section content sits at z:2 (below the rails, above the page bg).
+     .hero is intentionally NOT in this z-index list, keeping it as
+     position:relative with auto z-index means .hero__textblock's
+     z-index:7 escapes hero and reaches body's stacking context, where
+     it paints OVER the rails (z-index 5). The slider area inside hero
+     has no z-index so the rails still paint on top of it. Net result:
+     rails are continuous on the slider but break in the textblock band. */
+  .nav, .section, .footer { position: relative; z-index: 2; }
+  .hero { position: relative; }
+
+  /* Horizontal section dividers.
+     Hero dividers span the FULL viewport so the rails appear to be "cut"
+     at the bottom of the hero (this is the look the user wants for s1).
+     All OTHER section + footer dividers are contained WITHIN the rails so
+     the rails appear continuous past every other section boundary. */
+  .hero__slider-wrap,
+  .hero__textblock,
+  .section,
+  .footer {
+    position: relative;
+  }
+  /* Hero dividers, full viewport width, cross the rails.
+     z-index 9 so they sit ABOVE both the slider video (z:auto) AND the
+     side rails (z:5) AND the pills (z:8). This makes the rails appear
+     visually "contained" by a clear horizontal line at the slider's
+     bottom edge, the line is on top of the video, the rails meet it
+     cleanly, and the textblock sits below. */
+  .hero__slider-wrap::after,
+  .hero__textblock::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    transform: translateX(-50%);
+    width: 100vw;
+    height: 1px;
+    background: rgba(221, 221, 221, 0.10);
+    pointer-events: none;
+    z-index: 9;
+  }
+  /* Other section + footer dividers, start at left rail, end at right rail.
+     The math: at viewport > 1728 the rails sit inside a centered 1728 box;
+     at viewport <= 1728 the rails sit at --side-pad from each viewport edge.
+     max() picks whichever is larger so the divider ALWAYS aligns to the rail. */
+  .section::after,
+  .footer::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    height: 1px;
+    background: rgba(221, 221, 221, 0.10);
+    pointer-events: none;
+    z-index: 6;
+    left:  max(var(--side-pad), calc((100vw - 1728px) / 2 + var(--side-pad)));
+    right: max(var(--side-pad), calc((100vw - 1728px) / 2 + var(--side-pad)));
+  }
+  a { color: inherit; text-decoration: none; }
+  button { font-family: inherit; cursor: pointer; }
+
+  /* NAV, transparent, thin 1px bottom border (acts as the slider's top frame). */
+  .nav {
+    position: sticky; top: 0; z-index: 100;
+    height: 64px;                                /* compact nav */
+    background: transparent;
+    border-bottom: 1px solid rgba(221, 221, 221, 0.10);
+    transition: background 0.2s, backdrop-filter 0.2s;
+  }
+  body.scrolled .nav {
+    background: rgba(4, 4, 6, 0.78);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+  }
+  /* Nav inner: rail-to-rail (--side-pad) PLUS 27px internal so the logo and
+     CTA don't touch the rails (matches Paper 1HT-0 left:26, CTA right edge
+     ~31px from rail). */
+  .nav__inner {
+    max-width: var(--max-w);
+    height: 100%;
+    margin: 0 auto;
+    padding: 0 calc(var(--side-pad) + 27px);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 32px;
+    position: relative;
+  }
+  .nav__brand {
+    display: inline-flex; align-items: center;
+    height: 28px;
+    flex: 0 0 auto;
+  }
+  .nav__brand img {
+    height: 24px;
+    width: auto;
+    display: block;
+  }
+  .nav__links {
+    display: flex; align-items: center; gap: 36px;
+    font-family: var(--font-body);
+    font-size: 14px; line-height: 20px;
+    color: var(--text);
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  .nav__links a { transition: opacity 0.15s; white-space: nowrap; opacity: 0.85; }
+  .nav__links a:hover { opacity: 1; }
+  /* Tools dropdown, CSS-only hover/focus, shared across all pages */
+  .nav__dd { position: relative; display: inline-flex; align-items: center; }
+  .nav__dd-btn { font-family: inherit; font-size: inherit; line-height: inherit; color: var(--text); background: none; border: 0; padding: 0; cursor: pointer; display: inline-flex; align-items: center; gap: 5px; opacity: 0.85; transition: opacity 0.15s; white-space: nowrap; }
+  .nav__dd:hover .nav__dd-btn, .nav__dd:focus-within .nav__dd-btn { opacity: 1; }
+  .nav__dd-btn svg { width: 11px; height: 11px; transition: transform 0.2s; }
+  .nav__dd:hover .nav__dd-btn svg, .nav__dd:focus-within .nav__dd-btn svg { transform: rotate(180deg); }
+  .nav__dd-menu { position: absolute; top: 100%; left: 50%; transform: translateX(-50%); padding-top: 14px; display: none; z-index: 200; }
+  .nav__dd:hover .nav__dd-menu, .nav__dd:focus-within .nav__dd-menu { display: block; }
+  .nav__dd-menu-inner { background: #0b0b0e; border: 1px solid var(--border); min-width: 214px; padding: 6px; display: flex; flex-direction: column; gap: 2px; box-shadow: 0 12px 32px rgba(0,0,0,0.5); }
+  .nav__dd-menu a, .nav__dd-soon { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 9px 11px; font-family: var(--font-body); font-size: 13px; color: var(--text); opacity: 0.85; white-space: nowrap; transition: background 0.15s, opacity 0.15s; }
+  .nav__dd-menu a:hover { opacity: 1; background: rgba(255,255,255,0.06); }
+  .nav__dd-soon { opacity: 0.4; cursor: not-allowed; }
+  .nav__dd-soon em { font-style: normal; font-size: 9px; letter-spacing: 0.08em; text-transform: uppercase; border: 1px solid var(--border); padding: 2px 6px; opacity: 0.8; }
+  /* Nav CTA: tab (3×28) + button (28 tall, tight padding). Button MUST stay
+     the same height as the tab line, they read as one piece visually. */
+  .nav__cta { display: inline-flex; align-items: center; height: 28px; gap: 2px; flex: 0 0 auto; }
+  .nav__cta-tab { width: 3px; height: 28px; background: var(--text); flex: 0 0 3px; }
+  .nav__cta-btn {
+    height: 28px;
+    background: var(--text);
+    color: var(--accent-text);
+    padding: 0 12px;
+    border: 0;
+    display: inline-flex; align-items: center;
+    font-family: var(--font-display);
+    font-size: 13px; line-height: 1;
+    transition: background 0.15s;
+    text-decoration: none;
+    white-space: nowrap;
+  }
+  .nav__cta-btn:hover { background: rgba(255, 255, 255, 0.92); }
+
+  /* Hamburger button, hidden on desktop, shown at ≤1100px.
+     Sits at z-index 250 (ABOVE the mobile menu overlay at z:200) so
+     when the menu is open the button stays clickable and animates from
+     ☰ to ✕, the X IS the close button. */
+  .nav__hamburger {
+    display: none;                  /* desktop: hidden */
+    background: transparent;
+    border: 0;
+    padding: 8px;
+    cursor: pointer;
+    width: 40px; height: 40px;
+    flex: 0 0 40px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    /* 20px from the Open-tool CTA, they read as a paired group on the
+       right of the nav (separated from the brand by auto-space). */
+    margin-left: 20px;
+    position: relative;
+    z-index: 250;
+  }
+  .nav__hamburger-bar {
+    width: 22px;
+    height: 1.5px;
+    background: var(--text);
+    transition: transform 0.22s ease, opacity 0.18s ease;
+    transform-origin: center;
+  }
+  body.menu-open .nav__hamburger-bar:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+  body.menu-open .nav__hamburger-bar:nth-child(2) { opacity: 0; }
+  body.menu-open .nav__hamburger-bar:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+  /* Mobile menu overlay, full-viewport, slides in from the right. */
+  .mobile-menu {
+    position: fixed;
+    inset: 0;
+    z-index: 200;
+    background: rgba(4, 4, 6, 0.98);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 24px 32px;
+    gap: 32px;
+    transform: translateX(100%);
+    opacity: 0;
+    transition: transform 0.28s ease, opacity 0.2s ease;
+    pointer-events: none;
+  }
+  .mobile-menu.open {
+    transform: translateX(0);
+    opacity: 1;
+    pointer-events: auto;
+  }
+  .mobile-menu__nav {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    font-family: var(--font-display);
+    font-size: 24px;
+    line-height: 1.2;
+    color: var(--text);
+    width: 100%;
+  }
+  .mobile-menu__nav a {
+    color: var(--text);
+    text-decoration: none;
+    padding: 6px 0;
+  }
+  .mobile-menu__cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 2px;
+    height: 36px;
+    margin-top: 12px;
+  }
+  .mobile-menu__cta .nav__cta-tab { height: 36px; }
+  .mobile-menu__cta .nav__cta-btn { height: 36px; font-size: 14px; padding: 0 16px; }
+  /* Big, obvious X in the top-right of the overlay. Independent of the
+     nav hamburger so it's always findable. */
+  .mobile-menu__close {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    width: 44px; height: 44px;
+    background: transparent;
+    border: 1px solid rgba(255,255,255,0.2);
+    color: var(--text);
+    display: inline-flex; align-items: center; justify-content: center;
+    cursor: pointer;
+    transition: background 0.15s, border-color 0.15s;
+  }
+  .mobile-menu__close:hover { background: rgba(255,255,255,0.06); border-color: rgba(255,255,255,0.5); }
+  .mobile-menu__close svg { width: 22px; height: 22px; }
+
+  /* HERO, order: slider → title+CTAs row → subtitle (matches Paper layout) */
+  .hero {
+    position: relative;
+    padding: 0 var(--side-pad);
+    max-width: 1728px;
+    margin: 0 auto;
+  }
+  /* Slider sits flush under nav per design (top: 108 in Paper, nav height 108) */
+  .hero .slider { margin-top: 0; }
+  /* Hero sub-blocks get bottom horizontal dividers (the rails get "cut" by them). */
+  .hero__slider-wrap { padding-bottom: 0; }
+  /* Hero textblock covers the rails behind it (z:7 > rails z:5) with a black
+     background, so rails stop at the slider bottom and DON'T continue
+     through the title/subtitle/CTA area per the design.
+     `display: flow-root` is intentional: it creates a new block formatting
+     context so the textrow's `margin-top: 41px` stays INSIDE the textblock
+     instead of margin-collapsing out the top. Without this, the textblock's
+     painted background started 41px below the slider, leaving a thin
+     band where the right rail showed through. */
+  .hero__textblock {
+    display: flow-root;
+    padding: 0 0 56px;
+    position: relative;
+    z-index: 7;
+    background: var(--bg);
+  }
+
+  .hero__textrow {
+    display: grid;
+    /* Title gets enough room for the longest 2nd line. Longest now is
+       "and videos into {Animated ASCII}" ≈ 32ch at 64px mono ≈ 1230px.
+       Cap at 1280px so the CTAs still get their column at desktop widths. */
+    grid-template-columns: minmax(0, 1280px) 1fr auto;
+    align-items: start;            /* CTAs align to TOP of title, not center */
+    column-gap: 48px;
+    margin-top: 41px;
+    padding: 0 var(--text-inset);
+  }
+  /* (Button TOP-alignment is handled below via align-self:start) */
+  .hero__subtitle-wrap { padding: 0 var(--text-inset); }
+  .hero__title {
+    grid-column: 1;
+    font-family: var(--font-display);
+    font-weight: 400;
+    /* Fluid title scale.
+       - Desktop ≥1500vw: 64px ceiling
+       - Mid (1100-1500): 48–58px range; line 2 fits in the title column
+       - Tablet (720-1100): drops smoothly via clamp
+       - Phone (<720): drops to 32px floor so 2-line layout holds on
+         even narrow screens (e.g. iPhone SE at 375px). */
+    font-size: clamp(32px, 3.6vw, 64px);
+    line-height: 1.18;
+    color: var(--text);
+    margin: 0;
+    letter-spacing: -0.01em;
+  }
+  /* Typewriter rotator, characters appear/disappear one-by-one and the
+     right brace moves with them. No cursor. Layout is held stable by a
+     fixed min-width on the WHOLE rotator. */
+  .hero__rotator {
+    display: inline-flex;
+    align-items: baseline;
+    white-space: nowrap;
+    /* Min-width pinned to the longest expected word so the right brace
+       (and therefore the line length) never jumps as words rotate.
+       Longest current words are "Photo Mosaic" / "Halftone Art" (12 chars)
+       → add 2 for braces → 14ch. (Was 16ch when "Animated ASCII" lived
+       here; that extra 2ch was pushing line 2 over its column width and
+       forcing a 3rd-line wrap.) */
+    min-width: 14ch;
+    justify-content: flex-start;
+  }
+  .hero__brace { display: inline-block; }
+  .hero__rotator-word {
+    display: inline-block;
+    vertical-align: baseline;
+    /* No min-width, no center, the brace must hug the right edge of the text */
+  }
+  .hero__ctas {
+    grid-column: 3;
+    display: inline-flex;
+    gap: 8px;
+    flex: 0 0 auto;
+    align-self: start;             /* TOP align with the title's first line */
+    padding-top: 8px;              /* small fudge so caps align visually */
+  }
+  .hero__subtitle {
+    /* WCAG-friendly line length: ~70ch keeps under the 80-char ceiling for
+       readability without exploding into the CTA column above. */
+    max-width: 70ch;
+    color: var(--text-80);
+    font-family: var(--font-body);
+    font-size: 16px;
+    line-height: 22px;
+    margin: 24px 0 0;
+    padding: 0 var(--text-inset);
+  }
+  /* Primary CTA, 3px white left tab + filled white button (matches Paper 1IZ-0,
+     same family as the nav 'Open tool' button). */
+  .hero__cta-primary {
+    display: inline-flex; align-items: stretch;
+    gap: 2px;
+    height: 45px;
+    text-decoration: none;
+    background: transparent;
+    border: 0; padding: 0;
+    font-family: var(--font-display);
+    font-size: 16px;
+    line-height: 20px;
+  }
+  .hero__cta-primary::before {
+    content: "";
+    width: 3px;
+    background: var(--text);
+    flex: 0 0 3px;
+  }
+  .hero__cta-primary-label {
+    display: inline-flex; align-items: center; justify-content: center;
+    background: var(--text);
+    color: var(--accent-text);
+    padding: 0 16px;
+    min-width: 164px;
+    transition: background 0.15s;
+  }
+  .hero__cta-primary:hover .hero__cta-primary-label { background: rgba(255, 255, 255, 0.92); }
+  /* Ghost CTA "How it works", 1px outline + subtle white fill on hover */
+  .hero__cta-secondary {
+    height: 45px;
+    padding: 0 18px;
+    border: 0;
+    background: transparent;
+    color: var(--text);
+    font-family: var(--font-display);
+    font-size: 16px;
+    line-height: 20px;
+    outline: 1px solid var(--text);
+    outline-offset: -1px;
+    min-width: 130px;
+    display: inline-flex; align-items: center; justify-content: center;
+    transition: background 0.18s;
+  }
+  .hero__cta-secondary:hover { background: rgba(255, 255, 255, 0.08); }
+
+  /* SLIDER */
+  .slider {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1477 / 676;
+    margin-top: 56px;
+    overflow: hidden;
+    background: #000;
+    user-select: none;
+    -webkit-user-select: none;
+  }
+  .slider__layer { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .slider--loading .slider__media { opacity: 0.55; transition: opacity 0.2s ease; }
+
+  /* CRT-style initializing overlay, REAL TV static via canvas painted
+     every animation frame with Math.random() per pixel. Plus tracking bar
+     and tear-line overlays for the classic broken-CRT feel. */
+  .slider__init {
+    position: absolute;
+    inset: 0;
+    z-index: 9;
+    background: #000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+    overflow: hidden;
+    transition: opacity 0.45s ease;
+  }
+  .slider__init.hide { opacity: 0; }
+  /* Single canvas, JS paints grayscale snow + a slow VCR tracking band
+     directly into it. No CSS-level jitter/tear-line layers (those were
+     stacking on top of the snow and reading as visual noise). */
+  .slider__init-canvas {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    display: block;
+    image-rendering: pixelated;
+    z-index: 1;
+  }
+  .slider__init-text {
+    position: relative;
+    z-index: 4;
+    font-family: var(--font-display);
+    font-size: 16px;
+    letter-spacing: 0.08em;
+    color: #FFFFFF;
+    background: rgba(0,0,0,0.78);
+    padding: 10px 16px;
+    outline: 1px solid rgba(255,255,255,0.25);
+    outline-offset: -1px;
+  }
+  .slider__init-dots::after {
+    content: "...";
+    display: inline-block;
+    animation: dots 1.2s steps(4) infinite;
+    width: 3ch;
+    text-align: left;
+  }
+  @keyframes dots {
+    0%   { content: ""; }
+    25%  { content: "."; }
+    50%  { content: ".."; }
+    75%  { content: "..."; }
+    100% { content: ""; }
+  }
+  .slider__media { width: 100%; height: 100%; object-fit: cover; display: block; }
+  /* LEGO sample is a portrait, the figure sits near the TOP of the source
+     image. Default `object-position: 50% 50%` crops the head off. Override
+     only when the LEGO effect is active (data-active-fx="Lego" set by JS
+     in setActive). All other effects keep the default center crop. */
+  .slider[data-active-fx="Lego"] .slider__media { object-position: center top; }
+  .slider__layer--after { clip-path: inset(0 0 0 var(--split, 50%)); }
+
+  /* ============================================================
+     PER-SIDE LOADERS, default for every page load and effect switch.
+     Each layer (before + after) has its own loader overlay that hides
+     ONLY when that side's media is actually playing. So if the user
+     swaps to a new effect and the after-video hasn't loaded yet but
+     the before-image is cached, the after side shows the loader and
+     the before side reveals immediately. No more gating on the
+     slower side. The big shared .slider__init overlay is suppressed.
+     Soft background: dim film grain + tiny occasional glitch slices
+     (drawn by the canvas) so the loader doesn't read as harsh static.
+     ============================================================ */
+  .slider__pane-init {
+    position: absolute; inset: 0;
+    z-index: 8;
+    background: #050507;       /* page-bg base */
+    display: flex;             /* on by default, shown until media ready */
+    align-items: center; justify-content: center;
+    overflow: hidden; pointer-events: none;
+  }
+  .slider__pane-init-canvas {
+    position: absolute; inset: 0;
+    width: 100%; height: 100%;
+    image-rendering: pixelated;
+    opacity: 0.55;             /* dim, film grain feel, not harsh snow */
+    z-index: 1;
+  }
+  .slider__pane-init-text {
+    position: relative; z-index: 2;
+    font-family: var(--font-display);
+    font-size: 13px;
+    letter-spacing: 0.08em;
+    color: #FFFFFF;
+    background: rgba(0,0,0,0.65);
+    padding: 8px 14px;
+    outline: 1px solid rgba(255,255,255,0.22);
+    outline-offset: -1px;
+  }
+  .slider__pane-init-dots::after {
+    content: "...";
+    display: inline-block;
+    animation: dots 1.2s steps(4) infinite;
+    width: 3ch; text-align: left;
+  }
+  /* Hard hide, no transition. Earlier I had `transition: opacity 0.35s`
+     with `.hide { opacity: 0 }`, but the transition wasn't actually firing
+     reliably (opacity stayed at 1 with `.hide` class applied), leaving
+     the dim film-grain pane stuck on top of the BEFORE media. `display:
+     none` is uglier on the eye but guarantees the pane is gone. */
+  .slider__pane-init.hide { display: none; }
+  /* The old shared CRT init is no longer used for the default flow. */
+  .slider__init { display: none !important; }
+  .slider__fade {
+    position: absolute; left: 0; right: 0; bottom: 0;
+    height: 183px;
+    background: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 86.99%);
+    pointer-events: none;
+  }
+  .slider__label {
+    position: absolute; top: 19px;
+    color: var(--text);
+    font-family: var(--font-body);
+    font-size: 16px; line-height: 20px;
+    text-shadow: 0 1px 1px rgba(0,0,0,0.66);
+    letter-spacing: 0.04em;
+    pointer-events: none;
+    /* No z-index, labels stack INSIDE their layer; the after-layer covers
+       the before-layer (and its label) when split is small, so "Before"
+       correctly disappears as the after-image covers it. */
+  }
+  .slider__label--before { left: 21px; }
+  .slider__label--after { right: 21px; text-align: right; }
+  .slider__divider {
+    position: absolute; top: 0; bottom: 0;
+    left: var(--split, 50%);
+    width: 2px;
+    background: var(--border-faint);
+    transform: translateX(-50%);
+    z-index: 5; pointer-events: none;
+  }
+  .slider__handle {
+    position: absolute;
+    top: calc(287/676 * 100%);
+    left: var(--split, 50%);
+    transform: translate(-50%, -50%);
+    width: 55px; height: 56px;
+    border-radius: 999px;
+    background: #1A1A1C;
+    display: flex; align-items: center; justify-content: center;
+    z-index: 6;
+    cursor: grab;
+    color: var(--text);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+    transition: transform 0.15s;
+  }
+  .slider__handle:hover { transform: translate(-50%, -50%) scale(1.06); }
+  .slider__handle:active { cursor: grabbing; transform: translate(-50%, -50%) scale(0.98); }
+  .slider__handle-chevrons { display: flex; align-items: center; gap: 1px; }
+  .slider__handle-chevrons svg { width: 16px; height: 16px; }
+
+  /* PILLS */
+  .pills {
+    position: absolute;
+    left: 19px; right: 19px;
+    bottom: 16px;
+    display: flex;
+    gap: 12px;
+    z-index: 8;   /* above textblock (z:7) so the upward textblock extension can't cover pills */
+    align-items: stretch;
+  }
+  .pill {
+    position: relative;
+    flex: 0 0 auto;                    /* fit-content per-pill so we fit MORE */
+    background: var(--bg-elevated);
+    outline: 2px solid var(--border);
+    outline-offset: -2px;
+    padding: 14px 22px;
+    display: flex; align-items: center;
+    color: var(--text);
+    overflow: hidden;
+    font-family: var(--font-body);
+    font-size: 16px; line-height: 20px; font-weight: 400;
+    text-align: left;
+    border: 0;
+    transition: outline-color 0.15s;
+    white-space: nowrap;
+  }
+  .pill__label { opacity: 0.5; transition: opacity 0.15s; overflow: hidden; text-overflow: ellipsis; }
+  .pill:hover .pill__label { opacity: 0.85; }
+  .pill--active { outline-color: var(--border-active); }
+  .pill--active .pill__label { opacity: 1; font-weight: 500; }
+  .pill--active::before {
+    content: "";
+    position: absolute; top: -35px; left: 0;
+    width: 100%; height: 45px;
+    background: rgba(255, 255, 255, 0.32);
+    border-radius: 999px;
+    filter: blur(32px);
+    pointer-events: none;
+  }
+  .pill--more {
+    flex: 0 0 auto;
+    padding: 14px 18px;
+    margin-left: auto;          /* push "•••" to the right side of the slider */
+  }
+  .pill--more .pill__label { opacity: 1; letter-spacing: 0.2em; font-weight: 500; }
+
+  .pills-dropdown {
+    /* `position: fixed` so it escapes the .pills container's
+       overflow-x:auto clipping on mobile. JS computes top/left from the
+       "..." button's bounding rect on open. */
+    position: fixed;
+    min-width: 220px;
+    background: var(--bg-elevated);
+    outline: 2px solid var(--border);
+    outline-offset: -2px;
+    padding: 8px;
+    display: none;
+    flex-direction: column;
+    gap: 2px;
+    z-index: 50;
+  }
+  .pills-dropdown.open { display: flex; }
+  .pills-dropdown__item {
+    background: transparent; border: 0;
+    color: var(--text);
+    padding: 10px 14px;
+    text-align: left;
+    font-family: var(--font-body);
+    font-size: 15px; line-height: 20px;
+    opacity: 0.65;
+    cursor: pointer;
+    transition: background 0.15s, opacity 0.15s;
+    white-space: nowrap;
+  }
+  .pills-dropdown__item:hover { background: rgba(255, 255, 255, 0.06); opacity: 1; }
+  .pills-dropdown__item--active { opacity: 1; font-weight: 500; }
+
+  /* MODAL */
+  .modal {
+    position: fixed; inset: 0;
+    z-index: 200;
+    display: none;
+    align-items: center; justify-content: center;
+    padding: 24px;
+  }
+  .modal.open { display: flex; }
+  .modal__backdrop {
+    position: absolute; inset: 0;
+    background: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+  }
+  .modal__panel {
+    position: relative;
+    width: min(960px, 100%);
+    background: #000;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+  .modal__video {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    background: #000;
+    display: block;
+  }
+  .modal__close {
+    position: absolute;
+    top: 12px; right: 12px;
+    width: 36px; height: 36px;
+    background: rgba(0, 0, 0, 0.5);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    color: var(--text);
+    display: inline-flex; align-items: center; justify-content: center;
+    z-index: 2;
+    cursor: pointer;
+  }
+  .modal__close:hover { background: rgba(255, 255, 255, 0.08); }
+
+  /* Submit-use-case modal, minimal 3-field form */
+  .submit-modal__panel {
+    width: min(520px, 100%);
+    background: #0e0e10;
+    border-radius: 0;
+  }
+  .submit-form {
+    padding: 36px 32px 32px;
+    display: flex; flex-direction: column;
+    gap: 18px;
+  }
+  .submit-form__title {
+    font-family: var(--font-display);
+    font-size: 28px;
+    line-height: 32px;
+    margin: 0;
+    color: var(--text);
+  }
+  .submit-form__desc {
+    font-family: var(--font-body);
+    font-size: 14px;
+    line-height: 20px;
+    color: var(--text-80);
+    margin: 0 0 6px;
+  }
+  .submit-form__field {
+    display: flex; flex-direction: column;
+    gap: 8px;
+  }
+  .submit-form__label {
+    font-family: var(--font-display);
+    font-size: 13px;
+    color: var(--text);
+    opacity: 0.85;
+    letter-spacing: 0.04em;
+  }
+  .submit-form__opt {
+    opacity: 0.5;
+    font-weight: 400;
+  }
+  .submit-form__file,
+  .submit-form__input {
+    display: block;
+    width: 100%;
+    background: var(--bg-elevated);
+    color: var(--text);
+    font-family: var(--font-body);
+    font-size: 14px;
+    line-height: 20px;
+    padding: 12px 14px;
+    border: 0;
+    outline: 1px solid var(--border);
+    outline-offset: -1px;
+    transition: outline-color 0.15s;
+  }
+  .submit-form__file::file-selector-button {
+    background: rgba(255,255,255,0.08);
+    color: var(--text);
+    border: 0;
+    padding: 6px 12px;
+    margin-right: 12px;
+    font-family: var(--font-display);
+    font-size: 12px;
+    cursor: pointer;
+  }
+  .submit-form__input::placeholder { color: var(--text-50); }
+  .submit-form__input:focus,
+  .submit-form__file:focus { outline-color: var(--text); }
+  .submit-form__hint {
+    font-size: 12px;
+    color: var(--text-50);
+  }
+  .submit-form__row {
+    display: flex; align-items: center; gap: 14px;
+    margin-top: 6px;
+  }
+  .submit-form__done {
+    height: 44px;
+    padding: 0 22px;
+    background: var(--text);
+    color: var(--accent-text);
+    font-family: var(--font-display);
+    font-size: 14px;
+    border: 0;
+    cursor: pointer;
+    transition: background 0.15s;
+  }
+  .submit-form__done:hover { background: rgba(255,255,255,0.92); }
+  .submit-form__feedback {
+    font-family: var(--font-body);
+    font-size: 13px;
+    color: var(--text-80);
+  }
+  .submit-form__feedback.success { color: #6fd07a; }
+  .submit-form__feedback.error   { color: #ff7373; }
+
+  /* RESPONSIVE, rough only; tighter pass after layout is locked desktop */
+  /* ============================================================
+     SHARED, section layout / eyebrow / heading utilities
+     ============================================================ */
+  .section { padding: 96px 0 0; position: relative; }
+  .section__inner { max-width: var(--max-w); margin: 0 auto; padding: 0 var(--side-pad); }
+  .eyebrow {
+    display: inline-block;
+    font-family: var(--font-display);
+    /* Fluid: 11px on small phones up to 16px on desktop. */
+    font-size: clamp(11px, 0.4vw + 9px, 16px);
+    line-height: 1.5;
+    letter-spacing: 0.15em;
+    opacity: 0.4;
+    color: var(--text);
+    text-transform: uppercase;
+    margin: 0 0 clamp(8px, 1vw + 4px, 16px);
+  }
+  .section__h2 {
+    font-family: var(--font-display);
+    /* Fluid: 24px on small phones → 48px on desktop. Scales linearly
+       in between so the heading reads correctly at every viewport. */
+    font-size: clamp(24px, 2.2vw + 12px, 48px);
+    line-height: 1.18;
+    color: var(--text);
+    margin: 0;
+    letter-spacing: -0.01em;
+    font-weight: 400;
+  }
+  .section__desc {
+    color: var(--text-80);
+    /* Fluid: 14px on phones, 16px on desktop. */
+    font-size: clamp(14px, 0.3vw + 12px, 16px);
+    line-height: 1.5;
+    margin: clamp(16px, 1.5vw + 8px, 24px) 0 0;
+    max-width: 608px;
+  }
+  .divider { height: 1px; background: var(--border-faint); width: 100%; }
+
+  /* ============================================================
+     SECTION 2, Community creations.
+     • NO section top padding, ticker starts at the section's top edge
+       (touching the horizontal rail above).
+     • Section is at least 834px tall (matches Paper 1R7-0 height).
+     • Left text column is vertically CENTERED within the section.
+     • Right ticker column fills the full section height.
+     ============================================================ */
+  .community {
+    padding: 0;
+    /* Fluid min-height, full design height on desktop, shrinks proportionally
+       at narrower viewports so the section doesn't become a tall empty band
+       on tablets and phones. */
+    min-height: clamp(420px, 50vw + 200px, 834px);
+  }
+  /* Community gets BOTH a top and bottom hairline so the section feels fully
+     enclosed by the four rails (top + bottom dividers, left + right vertical
+     rails). The bottom one is inherited via .section::after; this adds the
+     top one in the same rail-aligned position. */
+  .community::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    height: 1px;
+    background: rgba(221, 221, 221, 0.10);
+    pointer-events: none;
+    z-index: 6;
+    left:  max(var(--side-pad), calc((100vw - 1728px) / 2 + var(--side-pad)));
+    right: max(var(--side-pad), calc((100vw - 1728px) / 2 + var(--side-pad)));
+  }
+  .community__grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 622px);
+    gap: clamp(24px, 3vw + 8px, 64px);
+    align-items: stretch;
+    min-height: clamp(420px, 50vw + 200px, 834px);
+    padding-right: var(--text-inset);
+  }
+  .community__text {
+    padding-left: var(--text-inset);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .community__text .section__h2 { max-width: 434px; }
+  .community__text .section__desc { max-width: 469px; }
+  .community__cta { align-self: flex-start; margin-top: 28px; height: 45px; padding: 0 20px; background: transparent; color: var(--text); font-family: var(--font-display); font-size: 15px; line-height: 20px; outline: 1px solid var(--text); outline-offset: -1px; display: inline-flex; align-items: center; gap: 8px; transition: background 0.18s; }
+  .community__cta:hover { background: rgba(255,255,255,0.08); }
+  .community__ticker {
+    position: relative;
+    height: 100%;
+    max-height: 834px;
+    overflow: hidden;
+  }
+  .community__track {
+    display: flex; flex-direction: column; gap: 24px;
+    animation: tickerY 90s linear infinite;
+  }
+  .community__ticker:hover .community__track { animation-play-state: paused; }
+  @keyframes tickerY {
+    0%   { transform: translateY(0); }
+    100% { transform: translateY(-50%); }
+  }
+  /* Post card, minimal per the design: media on top + (handle | icon) row at bottom.
+     No overlay, no placeholder text, no avatar circle. */
+  .post {
+    flex: 0 0 auto;
+    border: 1px solid var(--border-faint);
+    background: var(--bg-elevated);
+    padding: 12px;
+    display: flex; flex-direction: column; gap: 18px;
+    color: var(--text);
+    text-decoration: none;
+    transition: border-color 0.2s, background 0.2s;
+  }
+  .post:hover { border-color: rgba(255,255,255,0.18); background: rgba(255,255,255,0.04); }
+  .post__media {
+    position: relative;
+    width: 100%;
+    /* Per-card aspect ratio set inline (--ar). Card width is constant
+       (driven by the parent track); height adapts so portraits read tall
+       and landscape clips stay wide. Fallback to the original 577/425
+       (≈1.358) if --ar isn't set (shouldn't happen, but safe). */
+    aspect-ratio: var(--ar, 577 / 425);
+    background: radial-gradient(ellipse at center, #1a1a20 0%, #07070a 100%);
+    overflow: hidden;
+  }
+  .post__media img, .post__media video {
+    width: 100%; height: 100%; object-fit: cover; display: block;
+  }
+  .post__row {
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 12px;
+    padding: 0 6px 6px;
+  }
+  .post__handle {
+    font-family: var(--font-body);
+    font-size: 16px; line-height: 20px;
+    color: var(--text);
+    opacity: 0.85;
+  }
+  .post__icon {
+    width: 22px; height: 22px;
+    color: var(--text);
+    opacity: 0.7;
+    transition: opacity 0.15s, transform 0.15s;
+  }
+  .post:hover .post__icon { opacity: 1; transform: translate(2px, -2px); }
+
+  /* ============================================================
+     SECTION 3, Context.md / Ask AI
+     ============================================================ */
+  .askai {
+    padding: 60px 0;             /* breathing room above/below the cube */
+  }
+  /* No card chrome, just the cube + text + overlapping button on the page bg.
+     Width is clamped so the section can NEVER overflow the rails at any
+     viewport (max-width caps at 1470, width tracks viewport minus side-pad). */
+  .askai__inner {
+    width: calc(100% - 2 * var(--side-pad));
+    max-width: var(--content-w);
+    margin: 0 auto;
+    background: transparent;
+    border: 0;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    padding: 0;
+    display: grid;
+    grid-template-columns: minmax(0, 733px) minmax(0, 1fr);
+    gap: 45px;
+    align-items: center;
+    position: relative;
+  }
+  .askai__left { padding-right: 47px; }
+  .askai__left .section__h2 { max-width: 559px; }
+  .askai__left .section__desc { max-width: 585px; }
+  /* Context.MD button, per design 1LV-0 sits ABSOLUTELY positioned on top
+     of the yellow cube image (around bottom-middle), overlapping intentionally.
+     207×67, 1px white outline, label 20px GeistPixel at left:24,
+     divider at 147, copy icon at 166. */
+  .askai__btn {
+    position: absolute;
+    /* Design: button at left:424 of 1476-wide section, top:286 of 488-tall section */
+    left: calc(424 / 1476 * 100%);
+    top: calc(286 / 488 * 100%);
+    display: inline-grid;
+    grid-template-columns: 147px 1px 60px;
+    align-items: stretch;
+    background: var(--bg-elevated);
+    outline: 1px solid var(--text);
+    outline-offset: -1px;
+    width: 207px;
+    height: 67px;
+    cursor: pointer;
+    border: 0;
+    padding: 0;
+    color: var(--text);
+    font-family: inherit;
+    overflow: hidden;
+    transition: background 0.15s, transform 0.15s;
+    z-index: 2;                    /* above the cube image */
+  }
+  /* On tablet+phone, the askai grid stacks (single column). The button's
+     absolute desktop coordinates (424/1476, 286/488) no longer map to
+     anything meaningful, relocate it into normal flow under the text,
+     compact size, tight icon column (no wasted whitespace to the right
+     of the icon). */
+  @media (max-width: 1100px) {
+    .askai__btn {
+      position: static;
+      margin-top: 24px;
+      width: auto;
+      max-width: 200px;
+      height: 40px;
+      /* Tight label (auto) + 1px divider + tight icon column (centered
+         icon, equal padding on both sides). */
+      grid-template-columns: auto 1px 40px;
+    }
+    .askai__btn .askai__btn-label { padding: 0 14px; font-size: 14px; line-height: 1; }
+    .askai__btn .askai__btn-icon  { padding: 0; justify-content: center; }
+    .askai__btn .askai__btn-icon svg { width: 18px; height: 18px; }
+  }
+  /* Hover: solid dark fill (#1C1C1C), keeping white outline + white
+     text/icon. Subtle lift on hover via translateY. (Earlier 5% white
+     overlay on the dark bg read as "washed out / low opacity".) */
+  .askai__btn:hover {
+    background: #1C1C1C;
+    transform: translateY(-2px);
+  }
+  .askai__btn-label {
+    display: inline-flex; align-items: center;
+    padding-left: 24px;
+    font-family: var(--font-display);
+    font-size: 20px;
+    line-height: 24px;
+    color: var(--text);
+  }
+  .askai__btn-divider { background: var(--text); }
+  .askai__btn-icon {
+    display: inline-flex; align-items: center;
+    padding-left: 19px;
+    color: var(--text);
+  }
+  .askai__btn-icon { position: relative; }
+  .askai__btn-icon svg { width: 24px; height: 24px; }
+  /* Three icon states (copy / loading / tick) stacked in the icon slot.
+     Only one is visible at a time, JS toggles classes on the button to
+     fade between them. Shared between Context.MD and email buttons. */
+  .btn-icon {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0;
+    transition: opacity 0.18s ease;
+  }
+  .askai__btn .btn-icon--copy,
+  .style-card__email .btn-icon--copy { opacity: 1; }
+  .askai__btn.is-loading .btn-icon--copy,
+  .askai__btn.is-copied  .btn-icon--copy,
+  .style-card__email.is-copied .btn-icon--copy { opacity: 0; }
+  .askai__btn.is-loading .btn-icon--loading { opacity: 1; animation: btn-spin 0.9s linear infinite; }
+  .askai__btn.is-copied  .btn-icon--tick,
+  .style-card__email.is-copied .btn-icon--tick { opacity: 1; }
+  @keyframes btn-spin {
+    from { transform: translate(-50%, -50%) rotate(0deg); }
+    to   { transform: translate(-50%, -50%) rotate(360deg); }
+  }
+  /* The label gets a tiny crossfade too so "Context.MD" → "Copied" doesn't
+     feel like a hard text swap. */
+  .askai__btn-label,
+  .style-card__email-label { transition: opacity 0.18s ease; }
+  .askai__btn.is-loading .askai__btn-label,
+  .askai__btn.is-copied  .askai__btn-label { opacity: 0.92; }
+  .askai__cube {
+    width: 100%;
+    aspect-ratio: 733 / 437;
+    background: #000;
+    position: relative;
+    overflow: hidden;
+  }
+  .askai__cube img {
+    width: 100%; height: 100%; object-fit: contain; display: block;
+  }
+
+  /* ============================================================
+     SECTION 4, Art styles grid
+     ============================================================ */
+  .styles { padding-top: 120px; }
+  .styles__header {
+    text-align: center;
+    margin-bottom: 56px;
+  }
+  .styles__header .section__h2 {
+    margin: 0 auto;
+    max-width: 834px;
+  }
+  .styles__header .section__desc {
+    margin: 24px auto 0;
+    text-align: center;
+  }
+  .styles__grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0;
+    /* T+B only, rails are the L/R edge. */
+    border-top:    1px solid color(display-p3 0.102 0.102 0.106);
+    border-bottom: 1px solid color(display-p3 0.102 0.102 0.106);
+  }
+  .style-card {
+    display: flex; flex-direction: column;
+    border-right: 1px solid color(display-p3 0.102 0.102 0.106);
+    border-bottom: 1px solid color(display-p3 0.102 0.102 0.106);
+    background: var(--bg);
+    position: relative;
+    overflow: hidden;
+    text-decoration: none;
+    color: var(--text);
+    transition: background 0.2s;
+  }
+  .style-card:hover { background: rgba(255,255,255,0.025); }
+  .style-card:hover .style-card__media img,
+  .style-card:hover .style-card__media video { transform: scale(1.04); }
+  .style-card:nth-child(3n) { border-right: none; }
+  .style-card__media {
+    aspect-ratio: 493 / 343;
+    background: #0F0F12;
+    overflow: hidden;
+  }
+  .style-card__media img, .style-card__media video {
+    width: 100%; height: 100%;
+    object-fit: cover; display: block;
+    transition: transform 0.5s ease;
+  }
+  /* LEGO: shift the crop up so the character's head stays in frame. */
+  .style-card--lego .style-card__media img { object-position: center top; }
+  /* Card body, LEFT aligned per design. Title and description anchor to the
+     left edge with consistent left padding; arrow sits at the bottom-left
+     (with extra bottom padding on the body so the arrow always has clearance). */
+  .style-card__body {
+    padding: 32px 24px 80px 24px;
+    display: flex; flex-direction: column;
+    flex: 1;
+    min-height: 224px;
+    position: relative;
+  }
+  .style-card__title {
+    font-family: var(--font-display);
+    font-size: 24px;
+    line-height: 28px;
+    text-align: left;
+    color: var(--text);
+    margin: 0 0 12px;
+    letter-spacing: -0.005em;
+  }
+  .style-card__desc {
+    font-family: var(--font-body);
+    font-size: 16px;
+    line-height: 20px;
+    color: var(--text);
+    opacity: 0.7;
+    max-width: 430px;
+    margin: 0;
+    text-align: left;
+    /* No flex-grow, let the description size to its content. Otherwise
+       any sibling (e.g. email button on the coming-soon card) gets pushed
+       to the bottom of the card. */
+    flex: 0 0 auto;
+  }
+  .style-card__arrow {
+    width: 24px; height: 24px;
+    color: var(--text);
+    position: absolute;
+    left: 24px;
+    bottom: 24px;
+    opacity: 0.7;
+    transition: transform 0.2s, opacity 0.2s;
+  }
+  .style-card:hover .style-card__arrow { transform: translateX(4px); opacity: 1; }
+
+  /* Coming-soon is a FULL-WIDTH banner, grid-column 1 / -1 spans every column,
+     so it stays centered and balanced no matter how many style cards precede it
+     (dynamic as styles get added). Content (title → desc → email) centered both axes. */
+  .style-card--coming {
+    grid-column: 1 / -1;
+    border-right: none;
+    text-align: center;
+    padding: 72px 24px;
+    background: rgba(255,255,255,0.015);
+    position: relative;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  .style-card--coming .style-card__title {
+    font-family: var(--font-display);
+    font-size: 40px;
+    line-height: 1.1;
+    margin: 0;
+    color: var(--text);
+  }
+  .style-card--coming .style-card__desc {
+    font-family: var(--font-body);
+    font-size: 16px;
+    line-height: 22px;
+    opacity: 0.7;
+    color: var(--text);
+    max-width: 460px;
+    margin: 16px auto 24px;
+    text-align: center;
+  }
+  .style-card__email {
+    display: inline-grid;
+    grid-template-columns: 303px 1px 59px;
+    align-items: stretch;
+    outline: 1px solid var(--text);
+    outline-offset: -1px;
+    width: 363px;
+    height: 67px;
+    text-decoration: none;
+    color: var(--text);
+    overflow: hidden;
+    background: var(--bg-elevated);
+    margin-top: 32px;
+    border: 0;
+    padding: 0;
+    font-family: inherit;
+    cursor: pointer;
+    transition: background 0.15s;
+  }
+  /* (Hover handled below, inverts to solid white, matches AskAI button.) */
+  .style-card__email-label {
+    display: inline-flex; align-items: center;
+    padding-left: 24px;
+    font-family: var(--font-display);
+    font-size: 20px;
+    line-height: 24px;
+  }
+  .style-card__email-divider { background: var(--text); }
+  .style-card__email-icon {
+    display: inline-flex; align-items: center;
+    padding-left: 19px;
+    position: relative;
+  }
+  .style-card__email-icon svg { width: 24px; height: 24px; }
+  /* Solid #1C1C1C hover, matches the Context.MD button. Keeps the
+     white outline + white text/icon, just darkens the inside fill. */
+  .style-card__email:hover { background: #1C1C1C; }
+
+  /* ============================================================
+     SECTION 5, Use cases ticker
+     ============================================================ */
+  .usecases { padding-top: 120px; padding-bottom: 80px; }
+  .usecases__head {
+    display: flex; align-items: flex-end; justify-content: space-between;
+    gap: 32px;
+    margin-bottom: 48px;
+    padding: 0 var(--text-inset);  /* text-block left-inset, submit-CTA right-inset */
+  }
+  .usecases__title-block .section__h2 { max-width: 700px; }
+  .usecases__submit {
+    display: inline-flex; align-items: center; justify-content: center;
+    height: 40px;                  /* tighter, was 64 */
+    padding: 0 14px;               /* tighter, was 0 24 */
+    outline: 1px solid var(--text);
+    outline-offset: -1px;
+    font-family: var(--font-display);
+    font-size: 14px;
+    color: var(--text);
+    text-decoration: none;
+    background: transparent;
+    border: 0;
+    cursor: pointer;
+    transition: background 0.15s;
+  }
+  .usecases__submit:hover { background: rgba(255,255,255,0.06); }
+  .usecases__ticker {
+    overflow: hidden;
+    position: relative;
+    /* No fade mask, the side rails are the visual boundaries (per design). */
+  }
+  .usecases__track {
+    display: flex;
+    gap: 24px;
+    animation: tickerX 50s linear infinite;
+    width: max-content;
+  }
+  .usecases__ticker:hover .usecases__track { animation-play-state: paused; }
+  @keyframes tickerX {
+    0%   { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+  .usecase {
+    flex: 0 0 579px;
+    border: 1px solid var(--border-faint);
+    background: var(--bg);
+    padding: 28px;
+    display: flex; flex-direction: column;
+    gap: 24px;
+    transition: border-color 0.2s, background 0.2s;
+  }
+  .usecase:hover { border-color: rgba(255,255,255,0.16); background: rgba(255,255,255,0.025); }
+  .usecase__media {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 579 / 389;
+    background: #0F0F12;
+    overflow: hidden;
+  }
+  .usecase__media img, .usecase__media video {
+    position: absolute; inset: 0;
+    width: 100%; height: 100%;
+    object-fit: cover; display: block;
+    transition: opacity 0.4s ease, transform 0.5s ease;
+  }
+  .usecase__media .usecase__hover {
+    opacity: 0;
+  }
+  .usecase:hover .usecase__media .usecase__default { opacity: 0; transform: scale(1.04); }
+  .usecase:hover .usecase__media .usecase__hover   { opacity: 1; transform: scale(1.04); }
+  .usecase__title {
+    font-family: var(--font-display);
+    font-size: 32px;
+    line-height: 36px;
+    color: var(--text);
+    margin: 0;
+  }
+  .usecase__more {
+    font-family: var(--font-display);
+    font-size: 13px;
+    letter-spacing: 0.15em;
+    opacity: 0.4;
+    color: var(--text);
+    text-decoration: none;
+    pointer-events: none; /* TODO: enable when use-case detail pages exist */
+  }
+  .usecase__desc {
+    font-family: var(--font-body);
+    font-size: 15px; line-height: 20px;
+    color: var(--text-70);
+    margin: 0;
+  }
+
+  /* ============================================================
+     SECTION 6, Post-processing demo
+     ============================================================ */
+  /* Symmetric 120px top + 120px bottom, gives the FAQ section that
+     follows enough breathing room. (Previously padding-bottom: 0 was
+     designed for when Recipes section sat between postfx and FAQ;
+     now that Recipes is hidden the flush bottom looked overlapped.) */
+  .postfx { padding-top: 120px; padding-bottom: 120px; }
+  /* Any "card" section (its own visible border at the bottom) shouldn't
+     ALSO get the global section::after divider, they stack and look
+     like a noisy double-line. List the sections explicitly so default
+     sections (community, askai, faq, etc.) still get the divider. */
+  .postfx::after,
+  .recipes-sec::after,
+  .styles::after { display: none !important; }
+  /* Post-FX header is centered per design 1YN-0 / 1YO-0 (both translate -50%).
+     Max-width bumped from 834 → 1080 so the title "Apply a ton of post-
+     processing effects" fits on one line at desktop instead of orphaning
+     "effects" on a second line. Description is constrained by its own
+     608px max-width so this doesn't make the desc weirdly wide. */
+  .postfx__head {
+    margin: 0 auto 56px;
+    max-width: 1080px;
+    text-align: center;
+  }
+  /* text-wrap: balance distributes the title across lines evenly if it
+     ever does wrap (narrower viewports), so the orphan "effects" can't
+     happen even between breakpoints. */
+  .postfx__head .section__h2 { text-wrap: balance; }
+  .postfx__head .section__h2 { margin-left: auto; margin-right: auto; }
+  .postfx__head .section__desc { margin-left: auto; margin-right: auto; }
+  /* Demo (1076×629) + panel (402×629). Heights are matched and the demo
+     completely fills its container regardless of source aspect ratio. */
+  .postfx__grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1076fr) minmax(0, 402fr);
+    gap: 0;
+    /* `height` was 629px (matches Paper design at desktop). On tablets
+       and phones the grid collapses to 1-col and stretching demo+panel
+       to 629px each made them 1258px tall, a wall. Use min-height +
+       intrinsic sizing so the panel grows to fit content. */
+    min-height: 629px;
+    /* Top + bottom only, the rails on the viewport sides already provide
+       the L/R visual boundary; adding L/R borders here doubled them up. */
+    border-top:    2px solid color(display-p3 0.102 0.102 0.109);
+    border-bottom: 2px solid color(display-p3 0.102 0.102 0.109);
+  }
+  /* On stacked layouts, let each row size to its own content so the
+     section doesn't end up twice as tall as needed. */
+  @media (max-width: 1100px) {
+    .postfx__grid { min-height: 0; grid-auto-rows: auto; }
+    .postfx__demo { aspect-ratio: 1076 / 629; height: auto; }
+    .postfx__panel { height: auto; }
+  }
+  .postfx__demo {
+    background: rgba(255,255,255,0.03);
+    height: 100%;
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+    border-right: 2px solid color(display-p3 0.102 0.102 0.109);
+  }
+  /* The video itself, filters combine via custom property tokens so each
+     effect can add its own filter component without overwriting others. */
+  /* Canvas runs the real engine effects (lifted verbatim from /app.html) on
+     top of each video frame. No CSS approximations. */
+  .postfx__media {
+    position: absolute; inset: 0;
+    width: 100%; height: 100%;
+    display: block;
+    /* `fill`, the internal canvas bitmap is sized to match the video's
+       aspect ratio (16:9), but we want it to stretch edge-to-edge into the
+       postfx__demo box (~1.71:1) so there's no empty gap above the bottom
+       border. Slight horizontal squash is invisible at this scale. */
+    object-fit: fill;
+  }
+  .postfx__source {
+    position: absolute;
+    width: 1px; height: 1px;
+    opacity: 0;
+    pointer-events: none;
+    left: -9999px;
+  }
+
+  .postfx__panel {
+    display: flex; flex-direction: column;
+    background: var(--bg);
+    height: 100%;
+  }
+  .postfx__panel-head {
+    height: 78px;
+    padding: 0 24px;
+    border-bottom: 2px solid color(display-p3 0.102 0.102 0.109);
+    font-family: var(--font-display);
+    font-size: 20px;
+    line-height: 32px;
+    color: var(--text);
+    display: flex; align-items: center; justify-content: center;
+    flex: 0 0 78px;
+  }
+  .postfx__toggles {
+    display: flex; flex-direction: column;
+    padding: 24px 37px;
+    gap: 18px;
+    flex: 1;
+    overflow-y: auto;
+    /* No mask, the mask was clipping rows in some browsers when combined
+       with overflow-y. Plain scrollable list is fine. */
+  }
+  .pfx-row {
+    display: flex; align-items: center; gap: 17px;
+    cursor: pointer;
+  }
+  .pfx-row__label {
+    font-family: var(--font-body);
+    font-size: 16px;
+    line-height: 20px;
+    color: var(--text);
+    opacity: 0.7;
+    transition: opacity 0.15s;
+    flex: 1 1 auto;            /* takes remaining space between toggle and slider */
+    min-width: 0;
+    white-space: nowrap;
+  }
+  .pfx-row:hover .pfx-row__label { opacity: 0.95; }
+  /* Slider, FIXED width per Paper design (130×9), 3px track + 9px square thumb. */
+  .pfx-row__slider {
+    flex: 0 0 130px;           /* same width for ALL effects */
+    width: 130px;
+    height: 9px;
+    position: relative;
+    display: none;
+  }
+  .pfx-row.is-on .pfx-row__slider { display: block; }
+  /* Track: 3px high, 12% white background, vertically centered in the 9px wrapper */
+  .pfx-row__slider-track {
+    position: absolute;
+    left: 0; right: 0;
+    top: 3px;
+    height: 3px;
+    background: rgba(255,255,255,0.12);
+  }
+  /* Fill: white, scales 0–100% based on --val */
+  .pfx-row__slider-fill {
+    position: absolute;
+    left: 0;
+    top: 3px;
+    height: 3px;
+    width: calc(var(--val, 50) * 1%);
+    background: #FFFFFF;
+    pointer-events: none;
+  }
+  /* Thumb: 9×9 white square, positioned at fill end (with thumb-width compensation) */
+  .pfx-row__slider-thumb {
+    position: absolute;
+    top: 0;
+    left: calc(var(--val, 50) * 1% - 4.5px);
+    width: 9px; height: 9px;
+    background: #FFFFFF;
+    pointer-events: none;
+  }
+  /* Invisible native input on top to capture interaction */
+  .pfx-row__slider input[type="range"] {
+    position: absolute;
+    inset: -8px 0;
+    width: 100%;
+    height: 25px;
+    appearance: none;
+    -webkit-appearance: none;
+    background: transparent;
+    margin: 0;
+    padding: 0;
+    cursor: pointer;
+    opacity: 0;
+  }
+  .pfx-row__slider input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 16px; height: 16px;     /* larger invisible hit-target */
+  }
+  .pfx-row__slider input[type="range"]::-moz-range-thumb {
+    width: 16px; height: 16px;
+    border: 0;
+  }
+  /* SQUARE toggle per design (1ZE-0): 38×19 outer outline,
+     13×13 inner square that slides from left:3 to left:22. */
+  .pfx-toggle {
+    position: relative;
+    width: 38px; height: 19px;
+    background: transparent;
+    outline: 1px solid color(display-p3 0.178 0.178 0.178);
+    outline-offset: -1px;
+    border-radius: 0;
+    flex: 0 0 38px;
+    cursor: pointer;
+    border: 0; padding: 0;
+    transition: background 0.2s, outline-color 0.2s;
+  }
+  .pfx-toggle::before {
+    content: "";
+    position: absolute;
+    top: 3px; left: 3px;
+    width: 13px; height: 13px;
+    background: #FFFFFF;
+    outline: 1px solid #FFFFFF;
+    outline-offset: -1px;
+    border-radius: 0;
+    transition: left 0.22s ease, background 0.22s;
+  }
+  .pfx-toggle[aria-pressed="true"] {
+    background: #FFFFFF;
+    outline-color: #FFFFFF;
+  }
+  .pfx-toggle[aria-pressed="true"]::before {
+    left: 22px;
+    background: #040406;
+    outline-color: #FFFFFF;
+  }
+  /* Symmetric padding around the CTA button, same gap top/bottom, same
+     gap left/right. The button itself stretches to fill the panel width. */
+  .postfx__cta {
+    padding: 24px 37px;
+    flex: 0 0 auto;
+  }
+  .postfx__cta a {
+    display: inline-flex; align-items: center; justify-content: center;
+    height: 56px;
+    width: 100%;
+    outline: 1px solid var(--text);
+    outline-offset: -1px;
+    text-decoration: none;
+    color: var(--text);
+    font-family: var(--font-display);
+    font-size: 16px;
+    transition: background 0.15s;
+  }
+  .postfx__cta a:hover { background: rgba(255,255,255,0.06); }
+
+  /* ============================================================
+     SECTION 7, Recipes (Paper 1M1-0 = a contained card 1480×1232
+     with 1px border outline). Centered header, 3 cards in a row,
+     centered "View all Recipes" CTA at the bottom.
+     ============================================================ */
+  .recipes-sec { padding-top: 120px; padding-bottom: 80px; }
+  .recipes-sec__inner {
+    width: calc(100% - 2 * var(--side-pad));   /* never overflow the rails */
+    max-width: var(--content-w);
+    margin: 0 auto;
+    /* Top + bottom only, rails handle the L/R visual edge, avoid double-border. */
+    border-top:    1px solid color(display-p3 0.102 0.102 0.109);
+    border-bottom: 1px solid color(display-p3 0.102 0.102 0.109);
+    padding: 154px 0 60px;
+    position: relative;
+  }
+  .recipes-sec__head {
+    text-align: center;
+    max-width: 834px;
+    margin: 0 auto 56px;
+  }
+  .recipes-sec__head .section__h2 { margin: 0 auto; }
+  .recipes-sec__head .section__desc { margin: 24px auto 0; max-width: 608px; text-align: center; }
+  .recipes-sec__grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0;
+  }
+  .recipe-pl {
+    /* L border dropped because the first card's left edge sits at the rail
+       position (recipes-sec__inner is rail-to-rail); rail+border would
+       double up. Same logic as postfx__grid / styles__grid. Adjacent cards
+       are separated by a single 1px right border on the previous card, 
+       the last card drops its right too so the rail handles that edge. */
+    border-top:    1px solid color(display-p3 0.102 0.102 0.106);
+    border-right: 1px solid color(display-p3 0.102 0.102 0.106);
+    border-bottom: 1px solid color(display-p3 0.102 0.102 0.106);
+    border-left:   0;
+    background: var(--bg);
+    aspect-ratio: 491 / 648;
+    display: flex; align-items: center; justify-content: center;
+    color: var(--text-40);
+    font-family: var(--font-display);
+    font-size: 14px;
+    letter-spacing: 0.1em;
+    text-align: center;
+    padding: 24px;
+  }
+  .recipes-sec__grid > .recipe-pl:last-child { border-right: 0; }
+  .recipes-sec__cta {
+    text-align: center;
+    margin-top: 56px;
+  }
+  .recipes-sec__cta a {
+    display: inline-grid;
+    grid-template-columns: auto 1px auto;
+    align-items: stretch;
+    outline: 1px solid var(--text);
+    outline-offset: -1px;
+    text-decoration: none;
+    color: var(--text);
+    background: var(--bg-elevated);
+    height: 67px;
+    transition: background 0.15s;
+  }
+  .recipes-sec__cta a:hover { background: rgba(255,255,255,0.05); }
+  .recipes-sec__cta-label {
+    padding: 0 24px;
+    font-family: var(--font-display);
+    font-size: 20px;
+    line-height: 24px;
+    display: inline-flex; align-items: center;
+  }
+  .recipes-sec__cta-divider { background: var(--text); }
+  .recipes-sec__cta-icon {
+    padding: 0 19px;
+    display: inline-flex; align-items: center;
+  }
+  .recipes-sec__cta-icon svg { width: 24px; height: 24px; }
+
+  /* ============================================================
+     SECTION 8, FAQ (two-column grid of question rows)
+     ============================================================ */
+  /* Standard 120/100 spacing, postfx now ships its own 120px bottom
+     padding (the earlier 200px top here was compensation for postfx's
+     padding-bottom: 0, which is no longer the case). */
+  .faq-sec { padding-top: 120px; padding-bottom: 100px; }
+  /* FAQ Load-more button, hidden on desktop (all 17 FAQs always
+     visible). The responsive layer flips this to display: flex at
+     ≤720px so the 10-then-load-more UX kicks in on phone widths only. */
+  .faq-load-more {
+    display: none;
+    justify-content: center;
+    padding: 24px var(--text-inset) 0;
+  }
+  .faq-load-more__btn {
+    background: transparent;
+    color: var(--text);
+    border: 1px solid rgba(255,255,255,0.25);
+    padding: 12px 20px;
+    font-family: var(--font-display);
+    font-size: 14px;
+    line-height: 1;
+    cursor: pointer;
+    transition: background 0.15s, border-color 0.15s;
+  }
+  .faq-load-more__btn:hover { background: rgba(255,255,255,0.06); border-color: rgba(255,255,255,0.5); }
+  /* FAQ gets a TOP hairline (postfx above suppresses its ::after, so
+     without this the post-FX section visually bleeds into the FAQ).
+     Mirrors the global .section::after rule but pinned to top: 0 and
+     anchored to the same rail alignment so the line ends exactly at
+     the side rails. */
+  .faq-sec::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    height: 1px;
+    background: rgba(221, 221, 221, 0.10);
+    pointer-events: none;
+    z-index: 6;
+    left:  max(var(--side-pad), calc((100vw - 1728px) / 2 + var(--side-pad)));
+    right: max(var(--side-pad), calc((100vw - 1728px) / 2 + var(--side-pad)));
+  }
+  /* FAQ header centered per design 1MO-0 / 1MP-0 (both translate -50%). */
+  .faq-sec__head {
+    margin: 0 auto 56px;
+    max-width: 834px;
+    text-align: center;
+  }
+  .faq-sec__head .section__h2 { margin-left: auto; margin-right: auto; }
+  .faq-sec__head .section__desc { margin-left: auto; margin-right: auto; max-width: 608px; }
+  /* Grid is inset from the rails so questions don't visually touch them.
+     Center-aligned with same --text-inset other text blocks use, plus a
+     hard max-width so rows stay readable on ultra-wide screens. */
+  .faq-sec__grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: 80px;
+    max-width: 1248px;
+    margin: 0 auto;
+    padding: 0 var(--text-inset);
+  }
+  .faq-item {
+    display: flex; flex-direction: column;
+    padding: 24px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.13);
+  }
+  .faq-item__row {
+    display: flex; align-items: flex-start; justify-content: space-between;
+    gap: 24px;
+    cursor: pointer;
+    list-style: none;
+  }
+  .faq-item__row::-webkit-details-marker { display: none; }
+  .faq-item__q {
+    display: flex; gap: 8px;
+    font-family: var(--font-display);
+    font-size: 18px;
+    line-height: 28px;
+    color: var(--text);
+  }
+  .faq-item__q-prefix { opacity: 0.5; }
+  .faq-item__icon {
+    width: 20px; height: 20px;
+    flex: 0 0 20px;
+    color: var(--text);
+    opacity: 0.5;
+    transition: transform 0.25s, opacity 0.2s;
+  }
+  details[open] .faq-item__icon { transform: rotate(180deg); opacity: 1; }
+  .faq-item__a {
+    margin-top: 16px;
+    color: var(--text-70);
+    font-family: var(--font-body);
+    font-size: 15px;
+    line-height: 22px;
+    max-width: 580px;
+  }
+  /* Inline links inside FAQ answers and section descriptions, underline
+     so they read as clickable, brighten to pure white on hover. Targets
+     the Wikipedia/ChatGPT/Claude citation links we added for AEO. */
+  .faq-item__a a,
+  .section__desc a {
+    color: inherit;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    text-decoration-thickness: 1px;
+    text-decoration-color: rgba(255, 255, 255, 0.4);
+    transition: color 0.15s ease, text-decoration-color 0.15s ease;
+  }
+  .faq-item__a a:hover,
+  .section__desc a:hover {
+    color: #fff;
+    text-decoration-color: #fff;
+  }
+
+  /* ============================================================
+     SECTION 9, CTA with video background + left-side mask
+     ============================================================ */
+  .ctaSec { padding-top: 80px; padding-bottom: 80px; }
+  .ctaSec__inner {
+    max-width: var(--max-w);
+    margin: 0 auto;
+    padding: 0 var(--side-pad);
+  }
+  .ctaSec__panel {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1478 / 650;
+    overflow: hidden;
+    /* T+B only, rails are the L/R edge of the section. */
+    border-top:    1px solid var(--border-faint);
+    border-bottom: 1px solid var(--border-faint);
+    background: #000;
+  }
+  /* On phone widths the 1478/650 aspect ratio makes the panel ~165px tall, 
+     too short for the headline + description + button. Switch to content-
+     driven height so the content sits naturally and the video fills behind. */
+  @media (max-width: 720px) {
+    .ctaSec__panel { aspect-ratio: auto; min-height: 420px; }
+  }
+  .ctaSec__video {
+    position: absolute; inset: 0;
+    width: 100%; height: 100%;
+    object-fit: cover;
+    z-index: 1;
+  }
+  .ctaSec__mask {
+    position: absolute; inset: 0;
+    background: linear-gradient(90deg, rgba(4,4,6,0.95) 0%, rgba(4,4,6,0.85) 30%, rgba(4,4,6,0.4) 60%, rgba(4,4,6,0) 100%);
+    z-index: 2;
+    pointer-events: none;
+  }
+  .ctaSec__content {
+    position: absolute;
+    top: 0; bottom: 0; left: 0; right: 0;
+    z-index: 3;
+    display: flex; flex-direction: column; justify-content: center;
+    /* Fluid padding, 99px desktop down to 20px on small phones. The right
+       padding gets capped lower so the gradient mask reveal still works. */
+    padding: clamp(32px, 4vw + 16px, 56px) clamp(20px, 6vw + 4px, 99px);
+    max-width: 760px;
+  }
+  .ctaSec__h2 {
+    font-family: var(--font-display);
+    /* Fluid: 24px on phones up to 48px on desktop. */
+    font-size: clamp(24px, 2.4vw + 10px, 48px);
+    line-height: 1.25;
+    color: var(--text);
+    margin: 0;
+    max-width: 624px;
+  }
+  .ctaSec__desc {
+    color: var(--text-80);
+    font-size: 15px;
+    line-height: 22px;
+    margin: 18px 0 0;
+    max-width: 430px;
+  }
+  .ctaSec__btn {
+    display: inline-flex;
+    align-items: stretch;
+    margin-top: 32px;
+    width: fit-content;
+    text-decoration: none;
+    color: var(--text);
+    background: var(--bg-elevated);
+    outline: 1px solid var(--text);
+    outline-offset: -1px;
+    transition: background 0.15s;
+  }
+  .ctaSec__btn:hover { background: rgba(255,255,255,0.06); }
+  .ctaSec__btn-tab { width: 3px; background: var(--text); }
+  .ctaSec__btn-label { padding: 12px 22px; font-family: var(--font-display); font-size: 15px; }
+
+  /* ============================================================
+     FOOTER, 4 columns at design x-positions 171, 780, 981, 1152.
+     Cols 1, 2, 4 have stacked sub-blocks (per Paper 1PT-0 / 1Q0-0 / 1Q1-0
+     / 1QA-0 / 1QF-0 / 1QL-0 / 1R1-0 coordinates).
+     ============================================================ */
+  .footer {
+    border-top: 1px solid var(--border-faint);
+    padding: 60px 0 48px;
+  }
+  .footer__inner {
+    max-width: var(--max-w);
+    margin: 0 auto;
+    padding: 0 var(--side-pad);
+  }
+  .footer__cols {
+    display: grid;
+    /* Fractional sizing so columns fill the full rail-to-rail span. Brand
+       col gets 2fr because it carries the tagline + project-by line; the
+       three link columns each get 1fr. */
+    grid-template-columns: minmax(0, 2fr) minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr);
+    column-gap: 40px;
+    margin-bottom: 56px;
+    /* Inset content from the rails so text/links have breathing room and
+       don't literally sit on the rail line. Same text-inset other text
+       blocks use across the site. */
+    padding: 0 var(--text-inset);
+  }
+  /* Bottom row (copyright + cheer) gets the same inset. */
+  .footer__bottom { padding-left: var(--text-inset); padding-right: var(--text-inset); }
+  .footer__col { display: flex; flex-direction: column; }
+  .footer__brand {
+    display: inline-flex; align-items: center;
+    height: 44px;
+    margin-bottom: 32px;          /* tighter, tagline sits below now */
+  }
+  .footer__brand img { height: 32px; width: auto; display: block; }
+  .footer__tagline {
+    margin: 0 0 28px;
+    color: var(--text);
+    font-size: 18px;
+    line-height: 26px;
+    font-family: var(--font-display);
+    max-width: 380px;
+    font-weight: 400;
+  }
+  .footer__by {
+    color: var(--text-80);
+    font-size: 15px;
+    line-height: 20px;
+    opacity: 0.7;
+    font-family: var(--font-body);
+    margin: 0;
+  }
+  .footer__by a { color: inherit; text-decoration: underline; }
+  /* Sub-block separator inside cols 2 and 4, gap matches design (~80-100px) */
+  .footer__col .footer__sub + .footer__sub { margin-top: 40px; }
+  .footer__col-title {
+    font-family: var(--font-display);
+    font-size: 16px;
+    letter-spacing: 0.06em;
+    color: var(--text);
+    margin: 0 0 18px;
+    opacity: 0.6;
+    text-transform: uppercase;
+  }
+  /* Small outlined pill for "Coming soon" next to a footer column title. */
+  .footer__col-tag {
+    display: inline-block;
+    margin-left: 8px;
+    padding: 2px 6px;
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    font-family: var(--font-display);
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text);
+    vertical-align: 2px;
+    opacity: 0.85;
+  }
+  .footer__col ul { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 12px; }
+  .footer__col a {
+    color: var(--text);
+    opacity: 0.85;
+    font-family: var(--font-body);
+    font-size: 15px;
+    line-height: 20px;
+    text-decoration: none;
+    transition: opacity 0.15s;
+  }
+  .footer__col a:hover { opacity: 1; }
+  .footer__bottom {
+    border-top: 1px solid var(--border-faint);
+    padding-top: 24px;
+    display: flex; justify-content: space-between; align-items: center;
+    color: var(--text-50);
+    font-size: 13px;
+  }
+
+  /* ============================================================
+     Responsive, tighten everything together
+     ============================================================ */
+  /* CTAs stack below the title at <=1500px viewports.
+     At 1280–1500 the title's longest 2nd line ("and videos into
+     {Halftone Art}" ≈ 30ch @ 50px ≈ 900px) doesn't fit in the
+     `auto`-CTA grid layout where CTAs take ~290px out of the row.
+     Below 1500: single column, CTAs sit below the subtitle area. */
+  /* Stack the CTAs below the title only at narrow widths where the title
+     would otherwise crowd them out. Above ~1100px we keep the original
+     3-column grid (title left, CTAs right) even if the title wraps to a
+     3rd line, that's the layout the design wants. */
+  @media (max-width: 1100px) {
+    .hero__textrow { grid-template-columns: 1fr; row-gap: 18px; }
+    .hero__ctas { grid-column: 1; }
+  }
+  @media (max-width: 1100px) {
+    :root { --side-pad: 48px; }
+    .nav__links { display: none; }
+    .hero__title { font-size: 48px; line-height: 56px; }
+    .community__grid { grid-template-columns: 1fr; }
+    .community__ticker { height: 540px; }
+    .askai__inner { grid-template-columns: 1fr; padding: 32px; }
+    .styles__grid { grid-template-columns: repeat(2, 1fr); }
+    .style-card:nth-child(3n) { border-right: 1px solid color(display-p3 0.102 0.102 0.106); }
+    .style-card:nth-child(2n) { border-right: none; }
+    .style-card--coming { grid-column: 1 / -1; }
+    .usecases__head { flex-direction: column; align-items: flex-start; }
+    .postfx__grid { grid-template-columns: 1fr; }
+    .postfx__demo { border-right: 0; border-bottom: 2px solid color(display-p3 0.102 0.102 0.109); }
+    .recipes-sec__grid { grid-template-columns: 1fr 1fr; }
+    /* In 2-col mobile recipe grid, the 2nd card sits at the right edge, 
+       drop its right border so it doesn't double up with the rail. */
+    .recipes-sec__grid > .recipe-pl:nth-child(2n) { border-right: 0; }
+    .faq-sec__grid { grid-template-columns: 1fr; column-gap: 0; }
+    .footer__cols { grid-template-columns: 1fr 1fr; gap: 32px; }
+    .section__h2 { font-size: 36px; line-height: 44px; }
+    .ctaSec__h2 { font-size: 36px; line-height: 44px; }
+  }
+  @media (max-width: 720px) {
+    :root { --side-pad: 20px; }
+    .hero__title { font-size: 36px; line-height: 42px; }
+    /* Stack the CTAs vertically at narrow widths and let each one stretch
+       to fill its column, primary CTA looks deliberate, not squished. */
+    .hero__ctas {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 10px;
+      width: 100%;
+      max-width: 320px;
+    }
+    .hero__cta-primary, .hero__cta-secondary { width: 100%; }
+    .hero__cta-primary-label { flex: 1; min-width: 0; }
+    .pills { left: 8px; right: 8px; bottom: 8px; gap: 6px; }
+    .pill { padding: 10px 12px; font-size: 13px; }
+    .nav__inner { padding: 0 16px; gap: 16px; }
+    .nav__brand { font-size: 18px; }
+    .section__h2 { font-size: 28px; line-height: 34px; }
+    .styles__grid { grid-template-columns: 1fr; }
+    .style-card:nth-child(n) { border-right: none; }
+    .style-card--coming { grid-column: 1; }
+    .recipes-sec__grid { grid-template-columns: 1fr; }
+    /* In stacked single-col mobile recipe grid, drop all card side borders, 
+       only top/bottom create the stack divider feel. */
+    .recipes-sec__grid > .recipe-pl { border-right: 0; }
+    .footer__cols { grid-template-columns: 1fr; }
+    .usecase { flex: 0 0 280px; }
+  }
+
+  /* ============================================================
+     COMPREHENSIVE RESPONSIVE LAYER
+     Most base styles already use clamp() for fluid scaling. These
+     rules handle structural shifts (grid → stack, aspect ratio
+     changes, padding compression) that need hard breakpoints.
+
+     Breakpoints used in this layer (additive to the inherited ones
+     above):
+       ≤1024px, tablet landscape & below
+       ≤720px, phone landscape & below
+       ≤480px, small phone portrait
+       ≤375px, iPhone SE / smallest common
+     ============================================================ */
+
+  /* ── Mobile nav transition (≤1100px), hide desktop nav links,
+     reveal the hamburger button. Push the CTA + hamburger together as a
+     paired group on the right (otherwise `justify-content: space-between`
+     spreads CTA into the middle of the bar, far from the hamburger). */
+  @media (max-width: 1100px) {
+    .nav__hamburger { display: inline-flex; }
+    .nav__cta { margin-left: auto; }
+  }
+
+  /* ── Tablet (≤1024px) ─────────────────────────────────────── */
+  @media (max-width: 1024px) {
+    /* Tighten vertical rhythm across all sections, desktop's
+       120px tops eat too much screen at this width. */
+    .styles,
+    .usecases,
+    .postfx,
+    .recipes-sec,
+    .faq-sec { padding-top: clamp(48px, 6vw + 16px, 96px); padding-bottom: clamp(48px, 6vw + 16px, 96px); }
+    .ctaSec  { padding-top: clamp(40px, 5vw + 16px, 80px); padding-bottom: clamp(40px, 5vw + 16px, 80px); }
+    .community { padding: clamp(48px, 6vw + 16px, 96px) 0; }
+    .community__ticker { height: clamp(420px, 50vw, 680px); }
+    .slider { margin-top: 24px; }
+    /* Title sits closer to the slider on tablet so the hero composes
+       as one block rather than feeling like two stacked pieces. */
+    .hero__textrow { margin-top: 28px; }
+    /* Usecase ticker cards a bit smaller than desktop 579px so two
+       cards are visible at once. */
+    .usecase { flex: 0 0 clamp(360px, 50vw, 520px); }
+    /* Style card body, tighter padding. */
+    .style-card__body { padding: 24px 20px 64px 20px; }
+  }
+
+  /* ── Phone (≤720px) ───────────────────────────────────────── */
+  @media (max-width: 720px) {
+    /* Reduce, not eliminate, the 47px text-inset on mobile. Setting it to
+       0 makes content sit on top of the side rails (eyebrow, h2, FAQ "Q.",
+       footer brand all flush against the rails). 16px gives visual breathing
+       room without eating significant width on a 375px screen. */
+    :root { --text-inset: 16px; }
+
+    /* Hero, slider was 1477/676 (ultra-wide). On a phone that's a thin
+       slice ~170px tall. Reflow to ~5:6 (slightly taller than square) so
+       the image/video fills the container as a meaningful hero element. */
+    .slider { aspect-ratio: 5 / 6; margin-top: 16px; }
+    .slider__thumb { width: 52px; height: 52px; }
+    /* Pills, there are 8+ effect chips. On a phone they don't fit in
+       one row. Make the container horizontally scrollable with snap so
+       the user can swipe through all styles, with the active one
+       always visible. */
+    .pills {
+      flex-wrap: nowrap;
+      overflow-x: auto;
+      overflow-y: hidden;
+      scroll-snap-type: x mandatory;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+      padding-bottom: 2px;
+    }
+    .pills::-webkit-scrollbar { display: none; }
+    .pill { flex: 0 0 auto; scroll-snap-align: start; }
+    .hero__textrow { margin-top: 20px; }
+    .hero__subtitle { font-size: 14px; line-height: 1.5; }
+
+    /* Section padding tightens. */
+    .styles,
+    .usecases,
+    .postfx,
+    .recipes-sec,
+    .faq-sec { padding-top: 48px; padding-bottom: 40px; }
+    .ctaSec  { padding-top: 40px; padding-bottom: 40px; }
+    .community { padding: 48px 0; }
+
+    /* Community, keep text-inset (now 16px on mobile) so text doesn't
+       sit on the rails. Just tighten the ticker height and grid gap. */
+    .community__ticker { height: 380px; }
+    .community__grid { gap: 24px; }
+
+    /* AskAI, already restacked at 1100. Tighten its internal
+       padding so the cube + text + button breathe on a phone. */
+    .askai { padding: 32px 0; }
+    .askai__inner { padding: 16px; gap: 24px; }
+    .askai__left { padding-right: 0; }
+    .askai__cube { max-width: 480px; }
+
+    /* Styles section, eyebrow + header tighten, AND add horizontal
+       padding so the centered description doesn't sit on the rails. */
+    .styles__header { margin-bottom: 32px; padding: 0 var(--text-inset); }
+    .style-card__title { font-size: 20px; line-height: 24px; }
+    /* Bring the arrow back into normal flow under the title/description
+       so all three read as one left-aligned block (arrow no longer
+       absolutely positioned in a far bottom corner). */
+    .style-card__body { padding: 24px 20px; min-height: 0; }
+    .style-card__arrow {
+      position: static;
+      margin-top: 14px;
+      width: 20px; height: 20px;
+    }
+    /* "More coming soon" stays a centered full-width banner on mobile too, 
+       smaller type + tighter padding, but content centered (not left-aligned). */
+    .style-card--coming {
+      text-align: center;
+      align-items: center;
+      justify-content: center;
+      padding: 44px 20px;
+      min-height: 0;
+    }
+    .style-card--coming .style-card__title { margin: 0 0 12px; font-size: 24px; line-height: 28px; text-align: center; }
+    .style-card--coming .style-card__desc  { margin: 0 auto; text-align: center; }
+    .style-card__email {
+      width: auto;
+      max-width: 200px;
+      height: 40px;
+      grid-template-columns: auto 1px 40px;
+      margin-top: 16px;
+    }
+    .style-card__email-label { padding: 0 14px; font-size: 14px; line-height: 1; }
+    .style-card__email-icon  { padding: 0; justify-content: center; }
+    .style-card__email-icon svg { width: 18px; height: 18px; }
+    /* Post-FX section description gets horizontal padding too. */
+    .postfx__head { margin-bottom: 32px; padding: 0 var(--text-inset); }
+    /* "Explore more effects" CTA, keep the base inline-flex centering
+       (was clobbered by an earlier `display: block` override that killed
+       vertical centering). Just widen the gutter + tighten height for
+       mobile. */
+    .postfx__cta { padding: 16px; }
+    .postfx__cta a { height: 48px; font-size: 14px; }
+    /* Hide everything after RGB Split (rows 10-14) on mobile, 
+       the panel becomes scannable instead of a wall of toggles. */
+    .pfx-row[data-fx="blur"],
+    .pfx-row[data-fx="halftone"],
+    .pfx-row[data-fx="pixelate"],
+    .pfx-row[data-fx="filmdust"],
+    .pfx-row[data-fx="coloroverlay"] { display: none; }
+    /* FAQ section description gets horizontal padding too. */
+    .faq-sec__head { margin-bottom: 32px; padding: 0 var(--text-inset); }
+    /* FAQ Load-more, hide items past the 10th by default; the toggle
+       button reveals them. Implemented via a body class so the JS only
+       needs to flip one class. */
+    body:not(.faq-show-all) .faq-item.faq-item--hidden { display: none; }
+    .faq-load-more { display: flex; }
+
+    /* Use cases header stacks vertically (already at 1100), tighten
+       the submit button. */
+    .usecases__submit { padding: 10px 14px; font-size: 13px; }
+    .usecase { flex: 0 0 280px; padding: 20px; }
+
+    /* Post-FX, already collapsed to 1col + min-height 0 at 1100. */
+    .postfx__head { margin-bottom: 32px; }
+
+    /* FAQ, head margin tighten. */
+    .faq-sec__head { margin-bottom: 32px; }
+
+    /* CTA section content tightens (h2 is already fluid). */
+    .ctaSec__desc { font-size: 14px; }
+
+    /* Footer, tighten vertical padding but PRESERVE the horizontal
+       side-pad gutter so content doesn't sit flush against viewport
+       edges. */
+    .footer__inner { padding: 32px var(--side-pad) 16px; }
+    /* UNIFORM 32px RHYTHM across the entire footer stack on mobile.
+       Every chunk (logo, tagline, "Project by", CORE, OTHER TOOLS,
+       STYLES, USECASES, LEGAL) is treated as an equal-spaced item.
+       Zero out all per-element margins so the flex `gap` is the SOLE
+       source of vertical spacing, otherwise the desktop's
+       margin-bottom: 32px on brand + margin: 0 0 28px on tagline ADD on
+       top of the parent's gap and produce uneven jumps. */
+    .footer__cols { row-gap: 32px; margin-bottom: 32px; }
+    .footer__col { gap: 32px; }
+    .footer__col .footer__sub + .footer__sub { margin-top: 0; }
+    .footer__brand { margin: 0; height: auto; }
+    .footer__tagline { margin: 0; }
+    .footer__by { margin: 0; }
+    .footer__col-title { margin: 0 0 12px; }
+    /* Bottom row, keep tight against the closing line. */
+    .footer__bottom { padding-top: 16px; }
+  }
+
+  /* ── Small phone (≤480px) ─────────────────────────────────── */
+  @media (max-width: 480px) {
+    /* side-pad 16 + text-inset 12 = 28px gutter from viewport edge.
+       Leaves ~319px of usable width on a 375px iPhone SE. */
+    :root { --side-pad: 16px; --text-inset: 12px; }
+
+    /* Section padding compresses more. */
+    .styles,
+    .usecases,
+    .postfx,
+    .recipes-sec,
+    .faq-sec { padding-top: 40px; padding-bottom: 36px; }
+    .ctaSec  { padding-top: 36px; padding-bottom: 36px; }
+    .community { padding: 40px 0; }
+    .community__ticker { height: 320px; }
+
+    /* Keep the nav CTA at its base 28px height, the user wants it small
+       so it reads as one piece with the 3px tab line. Don't bloat it on
+       mobile/touch. */
+    .nav { height: 56px; }
+
+    /* Pills, compact for narrow screens. */
+    .pill { padding: 8px 10px; font-size: 12px; min-height: 36px; }
+    .pills { gap: 5px; }
+
+    /* Use case card narrower so the next one peeks in at 375px. */
+    .usecase { flex: 0 0 240px; padding: 18px; gap: 16px; }
+
+    /* Style card image gets a slightly squarer aspect to keep cards
+       compact in a single-column phone view. */
+    .style-card__media { aspect-ratio: 5 / 4; }
+    .style-card__body { padding: 20px 16px 56px 16px; min-height: 0; }
+
+    /* Footer columns titles a bit smaller. */
+    .footer__col-title { font-size: 14px; }
+    .footer__col-tag { font-size: 9px; padding: 2px 5px; }
+  }
+
+  /* ── iPhone SE / 360px Android (≤375px) ──────────────────── */
+  @media (max-width: 375px) {
+    :root { --side-pad: 12px; }
+    .nav__brand { font-size: 16px; }
+    .nav__cta-btn { padding: 7px 10px; font-size: 12px; }
+    .section__h2 { letter-spacing: 0; }
+    .ctaSec__h2 { letter-spacing: 0; }
+    .usecase { flex: 0 0 220px; }
+  }
+
+  /* ── Touch / interaction safety ───────────────────────────── */
+  /* Anything below a pointer-fine device gets bigger touch targets.
+     EXCLUDES .nav__cta-btn deliberately, that button must stay 28px to
+     match the 3px tab line next to it (design choice). */
+  @media (hover: none) and (pointer: coarse) {
+    .pill,
+    .hero__cta-primary,
+    .hero__cta-secondary,
+    .ctaSec__btn,
+    .askai__btn,
+    .usecases__submit { min-height: 44px; }
+  }
+
+  /* ── Reduced motion ──────────────────────────────────────── */
+  @media (prefers-reduced-motion: reduce) {
+    .community__track,
+    .usecases__track { animation: none !important; }
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+
+  /* ── Global safety nets ──────────────────────────────────── */
+  /* Stop horizontal scrolling, any single overflow can reveal the
+     entire page width on touch devices. Belt-and-braces. */
+  html, body { overflow-x: hidden; }
+  /* Prevent images and videos from busting their containers. */
+  img, video, canvas { max-width: 100%; height: auto; }
+  /* Don't let canvas auto-size to height:auto on the slider where
+     dimensions are deliberately driven by CSS, opt out there. */
+  .slider canvas, .postfx__media { height: 100%; }
+</style>
+<style>
+  .v1strip{position:relative;min-height:36px;background:#141418;
+    border-bottom:1px solid rgba(255,255,255,0.08);z-index:300;transition:background .15s;}
+  .v1strip:hover{background:#1d1d23;}
+  /* The link fills the whole bar, so the entire strip is clickable + hovers. */
+  .v1strip__link{position:absolute;inset:0;z-index:1;display:flex;align-items:center;justify-content:center;
+    gap:10px;padding:7px 44px;font-family:var(--font-body,system-ui);font-size:13px;letter-spacing:0.01em;
+    color:rgba(255,255,255,0.86);text-decoration:none;text-align:center;}
+  .v1strip__link strong{font-weight:600;color:#fff;}
+  .v1strip__dot{width:7px;height:7px;border-radius:50%;background:#ff8a3c;flex:0 0 7px;
+    animation:v1pulse 2s infinite;}
+  @keyframes v1pulse{0%{box-shadow:0 0 0 0 rgba(255,138,60,0.55)}70%{box-shadow:0 0 0 6px rgba(255,138,60,0)}100%{box-shadow:0 0 0 0 rgba(255,138,60,0)}}
+  .v1strip__arr{font-weight:700;color:#ff8a3c;transition:transform .15s;}
+  .v1strip:hover .v1strip__arr{transform:translateX(3px);}
+  .v1strip__x{position:absolute;right:10px;top:50%;transform:translateY(-50%);z-index:2;background:none;
+    border:0;color:rgba(255,255,255,0.5);font-size:18px;line-height:1;cursor:pointer;padding:4px 9px;transition:color .15s;}
+  .v1strip__x:hover{color:#fff;}
+  .v1strip.hidden{display:none;}
+  @media(max-width:600px){.v1strip__link{font-size:12px;padding:7px 40px;}}
+</style>

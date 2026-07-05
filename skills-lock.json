@@ -1,0 +1,11 @@
+{
+  "version": 1,
+  "skills": {
+    "perfect-web-clone": {
+      "source": "ericshang98/perfect-web-clone-skill",
+      "sourceType": "github",
+      "skillPath": "SKILL.md",
+      "computedHash": "e7c909c52dae1e28a38000134e5f019b7f8c9b1867384b66b53e10293948d3fa"
+    }
+  }
+}
