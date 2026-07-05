@@ -901,6 +901,9 @@
   .eyebrow::before { content: "\276F  "; color: #57ff8f; opacity: 0.9; }
   .eyebrow::after  { content: "_"; color: #57ff8f; margin-left: 1px; animation: caret-blink 1.1s steps(1) infinite; }
   @keyframes caret-blink { 0%, 49% { opacity: 0.9; } 50%, 100% { opacity: 0; } }
+  .footer__term { font-family: ui-monospace, Menlo, monospace; font-size: 13px; color: #57ff8f; opacity: 0.8; }
+  .footer__comment { color: rgba(255,255,255,0.42); }
+  .footer__caret { color: #57ff8f; margin-left: 1px; animation: caret-blink 1.1s steps(1) infinite; }
   /* ambient ASCII rain — sits behind all content (z:0), sections are z:2 */
   #ascii-rain {
     position: fixed; inset: 0; z-index: 0; pointer-events: none; opacity: 0.42;
@@ -909,6 +912,23 @@
             mask-image: radial-gradient(ellipse 58% 82% at 50% 50%, rgba(0,0,0,0.10), #000 74%);
   }
   @media (prefers-reduced-motion: reduce) { #ascii-rain { display: none; } }
+  #boot {
+    position: fixed; inset: 0; z-index: 9999; display: none;
+    background: #040406; padding: 10vh 8vw; overflow: hidden;
+    font-family: ui-monospace, Menlo, monospace;
+  }
+  #boot.show { display: block; }
+  #boot.fade { opacity: 0; transition: opacity 0.5s ease; pointer-events: none; }
+  #boot::after {  /* faint scanlines over the boot screen */
+    content: ""; position: absolute; inset: 0; pointer-events: none;
+    background: repeating-linear-gradient(0deg, rgba(0,0,0,0) 0 2px, rgba(0,0,0,0.28) 2px 3px);
+  }
+  #boot-log {
+    margin: 0; white-space: pre-wrap; color: #57ff8f;
+    font-size: clamp(12px, 1.5vw, 16px); line-height: 1.75;
+    text-shadow: 0 0 8px rgba(87,255,143,0.45);
+  }
+  @media (prefers-reduced-motion: reduce) { #boot { display: none !important; } }
   .section__h2 {
     font-family: var(--font-display);
     /* Fluid: 24px on small phones → 48px on desktop. Scales linearly
@@ -2592,6 +2612,34 @@
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What is Image to ASCII?", "acceptedAnswer": {"@type": "Answer", "text": "Image to ASCII is a free online tool that turns any image into text-based ASCII art. Upload a photo or generate one with AI, pick a character style, and the conversion happens instantly in your browser. Export it as a PNG or copy the raw text."}}, {"@type": "Question", "name": "How do I convert an image to ASCII art?", "acceptedAnswer": {"@type": "Answer", "text": "Open the tool at the top of this page, drop or select an image, and it is converted to ASCII automatically. Adjust the detail, character set, invert and color, then download the PNG or copy the text. Works with JPG, PNG and WebP."}}, {"@type": "Question", "name": "Can I generate an image with AI instead of uploading one?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Switch to “Generate with AI”, describe the image you want, and the tool creates it for you and converts it straight to ASCII art — handy when you don’t have a source photo."}}, {"@type": "Question", "name": "Is it free? Do I need to sign up?", "acceptedAnswer": {"@type": "Answer", "text": "It is completely free — no signup, no watermark and no export limit. Just open the page and start converting."}}, {"@type": "Question", "name": "Do my images get uploaded to a server?", "acceptedAnswer": {"@type": "Answer", "text": "When you upload your own image the ASCII conversion runs entirely in your browser, so the file never leaves your device. Only the optional AI image generation talks to a server (it sends your text prompt to create the image)."}}, {"@type": "Question", "name": "What can I export, and can I use it commercially?", "acceptedAnswer": {"@type": "Answer", "text": "Export the result as a PNG image, or copy it as plain text to paste anywhere — chat, code, a README or social. The ASCII art you make is yours to use, personally or commercially."}}]}</script>
 </head>
 <body>
+<div id="boot" aria-hidden="true"><pre id="boot-log"></pre></div>
+<script>
+(function boot(){
+  try { if (sessionStorage.getItem('i2a_booted')) return; } catch (e) {}
+  if (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  var el = document.getElementById('boot'), log = document.getElementById('boot-log');
+  if (!el || !log) return;
+  el.className = 'show';
+  try { sessionStorage.setItem('i2a_booted', '1'); } catch (e) {}
+  var lines = [
+    'image2ascii // boot sequence',
+    '',
+    'init canvas engine ............ [ ok ]',
+    'load character ramps .......... [ ok ]',
+    'mount ai bridge (apimart) ..... [ ok ]',
+    'calibrate phosphor display .... [ ok ]',
+    '',
+    'ready. \u276F _'
+  ];
+  var i = 0, done = false;
+  function finish(){ if (done) return; done = true; el.className = 'show fade'; setTimeout(function(){ if (el.parentNode) el.parentNode.removeChild(el); }, 520); }
+  function type(){ if (i >= lines.length) { setTimeout(finish, 320); return; } log.textContent += (i ? '\n' : '') + lines[i]; i++; setTimeout(type, 95); }
+  type();
+  addEventListener('keydown', finish, { once: true });
+  el.addEventListener('click', finish, { once: true });
+  setTimeout(finish, 3000);
+})();
+</script>
 <canvas id="ascii-rain" aria-hidden="true"></canvas>
   
 
@@ -2933,7 +2981,7 @@
     </div>
     <div class="footer__bottom">
       <span>© 2026 Image to ASCII. All rights reserved.</span>
-      <span style="opacity:0.6;">Thanks for scrolling this far. You’re awesome!</span>
+      <span class="footer__term">guest@imagetoascii:~$ <span class="footer__comment"># you scrolled the whole page &mdash; nice</span><span class="footer__caret">_</span></span>
     </div>
   </div>
 </footer>
