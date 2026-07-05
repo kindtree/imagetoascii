@@ -19,7 +19,6 @@ from __future__ import annotations
 import base64
 import json
 import os
-import time
 import urllib.error
 import urllib.parse
 import urllib.request
@@ -100,12 +99,11 @@ def _download(url: str) -> tuple[bytes, str]:
         return resp.read(), ctype
 
 
-def apimart_generate_image(prompt: str, size: str) -> str:
-    """Submit a generation task, poll to completion, return the image URL."""
+def apimart_submit(prompt: str, size: str) -> str:
+    """Submit a generation task and return the APIMart task_id immediately (no blocking)."""
     key = resolve_api_key()
     if not key:
         raise HTTPException(500, "APIMART_API_KEY is not configured on the server.")
-
     body: dict = {"model": IMAGE_MODEL, "prompt": prompt + ASCII_PROMPT_SUFFIX}
     if size:
         body["size"] = size
@@ -114,44 +112,47 @@ def apimart_generate_image(prompt: str, size: str) -> str:
     except urllib.error.HTTPError as e:
         detail = e.read().decode("utf-8", errors="replace")
         raise HTTPException(e.code, f"APIMart submit failed: {detail}")
-
     data = resp.get("data") or []
     task_id = data[0].get("task_id") if data else None
     if not task_id:
         raise HTTPException(502, f"APIMart returned no task_id: {json.dumps(resp)[:400]}")
+    return task_id
 
-    time.sleep(INITIAL_WAIT)
-    deadline = time.time() + POLL_TIMEOUT
-    while True:
-        try:
-            r = _get(f"/tasks/{urllib.parse.quote(task_id)}", key)
-        except urllib.error.HTTPError as e:
-            detail = e.read().decode("utf-8", errors="replace")
-            raise HTTPException(e.code, f"APIMart poll failed: {detail}")
-        d = r.get("data") or {}
-        if isinstance(d, list):
-            d = d[0] if d else {}
-        status = d.get("status")
-        if status == "completed":
-            images = (d.get("result") or {}).get("images") or []
-            urls: list[str] = []
-            for img in images:
-                if not isinstance(img, dict):
-                    continue
-                u = img.get("url")
-                if isinstance(u, str):
-                    urls.append(u)
-                elif isinstance(u, list):
-                    urls.extend(x for x in u if isinstance(x, str))
-            if not urls:
-                raise HTTPException(502, "APIMart completed but returned no image URL.")
-            return urls[0]
-        if status == "failed":
-            err = (d.get("error") or {}).get("message") or json.dumps(r)[:300]
-            raise HTTPException(502, f"APIMart generation failed: {err}")
-        if time.time() > deadline:
-            raise HTTPException(504, "APIMart generation timed out.")
-        time.sleep(POLL_INTERVAL)
+
+def apimart_poll_once(task_id: str) -> dict:
+    """Poll a task ONCE (fast). Returns {status, image?|error?} — never blocks."""
+    key = resolve_api_key()
+    if not key:
+        raise HTTPException(500, "APIMART_API_KEY is not configured on the server.")
+    try:
+        r = _get(f"/tasks/{urllib.parse.quote(task_id)}", key)
+    except urllib.error.HTTPError as e:
+        detail = e.read().decode("utf-8", errors="replace")
+        raise HTTPException(e.code, f"APIMart poll failed: {detail}")
+    d = r.get("data") or {}
+    if isinstance(d, list):
+        d = d[0] if d else {}
+    status = d.get("status")
+    if status == "completed":
+        images = (d.get("result") or {}).get("images") or []
+        urls: list[str] = []
+        for img in images:
+            if not isinstance(img, dict):
+                continue
+            u = img.get("url")
+            if isinstance(u, str):
+                urls.append(u)
+            elif isinstance(u, list):
+                urls.extend(x for x in u if isinstance(x, str))
+        if not urls:
+            raise HTTPException(502, "APIMart completed but returned no image URL.")
+        img_bytes, ctype = _download(urls[0])
+        b64 = base64.b64encode(img_bytes).decode()
+        return {"status": "completed", "image": f"data:{ctype};base64,{b64}"}
+    if status == "failed":
+        err = (d.get("error") or {}).get("message") or json.dumps(r)[:300]
+        return {"status": "failed", "error": err}
+    return {"status": "processing"}
 
 
 # ---------------------------------------------------------------- app ----
@@ -170,16 +171,22 @@ def health():
 
 @app.post("/api/generate")
 def generate(req: GenerateRequest):
-    """Sync (blocking) → FastAPI runs it in a threadpool so the loop isn't blocked."""
+    """Async: submit to APIMart and return a task_id immediately (short request,
+    never hits Cloudflare's ~100s proxy timeout). The client polls /api/status."""
     prompt = (req.prompt or "").strip()
     if not prompt:
         raise HTTPException(400, "A prompt is required.")
     if len(prompt) > 1000:
         raise HTTPException(400, "Prompt too long (max 1000 chars).")
-    url = apimart_generate_image(prompt, req.size or "1:1")
-    img_bytes, ctype = _download(url)
-    b64 = base64.b64encode(img_bytes).decode()
-    return {"image": f"data:{ctype};base64,{b64}", "prompt": prompt}
+    task_id = apimart_submit(prompt, req.size or "1:1")
+    return {"task_id": task_id}
+
+
+@app.get("/api/status/{task_id}")
+def status(task_id: str):
+    """Fast, non-blocking poll. → {status:'processing'} or {status:'completed',image}
+    or {status:'failed',error}. Each call returns in well under a second."""
+    return apimart_poll_once(task_id)
 
 
 # Static site LAST so /api/* wins. html=True serves index.html at "/".

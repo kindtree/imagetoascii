@@ -5,6 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Image to ASCII — Free Online ASCII Art Generator</title>
   <meta name="description" content="Image to ASCII — free online converter. Upload a photo or generate one with AI, then turn it into ASCII art in your browser. No signup, instant, export as PNG or text.">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/brand/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/brand/favicon-16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/brand/apple-touch-icon.png">
   <meta property="og:title" content="Image to ASCII — Free Online ASCII Art Generator">
   <meta property="og:description" content="Free ASCII art generator. Turn any image into ASCII art, braille, or block characters in your browser, no signup, no upload.">
   <meta property="og:image" content="https://imagetoascii.app/og.jpg">
@@ -2527,6 +2531,16 @@
 .tool__btn--ghost { background: transparent; color: #fff; border-color: rgba(255,255,255,.2); }
 .tool__btn--ghost:hover { background: rgba(255,255,255,.06); }
 .tool__status { font-size: .85rem; color: rgba(255,255,255,.6); min-height: 1.2em; margin-top: 2px; }
+  .tool__loading { display: flex; align-items: center; gap: 18px; margin-top: 16px; padding: 20px 22px; border: 1px solid rgba(255,255,255,.1); border-radius: 14px; background: linear-gradient(180deg,#0b0b12,#08080c); }
+  .tool__loading-spin { font-family: ui-monospace, Menlo, monospace; font-size: 2.1rem; line-height: 1; color: #FF8A3C; width: 2rem; text-align: center; text-shadow: 0 0 16px rgba(255,138,60,.6); }
+  .tool__loading-info { flex: 1 1 auto; min-width: 0; }
+  .tool__loading-title { font-weight: 600; color: #fff; font-size: 1rem; }
+  .tool__loading-sub { font-size: .8rem; color: rgba(255,255,255,.5); font-family: ui-monospace, Menlo, monospace; margin-top: 3px; }
+  .tool__loading-bar { margin-top: 11px; height: 3px; background: rgba(255,255,255,.08); border-radius: 2px; overflow: hidden; }
+  .tool__loading-bar span { display: block; height: 100%; width: 42%; background: linear-gradient(90deg, transparent, #FF8A3C, transparent); border-radius: 2px; animation: tool-bar 1.25s ease-in-out infinite; }
+  @keyframes tool-bar { 0% { transform: translateX(-120%); } 100% { transform: translateX(320%); } }
+  .tool__loading-dots::after { content: ''; animation: tool-dots 1.4s steps(1,end) infinite; }
+  @keyframes tool-dots { 0%{content:''} 25%{content:'.'} 50%{content:'..'} 75%{content:'...'} }
 .tool__status--err { color: #ff8a8a; }
 
 .tool__result { margin-top: 30px; }
@@ -2562,7 +2576,7 @@
 <header class="nav">
   <div class="nav__inner">
     <a class="nav__brand" href="#top" aria-label="Image to ASCII, home">
-      <span class="brand-wordmark" style="font-family:'Pixelify Sans',ui-monospace,monospace;font-weight:600;font-size:1.1rem;color:#fff;white-space:nowrap;letter-spacing:.01em;">Image&nbsp;to&nbsp;ASCII</span>
+      <img src="/assets/brand/logo.png" alt="" width="26" height="26" style="border-radius:6px;vertical-align:middle;margin-right:9px;"><span class="brand-wordmark" style="font-family:'Pixelify Sans',ui-monospace,monospace;font-weight:600;font-size:1.1rem;color:#fff;white-space:nowrap;letter-spacing:.01em;">Image&nbsp;to&nbsp;ASCII</span>
     </a>
     <nav class="nav__links" aria-label="Primary">
       <a href="#usecases">Usecases</a>
@@ -2697,6 +2711,14 @@
           <button id="tool-generate" class="tool__btn" type="button">Generate image</button>
         </div>
         <p id="tool-status" class="tool__status" role="status" aria-live="polite"></p>
+        <div id="tool-loading" class="tool__loading" hidden>
+          <div class="tool__loading-spin" id="tool-loading-spin">&#10379;</div>
+          <div class="tool__loading-info">
+            <div class="tool__loading-title">Generating your image<span class="tool__loading-dots"></span></div>
+            <div class="tool__loading-sub">AI is painting it, then it converts to ASCII &middot; <span id="tool-loading-secs">0s</span></div>
+            <div class="tool__loading-bar"><span></span></div>
+          </div>
+        </div>
       </div>
     </div>
     <div id="tool-result" class="tool__result" hidden>
@@ -2821,7 +2843,7 @@
       <!-- Col 1: brand + tagline + "Project by" -->
       <div class="footer__col">
         <a class="footer__brand" href="#top" aria-label="Image to ASCII, home">
-          <span class="brand-wordmark" style="font-family:'Pixelify Sans',ui-monospace,monospace;font-weight:600;font-size:1.1rem;color:#fff;white-space:nowrap;letter-spacing:.01em;">Image&nbsp;to&nbsp;ASCII</span>
+          <img src="/assets/brand/logo.png" alt="" width="26" height="26" style="border-radius:6px;vertical-align:middle;margin-right:9px;"><span class="brand-wordmark" style="font-family:'Pixelify Sans',ui-monospace,monospace;font-weight:600;font-size:1.1rem;color:#fff;white-space:nowrap;letter-spacing:.01em;">Image&nbsp;to&nbsp;ASCII</span>
         </a>
         <p class="footer__tagline">A free browser-based ASCII art generator. Turn any image into ASCII art, braille, or block characters.</p>
         

@@ -116,25 +116,73 @@
     els.status.classList.toggle('tool__status--err', !!isErr);
   }
 
-  // ---- AI generate ----
+  // ---- AI generate (async: submit → poll, so every request is short) ----
+  const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+  const SPIN = ['\u280b','\u2819','\u2839','\u2838','\u283c','\u2834','\u2826','\u2827','\u2807','\u280f'];
+  let _spinTimer = null;
+  function showLoading(on, startedAt) {
+    const box = document.getElementById('tool-loading');
+    if (!box) return;
+    const spin = document.getElementById('tool-loading-spin');
+    const secsEl = document.getElementById('tool-loading-secs');
+    if (on) {
+      box.hidden = false;
+      let i = 0;
+      if (spin) spin.textContent = SPIN[0];
+      if (secsEl) secsEl.textContent = '0s';
+      _spinTimer = setInterval(() => {
+        if (spin) spin.textContent = SPIN[++i % SPIN.length];
+        if (secsEl && startedAt) secsEl.textContent = Math.round((Date.now() - startedAt) / 1000) + 's';
+      }, 90);
+    } else {
+      box.hidden = true;
+      if (_spinTimer) { clearInterval(_spinTimer); _spinTimer = null; }
+    }
+  }
+
   async function generate() {
     const prompt = els.prompt.value.trim();
     if (!prompt) { setStatus('Type a description first.', true); return; }
     els.generate.disabled = true;
-    setStatus('Generating your image… this can take 10–40s.');
+    setStatus('');
+    const started = Date.now();
+    showLoading(true, started);
     try {
+      // 1) submit -> task_id (fast, short request)
       const r = await fetch('/api/generate', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ prompt: prompt, size: els.size.value }),
       });
-      const data = await r.json().catch(() => ({}));
-      if (!r.ok) throw new Error(data.detail || ('Server error ' + r.status));
-      setStatus('Done — converting to ASCII.');
-      loadFromSrc(data.image);
+      const sub = await r.json().catch(() => ({}));
+      if (!r.ok || !sub.task_id) throw new Error(sub.detail || ('Server error ' + r.status));
+
+      // 2) poll status every 3s (each poll is short -> never hits the proxy timeout)
+      for (;;) {
+        await sleep(3000);
+        const secs = Math.round((Date.now() - started) / 1000);
+        let sd;
+        try {
+          const st = await fetch('/api/status/' + encodeURIComponent(sub.task_id));
+          sd = await st.json().catch(() => ({}));
+          if (!st.ok) throw new Error(sd.detail || ('Server error ' + st.status));
+        } catch (e) {
+          if (secs > 180) throw new Error('timed out');
+          continue; // transient network blip while polling -> keep trying
+        }
+        if (sd.status === 'completed') {
+          showLoading(false);
+          setStatus('Converting to ASCII…');
+          loadFromSrc(sd.image);
+          break;
+        }
+        if (sd.status === 'failed') throw new Error(sd.error || 'generation failed');
+        if (secs > 180) throw new Error('timed out after 180s');
+      }
     } catch (e) {
       setStatus('Generation failed: ' + (e.message || e), true);
     } finally {
+      showLoading(false);
       els.generate.disabled = false;
     }
   }
