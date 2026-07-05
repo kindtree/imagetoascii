@@ -18,7 +18,6 @@
   <meta name="twitter:description" content="Free ASCII art generator. Turn any image into ASCII art, braille, or block characters in your browser, no signup, no upload.">
   <meta name="twitter:image" content="https://imagetoascii.app/og.jpg">
   <link rel="canonical" href="https://imagetoascii.app/">
-  <link href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700&amp;display=swap" rel="stylesheet">
 <style>
   /* ============================================================
      Self-hosted Geist Pixel, the display face used across the design
@@ -49,7 +48,7 @@
     --accent:        #FFFFFF;
     --accent-text:   #040406;
     --font-display:  "GeistPixel-Square", ui-monospace, "SF Mono", Menlo, monospace;
-    --font-body:     "Satoshi", "Satoshi-Regular", system-ui, -apple-system, "Segoe UI", sans-serif;
+    --font-body:     ui-monospace, "SF Mono", "JetBrains Mono", Menlo, "Cascadia Code", Consolas, "Liberation Mono", monospace;
     /* Layout, content runs rail-to-rail.
        --max-w  is the artboard width (1728).
        --side-pad is the gap from viewport edge to rail/content edge (129).
@@ -102,9 +101,9 @@
     content: "";
     position: absolute;
     top: 0; bottom: 0;
-    width: 2px;
-    background: #DDDDDD;
-    opacity: 0.10;
+    width: 1px;
+    background: repeating-linear-gradient(180deg, rgba(87,255,143,0.20) 0 6px, transparent 6px 14px);
+    opacity: 1;
   }
   .rails::before { left: var(--side-pad); }
   .rails::after  { right: var(--side-pad); }
@@ -158,7 +157,7 @@
     position: absolute;
     bottom: 0;
     height: 1px;
-    background: rgba(221, 221, 221, 0.10);
+    background: repeating-linear-gradient(90deg, rgba(87,255,143,0.22) 0 7px, transparent 7px 15px);
     pointer-events: none;
     z-index: 6;
     left:  max(var(--side-pad), calc((100vw - 1728px) / 2 + var(--side-pad)));
@@ -929,6 +928,12 @@
     text-shadow: 0 0 8px rgba(87,255,143,0.45);
   }
   @media (prefers-reduced-motion: reduce) { #boot { display: none !important; } }
+  /* CRT scanlines over the whole screen — very faint retro-terminal texture */
+  .crt-overlay {
+    position: fixed; inset: 0; z-index: 9998; pointer-events: none;
+    background: repeating-linear-gradient(0deg, rgba(0,0,0,0.11) 0 1px, transparent 1px 3px);
+  }
+  #ascii-rain.rain-boost { opacity: 0.9 !important; transition: opacity 0.4s ease; -webkit-mask-image: none; mask-image: none; }
   .section__h2 {
     font-family: var(--font-display);
     /* Fluid: 24px on small phones → 48px on desktop. Scales linearly
@@ -948,7 +953,7 @@
     margin: clamp(16px, 1.5vw + 8px, 24px) 0 0;
     max-width: 608px;
   }
-  .divider { height: 1px; background: var(--border-faint); width: 100%; }
+  .divider { height: 1px; background: repeating-linear-gradient(90deg, rgba(87,255,143,0.18) 0 7px, transparent 7px 15px); width: 100%; }
 
   /* ============================================================
      SECTION 2, Community creations.
@@ -1393,18 +1398,21 @@
     /* No fade mask, the side rails are the visual boundaries (per design). */
   }
   .usecases__track {
-    display: flex;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 24px;
-    animation: tickerX 50s linear infinite;
-    width: max-content;
+    max-width: 1248px;
+    margin: 0 auto;
+    padding: 0 var(--text-inset);
   }
+  @media (max-width: 900px) { .usecases__track { grid-template-columns: 1fr; max-width: 560px; } }
   .usecases__ticker:hover .usecases__track { animation-play-state: paused; }
   @keyframes tickerX {
     0%   { transform: translateX(0); }
     100% { transform: translateX(-50%); }
   }
   .usecase {
-    flex: 0 0 579px;
+    min-width: 0;
     border: 1px solid var(--border-faint);
     background: var(--bg);
     padding: 28px;
@@ -2641,6 +2649,7 @@
 })();
 </script>
 <canvas id="ascii-rain" aria-hidden="true"></canvas>
+<div class="crt-overlay" aria-hidden="true"></div>
   
 
 <!-- v1 launch strip -->
@@ -3874,9 +3883,7 @@ const USECASES = [
       '<p class="usecase__desc">' + u.desc + '</p>';
     return card;
   }
-  for (let i = 0; i < 2; i++) {
-    USECASES.forEach(u => track.appendChild(renderCard(u)));
-  }
+  USECASES.forEach(u => track.appendChild(renderCard(u)));
 })();
 
 /* ===============================================================
@@ -4299,6 +4306,21 @@ const FAQS = [
     document.addEventListener('visibilitychange', () => {
       running = !document.hidden;
       if (running) { last = 0; requestAnimationFrame(frame); }
+    });
+  })();
+  /* Easter egg: type "matrix" (outside inputs) -> the ASCII rain surges briefly. */
+  (function rainEgg() {
+    let buf = '';
+    addEventListener('keydown', (e) => {
+      const t = e.target;
+      if (t && (t.tagName === 'INPUT' || t.tagName === 'TEXTAREA' || t.isContentEditable)) return;
+      if (!e.key || e.key.length !== 1) return;
+      buf = (buf + e.key.toLowerCase()).slice(-6);
+      if (buf === 'matrix') {
+        const cv = document.getElementById('ascii-rain');
+        if (cv) { cv.classList.add('rain-boost'); setTimeout(() => cv.classList.remove('rain-boost'), 4200); }
+        buf = '';
+      }
     });
   })();
   </script>
