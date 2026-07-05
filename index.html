@@ -1393,6 +1393,16 @@
     transition: border-color 0.2s, background 0.2s;
   }
   .usecase:hover { border-color: rgba(255,255,255,0.16); background: rgba(255,255,255,0.025); }
+  .usecase__bar {
+    display: flex; align-items: center;
+    margin: -28px -28px -10px;
+    padding: 9px 16px;
+    border-bottom: 1px solid var(--border-faint);
+    font-family: ui-monospace, Menlo, monospace;
+    font-size: 12px; letter-spacing: 0.03em;
+    color: rgba(255,255,255,0.42);
+  }
+  .usecase__bar::before { content: ">_"; color: #57ff8f; opacity: 0.9; margin-right: 9px; }
   .usecase__media {
     position: relative;
     width: 100%;
@@ -1816,7 +1826,7 @@
   .faq-item {
     display: flex; flex-direction: column;
     padding: 24px 0;
-    border-bottom: 1px solid rgba(255,255,255,0.13);
+    border-bottom: 1px dashed rgba(255,255,255,0.17);
   }
   .faq-item__row {
     display: flex; align-items: flex-start; justify-content: space-between;
@@ -1832,17 +1842,22 @@
     line-height: 28px;
     color: var(--text);
   }
-  .faq-item__q-prefix { opacity: 0.5; }
+  .faq-item__q-prefix { color: #57ff8f; opacity: 0.95; font-weight: 600; margin-right: 2px; }
   .faq-item__icon {
-    width: 20px; height: 20px;
-    flex: 0 0 20px;
-    color: var(--text);
-    opacity: 0.5;
-    transition: transform 0.25s, opacity 0.2s;
+    flex: 0 0 auto;
+    font-family: ui-monospace, Menlo, monospace;
+    font-size: 15px; line-height: 28px;
+    color: #57ff8f;
+    opacity: 0.6;
+    transition: opacity 0.2s;
   }
-  details[open] .faq-item__icon { transform: rotate(180deg); opacity: 1; }
+  .faq-item__icon::before { content: "[+]"; }
+  details[open] .faq-item__icon { opacity: 1; }
+  details[open] .faq-item__icon::before { content: "[\2212]"; }
   .faq-item__a {
-    margin-top: 16px;
+    margin-top: 14px;
+    padding-left: 15px;
+    border-left: 2px solid rgba(87,255,143,0.38);
     color: var(--text-70);
     font-family: var(--font-body);
     font-size: 15px;
@@ -3800,7 +3815,9 @@ const USECASES = [
     const mediaTag = (src, cls) => u.isVideo
       ? '<img class="' + cls + '" src="' + src + '" loading="lazy" decoding="async" alt="ASCII art example">'
       : '<img class="' + cls + '" src="' + src + '" alt="' + u.title + ' use case example" loading="lazy">';
+    const fn = String(u.title).toLowerCase().split(/[ &]/)[0] + '.ascii';
     card.innerHTML =
+      '<div class="usecase__bar" aria-hidden="true"><span class="usecase__file">' + fn + '</span></div>' +
       '<div class="usecase__media">' +
         mediaTag(u.def,   'usecase__default') +
         mediaTag(u.hover, 'usecase__hover') +
@@ -4078,10 +4095,8 @@ const FAQS = [
       d.className = 'faq-item' + (counter > 10 ? ' faq-item--hidden' : '');
       d.innerHTML =
         '<summary class="faq-item__row">' +
-          '<span class="faq-item__q"><span class="faq-item__q-prefix">Q.</span> ' + f.q + '</span>' +
-          '<span class="faq-item__icon" aria-hidden="true">' +
-            '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>' +
-          '</span>' +
+          '<span class="faq-item__q"><span class="faq-item__q-prefix">$</span> ' + f.q + '</span>' +
+          '<span class="faq-item__icon" aria-hidden="true"></span>' +
         '</summary>' +
         '<div class="faq-item__a">' + f.a + '</div>';
       c.appendChild(d);
