@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Image to ASCII — Free Online ASCII Art Generator</title>
-  <meta name="description" content="Free ASCII art generator. Turn any image into ASCII art, braille, or block characters in your browser, no signup, no upload.">
+  <meta name="description" content="Image to ASCII — free online converter. Upload a photo or generate one with AI, then turn it into ASCII art in your browser. No signup, instant, export as PNG or text.">
   <meta property="og:title" content="Image to ASCII — Free Online ASCII Art Generator">
   <meta property="og:description" content="Free ASCII art generator. Turn any image into ASCII art, braille, or block characters in your browser, no signup, no upload.">
   <meta property="og:image" content="https://imagetoascii.app/og.jpg">
@@ -2544,6 +2544,8 @@
 }
 
 </style>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebApplication", "name": "Image to ASCII", "url": "https://imagetoascii.app/", "description": "Free online image to ASCII art converter. Upload a photo or generate one with AI, then turn it into ASCII art in your browser.", "applicationCategory": "MultimediaApplication", "operatingSystem": "Any (web browser)", "browserRequirements": "Requires JavaScript", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}, "featureList": ["Convert any image to ASCII art", "Generate an image with AI, then convert it", "Multiple character styles (Characters, Detailed, Block, Minimal)", "Export as PNG or copy as text", "Runs entirely in the browser, no signup"]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What is Image to ASCII?", "acceptedAnswer": {"@type": "Answer", "text": "Image to ASCII is a free online tool that turns any image into text-based ASCII art. Upload a photo or generate one with AI, pick a character style, and the conversion happens instantly in your browser. Export it as a PNG or copy the raw text."}}, {"@type": "Question", "name": "How do I convert an image to ASCII art?", "acceptedAnswer": {"@type": "Answer", "text": "Open the tool at the top of this page, drop or select an image, and it is converted to ASCII automatically. Adjust the detail, character set, invert and color, then download the PNG or copy the text. Works with JPG, PNG and WebP."}}, {"@type": "Question", "name": "Can I generate an image with AI instead of uploading one?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Switch to “Generate with AI”, describe the image you want, and the tool creates it for you and converts it straight to ASCII art — handy when you don’t have a source photo."}}, {"@type": "Question", "name": "Is it free? Do I need to sign up?", "acceptedAnswer": {"@type": "Answer", "text": "It is completely free — no signup, no watermark and no export limit. Just open the page and start converting."}}, {"@type": "Question", "name": "Do my images get uploaded to a server?", "acceptedAnswer": {"@type": "Answer", "text": "When you upload your own image the ASCII conversion runs entirely in your browser, so the file never leaves your device. Only the optional AI image generation talks to a server (it sends your text prompt to create the image)."}}, {"@type": "Question", "name": "What can I export, and can I use it commercially?", "acceptedAnswer": {"@type": "Answer", "text": "Export the result as a PNG image, or copy it as plain text to paste anywhere — chat, code, a README or social. The ASCII art you make is yours to use, personally or commercially."}}]}</script>
 </head>
 <body>
   
@@ -2565,7 +2567,7 @@
     <nav class="nav__links" aria-label="Primary">
       <a href="#usecases">Usecases</a>
       <a href="#styles">Styles</a>
-      <a href="#recipes-section">Recipes</a>
+      
       <a href="#faq">FAQ</a>
       
     </nav>
@@ -2598,7 +2600,7 @@
   <nav class="mobile-menu__nav" aria-label="Mobile navigation">
     <a href="#usecases">Usecases</a>
     <a href="#styles">Styles</a>
-    <a href="#recipes-section">Recipes</a>
+    
     <a href="#faq">FAQ</a>
     
   </nav>
@@ -2622,13 +2624,13 @@
            Art, etc.) we swap to an IMG instead of a VIDEO via
            prepareLayer, that path also has no waiting overhead. -->
     <div class="slider__layer slider__layer--before">
-      <img class="slider__media" id="slider-before-img" src="assets/hero/before.jpg" alt="Original image, before applying Characters" draggable="false" decoding="async" fetchpriority="high" style="display: block;">
+      <img class="slider__media" id="slider-before-img" src="assets/hero/before.jpg" alt="Original photo before converting to ASCII art" draggable="false" decoding="async" fetchpriority="high" style="display: block;">
       <video class="slider__media" id="slider-before-vid" muted="" loop="" playsinline="" style="display:none"></video>
       <div class="slider__fade"></div>
       <span class="slider__label slider__label--before">Before</span>
     </div>
     <div class="slider__layer slider__layer--after" id="slider-after">
-      <img class="slider__media" id="slider-after-img" src="assets/hero/after-green.png" style="display:block" draggable="false" alt="Characters effect rendered with Image to ASCII">
+      <img class="slider__media" id="slider-after-img" src="assets/hero/after-green.png" style="display:block" draggable="false" alt="Photo converted to ASCII art with the image to ASCII tool">
       <video class="slider__media" id="slider-after-vid" muted="" loop="" playsinline="" preload="none" style="display:none"></video>
       <div class="slider__fade"></div>
       <span class="slider__label slider__label--after">After</span>
@@ -2649,7 +2651,7 @@
  <div class="hero__textblock">
   <!-- Title row: title left, CTAs far right (matches Paper grid) -->
   <div class="hero__textrow">
-    <h1 class="hero__title" aria-label="Turn your images into ASCII art, pixel art, photo mosaic, voxel cubes, halftone, glitch or LEGO art">
+    <h1 class="hero__title" aria-label="Turn your images into ASCII art, text art and block characters">
       Turn your images<br>
       into <span class="hero__rotator" aria-hidden="true"><span class="hero__brace hero__brace--l">{</span><span class="hero__rotator-word" id="hero-rotator-word"></span><span class="hero__brace hero__brace--r">}</span></span>
     </h1>
@@ -2672,7 +2674,7 @@
   <div class="tool__wrap">
     <div class="tool__head">
       <p class="tool__eyebrow">/ IMAGE TO ASCII</p>
-      <h2 class="tool__title" id="tool-title">Turn any image into ASCII art</h2>
+      <h2 class="tool__title" id="tool-title">Image to ASCII — turn any photo into ASCII art</h2>
       <p class="tool__sub">Upload a photo, or describe one and let AI create it — then convert it to text art right in your browser. Free, no signup.</p>
     </div>
     <div class="tool__modes" role="tablist" aria-label="Image source">
@@ -2724,7 +2726,7 @@
 <section class="section askai" id="context-md" aria-labelledby="askai-h">
   <div class="askai__inner">
     <div class="askai__cube" aria-hidden="true">
-      <img src="https://pub-76499eb758d942ca8ea20206de006180.r2.dev/yellow-cube.png" alt="" loading="lazy">
+      <img src="https://pub-76499eb758d942ca8ea20206de006180.r2.dev/yellow-cube.png" alt="ASCII art example" loading="lazy">
     </div>
     <div class="askai__left">
       <p class="eyebrow">/ASK YOUR AI</p>
@@ -2758,10 +2760,10 @@
   <div class="section__inner">
     <div class="styles__header">
       <p class="eyebrow">/STYLES</p>
-      <h2 class="section__h2" id="styles-h">Thirteen art styles, one source.</h2>
-      <p class="section__desc">Thirteen image-to-art converters in one tool, ASCII, pixel art, voxel, mosaic, halftone, glitch, LEGO and more.</p>
+      <h2 class="section__h2" id="styles-h">Image to ASCII, four character styles</h2>
+      <p class="section__desc">Turn your image into ASCII art in four built-in character styles — tune the detail, invert and color, then export.</p>
     </div>
-    <div class="styles__grid" id="styles-grid"><a class="style-card style-card--characters" href="#tool" data-was="/styles/ascii-art"><div class="style-card__media"><img src="https://pub-76499eb758d942ca8ea20206de006180.r2.dev/style-pages/ascii-art/hero-after.jpg" alt="Characters, ASCII Art Generator example" loading="lazy"></div><div class="style-card__body"><h3 class="style-card__title">Characters, ASCII Art Generator</h3><p class="style-card__desc">Classic ASCII art, turn any image or video into ASCII using a configurable character ramp <span style="font-family:var(--font-display);opacity:0.85;">@#S08Xx+=-;:,.</span> mapped to brightness.</p><span class="style-card__arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg></span></div></a><a class="style-card style-card--dither" href="#tool" data-was="/styles/dither"><div class="style-card__media"><img src="https://pub-76499eb758d942ca8ea20206de006180.r2.dev/style-pages/dither/hero-after.jpg" alt="Dither, Dithering Generator example" loading="lazy"></div><div class="style-card__body"><h3 class="style-card__title">Dither, Dithering Generator</h3><p class="style-card__desc">Floyd–Steinberg, Atkinson, ordered/Bayer, halftone &amp; line dithers across 16 retro palettes (C64, Game Boy, PICO-8), with animated matrices.</p><span class="style-card__arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg></span></div></a><a class="style-card style-card--block" href="#tool" data-was="/styles/block"><div class="style-card__media"><img src="https://pub-76499eb758d942ca8ea20206de006180.r2.dev/style-pages/block/example-3.jpg" alt="Block Characters example" loading="lazy"></div><div class="style-card__body"><h3 class="style-card__title">Block Characters</h3><p class="style-card__desc">Half-block, quarter-block and full-block Unicode glyphs render dense, pixel-art-like detail, perfect for terminal aesthetics.</p><span class="style-card__arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg></span></div></a><a class="style-card style-card--pixelart" href="#tool" data-was="/styles/pixel-art"><div class="style-card__media"><img src="https://pub-76499eb758d942ca8ea20206de006180.r2.dev/style-pages/pixel-art/hero-after.jpg" alt="Pixel Art Generator example" loading="lazy"></div><div class="style-card__body"><h3 class="style-card__title">Pixel Art Generator</h3><p class="style-card__desc">Quantised colour blocks with subtle grid lines, turn photos into clean, posterised pixel-art tiles.</p><span class="style-card__arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg></span></div></a><a class="style-card style-card--mosaic" href="#tool" data-was="/styles/mosaic"><div class="style-card__media"><img src="https://pub-76499eb758d942ca8ea20206de006180.r2.dev/style-pages/mosaic/example-1.jpg" alt="Photo Mosaic example" loading="lazy"></div><div class="style-card__body"><h3 class="style-card__title">Photo Mosaic</h3><p class="style-card__desc">Every cell becomes a coloured tile sampled from the original photo. Pick square, wide or tall shapes for different feels.</p><span class="style-card__arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg></span></div></a><a class="style-card style-card--lego" href="#tool" data-was="/styles/lego"><div class="style-card__media"><img src="https://pub-76499eb758d942ca8ea20206de006180.r2.dev/effects/Lego/after.jpg" alt="LEGO Bricks example" loading="lazy"></div><div class="style-card__body"><h3 class="style-card__title">LEGO Bricks</h3><p class="style-card__desc">Posterised LEGO-style studded tiles with raised-dot highlights, looks like a brick mosaic of your photo.</p><span class="style-card__arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg></span></div></a><a class="style-card style-card--disco" href="#tool" data-was="/styles/disco"><div class="style-card__media"><img src="https://pub-76499eb758d942ca8ea20206de006180.r2.dev/effects/Disco/after.jpg" alt="Disco, Mirror Sphere example" loading="lazy"></div><div class="style-card__body"><h3 class="style-card__title">Disco, Mirror Sphere</h3><p class="style-card__desc">Glitter-tile rendering that wraps your image onto a mirror-ball sphere with bloom and lens flares.</p><span class="style-card__arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg></span></div></a><a class="style-card style-card--dots" href="#tool" data-was="/styles/dots"><div class="style-card__media"><img src="https://pub-76499eb758d942ca8ea20206de006180.r2.dev/effects/Dots/after.jpg" alt="Dots, Halftone Print example" loading="lazy"></div><div class="style-card__body"><h3 class="style-card__title">Dots, Halftone Print</h3><p class="style-card__desc">Dot matrix mode draws filled circles instead of glyphs, circles scale with brightness for a halftone-print effect.</p><span class="style-card__arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg></span></div></a><a class="style-card style-card--cross" href="#tool" data-was="/styles/cross"><div class="style-card__media"><img src="https://pub-76499eb758d942ca8ea20206de006180.r2.dev/effects/Cross/after.jpg" alt="Cross, Crosshatch example" loading="lazy"></div><div class="style-card__body"><h3 class="style-card__title">Cross, Crosshatch</h3><p class="style-card__desc">Crosshatch glyphs <span style="font-family:var(--font-display);opacity:0.85;">✕</span> scale with brightness for a woven, cross-stitch texture across your photo.</p><span class="style-card__arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg></span></div></a><a class="style-card style-card--cube" href="#tool" data-was="/styles/voxel"><div class="style-card__media"><img src="https://pub-76499eb758d942ca8ea20206de006180.r2.dev/effects/Cube/after.jpg" alt="Voxel Cubes example" loading="lazy"></div><div class="style-card__body"><h3 class="style-card__title">Voxel Cubes</h3><p class="style-card__desc">3D isometric cubes with per-face shading, adjustable cell size and outline, turn a photo into voxel art.</p><span class="style-card__arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg></span></div></a><a class="style-card style-card--diamond" href="#tool" data-was="/styles/diamond"><div class="style-card__media"><img src="https://pub-76499eb758d942ca8ea20206de006180.r2.dev/effects/Diamond/after.jpg" alt="Diamond Glyphs example" loading="lazy"></div><div class="style-card__body"><h3 class="style-card__title">Diamond Glyphs</h3><p class="style-card__desc">Sharp jewel-like diamond glyphs <span style="font-family:var(--font-display);opacity:0.85;">◆</span> with brightness-driven sizing.</p><span class="style-card__arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg></span></div></a><a class="style-card style-card--lines" href="#tool" data-was="/styles/lines"><div class="style-card__media"><img src="https://pub-76499eb758d942ca8ea20206de006180.r2.dev/effects/Lines/after.jpg" alt="Lines, Vertical Strokes example" loading="lazy"></div><div class="style-card__body"><h3 class="style-card__title">Lines, Vertical Strokes</h3><p class="style-card__desc">Vertical line glyphs that read like rain or barcode static, minimal, graphic, hypnotic.</p><span class="style-card__arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg></span></div></a><a class="style-card style-card--diagonal" href="#tool" data-was="/styles/diagonal"><div class="style-card__media"><img src="https://pub-76499eb758d942ca8ea20206de006180.r2.dev/effects/Diagonal/after.jpg" alt="Diagonal, Hatched Strokes example" loading="lazy"></div><div class="style-card__body"><h3 class="style-card__title">Diagonal, Hatched Strokes</h3><p class="style-card__desc">Slanted stroke glyphs build a hatched, engraved, woven texture across your photo.</p><span class="style-card__arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg></span></div></a><a class="style-card style-card--mixed" href="#tool" data-was="/styles/mixed"><div class="style-card__media"><img src="https://pub-76499eb758d942ca8ea20206de006180.r2.dev/effects/Mixed/after.jpg" alt="Mixed, Multi-Glyph Art example" loading="lazy"></div><div class="style-card__body"><h3 class="style-card__title">Mixed, Multi-Glyph Art</h3><p class="style-card__desc">Multiple glyph pools blended per cell for a rich, textured ASCII render no single ramp can match.</p><span class="style-card__arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg></span></div></a><div class="style-card style-card--coming"><h3 class="style-card__title">More coming soon...</h3><p class="style-card__desc">If you have a specific style in mind and you would like to have it added to AsciiMagic, ping me or email me here.</p><button type="button" class="style-card__email" id="coming-email-btn" aria-label="Copy email address"><span class="style-card__email-label">hello@imagetoascii.app</span><span class="style-card__email-divider" aria-hidden="true"></span><span class="style-card__email-icon" aria-hidden="true"><svg class="btn-icon btn-icon--copy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"></rect><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path></svg><svg class="btn-icon btn-icon--tick" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg></span></button></div></div>
+    <div class="styles__grid" id="styles-grid"></div>
   </div>
 </section>
 <!-- ===== SECTION 5, USE CASES TICKER ===== -->
@@ -2775,35 +2777,13 @@
       <button class="usecases__submit" type="button" id="submit-usecase-btn">Have a new one? Submit here</button>
     </div>
     <div class="usecases__ticker">
-      <div class="usecases__track" id="usecases-track"><div class="usecase"><div class="usecase__media"><img class="usecase__default" src="demos/demo-5.jpg" alt="Websites use case example" loading="lazy"><img class="usecase__hover" src="demos/demo-10.jpg" alt="Websites use case example" loading="lazy"></div><h3 class="usecase__title">Websites</h3><p class="usecase__desc">Drop ASCII art and pixel-art renders into hero backgrounds, section dividers, loading states and 404 pages. Export PNG or animated MP4 and use it as-is in any framework, the aesthetic stands out instantly from the standard SaaS landing template.</p></div><div class="usecase"><div class="usecase__media"><img class="usecase__default" src="demos/demo-14.jpg" alt="Wallpapers use case example" loading="lazy"><img class="usecase__hover" src="demos/demo-19.jpg" alt="Wallpapers use case example" loading="lazy"></div><h3 class="usecase__title">Wallpapers</h3><p class="usecase__desc">Free ASCII wallpaper generator for desktop and phone. Drop in any source photo, pick a style, export at up to 4K, print-quality wallpapers in seconds, no upload, no watermark.</p></div><div class="usecase"><div class="usecase__media"><img class="usecase__default" src="demos/demo-23.jpg" alt="Posters use case example" loading="lazy"><img class="usecase__hover" src="demos/demo-26.jpg" alt="Posters use case example" loading="lazy"></div><h3 class="usecase__title">Posters</h3><p class="usecase__desc">Print-ready ASCII art and pixel-art posters for events, gigs, zines and exhibitions. Mosaic and Pixel Art styles scale beautifully to A2 and A1 print, export at 4× resolution.</p></div><div class="usecase usecase--video"><div class="usecase__media"><img class="usecase__default" src="demos/demo-3.jpg" loading="lazy" decoding="async" alt=""><img class="usecase__hover" src="demos/demo-8.jpg" loading="lazy" decoding="async" alt=""></div><h3 class="usecase__title">Cool Videos</h3><p class="usecase__desc">ASCII video generator for YouTube intros, transitions and social loops. Drop a clip, pick a style, export as MP4 with the look applied to every frame.</p></div><div class="usecase"><div class="usecase__media"><img class="usecase__default" src="demos/demo-5.jpg" alt="Websites use case example" loading="lazy"><img class="usecase__hover" src="demos/demo-10.jpg" alt="Websites use case example" loading="lazy"></div><h3 class="usecase__title">Websites</h3><p class="usecase__desc">Drop ASCII art and pixel-art renders into hero backgrounds, section dividers, loading states and 404 pages. Export PNG or animated MP4 and use it as-is in any framework, the aesthetic stands out instantly from the standard SaaS landing template.</p></div><div class="usecase"><div class="usecase__media"><img class="usecase__default" src="demos/demo-14.jpg" alt="Wallpapers use case example" loading="lazy"><img class="usecase__hover" src="demos/demo-19.jpg" alt="Wallpapers use case example" loading="lazy"></div><h3 class="usecase__title">Wallpapers</h3><p class="usecase__desc">Free ASCII wallpaper generator for desktop and phone. Drop in any source photo, pick a style, export at up to 4K, print-quality wallpapers in seconds, no upload, no watermark.</p></div><div class="usecase"><div class="usecase__media"><img class="usecase__default" src="demos/demo-23.jpg" alt="Posters use case example" loading="lazy"><img class="usecase__hover" src="demos/demo-26.jpg" alt="Posters use case example" loading="lazy"></div><h3 class="usecase__title">Posters</h3><p class="usecase__desc">Print-ready ASCII art and pixel-art posters for events, gigs, zines and exhibitions. Mosaic and Pixel Art styles scale beautifully to A2 and A1 print, export at 4× resolution.</p></div><div class="usecase usecase--video"><div class="usecase__media"><img class="usecase__default" src="demos/demo-3.jpg" loading="lazy" decoding="async" alt=""><img class="usecase__hover" src="demos/demo-8.jpg" loading="lazy" decoding="async" alt=""></div><h3 class="usecase__title">Cool Videos</h3><p class="usecase__desc">ASCII video generator for YouTube intros, transitions and social loops. Drop a clip, pick a style, export as MP4 with the look applied to every frame.</p></div></div>
+      <div class="usecases__track" id="usecases-track"><div class="usecase"><div class="usecase__media"><img class="usecase__default" src="demos/demo-5.jpg" alt="Websites use case example" loading="lazy"><img class="usecase__hover" src="demos/demo-10.jpg" alt="Websites use case example" loading="lazy"></div><h3 class="usecase__title">Websites</h3><p class="usecase__desc">Drop ASCII art renders into hero backgrounds, section dividers, loading states and 404 pages. Export as PNG and use it as-is in any framework, the aesthetic stands out instantly from the standard SaaS landing template.</p></div><div class="usecase"><div class="usecase__media"><img class="usecase__default" src="demos/demo-14.jpg" alt="Wallpapers use case example" loading="lazy"><img class="usecase__hover" src="demos/demo-19.jpg" alt="Wallpapers use case example" loading="lazy"></div><h3 class="usecase__title">Wallpapers</h3><p class="usecase__desc">Free ASCII wallpaper generator for desktop and phone. Drop in any source photo, pick a style, export at up to 4K, print-quality wallpapers in seconds, no upload, no watermark.</p></div><div class="usecase"><div class="usecase__media"><img class="usecase__default" src="demos/demo-23.jpg" alt="Posters use case example" loading="lazy"><img class="usecase__hover" src="demos/demo-26.jpg" alt="Posters use case example" loading="lazy"></div><h3 class="usecase__title">Posters</h3><p class="usecase__desc">Print-ready ASCII art posters for events, gigs, zines and exhibitions. ASCII output scales cleanly for A2 and A1 print.</p></div><div class="usecase"><div class="usecase__media"><img class="usecase__default" src="demos/demo-5.jpg" alt="Websites use case example" loading="lazy"><img class="usecase__hover" src="demos/demo-10.jpg" alt="Websites use case example" loading="lazy"></div><h3 class="usecase__title">Websites</h3><p class="usecase__desc">Drop ASCII art renders into hero backgrounds, section dividers, loading states and 404 pages. Export as PNG and use it as-is in any framework, the aesthetic stands out instantly from the standard SaaS landing template.</p></div><div class="usecase"><div class="usecase__media"><img class="usecase__default" src="demos/demo-14.jpg" alt="Wallpapers use case example" loading="lazy"><img class="usecase__hover" src="demos/demo-19.jpg" alt="Wallpapers use case example" loading="lazy"></div><h3 class="usecase__title">Wallpapers</h3><p class="usecase__desc">Free ASCII wallpaper generator for desktop and phone. Drop in any source photo, pick a style, export at up to 4K, print-quality wallpapers in seconds, no upload, no watermark.</p></div><div class="usecase"><div class="usecase__media"><img class="usecase__default" src="demos/demo-23.jpg" alt="Posters use case example" loading="lazy"><img class="usecase__hover" src="demos/demo-26.jpg" alt="Posters use case example" loading="lazy"></div><h3 class="usecase__title">Posters</h3><p class="usecase__desc">Print-ready ASCII art posters for events, gigs, zines and exhibitions. ASCII output scales cleanly for A2 and A1 print.</p></div></div>
     </div>
   </div>
 </section>
 <!-- ===== SECTION 6, POST-PROCESSING DEMO ===== -->
 <!-- ===== SECTION 7, RECIPES, TEMPORARILY HIDDEN (coming later this week) =====
-<section class="section recipes-sec" id="recipes-section" aria-labelledby="recipes-h">
-  <div class="recipes-sec__inner">
-    <div class="recipes-sec__head">
-      <p class="eyebrow">/RECIPES</p>
-      <h2 class="section__h2" id="recipes-h">Copy-paste recipes to create stunning results in just one click</h2>
-      <p class="section__desc">Curated configurations of style, post-effects, lights and animation. Pick a recipe, paste it into the editor, drop in your own image and it renders with the exact same look.</p>
-    </div>
-    <div class="recipes-sec__grid">
-      <div class="recipe-pl">RECIPE CARDS<br>COMING SOON</div>
-      <div class="recipe-pl">RECIPE CARDS<br>COMING SOON</div>
-      <div class="recipe-pl">RECIPE CARDS<br>COMING SOON</div>
-    </div>
-    <div class="recipes-sec__cta">
-      <a href="/recipes">
-        <span class="recipes-sec__cta-label">View all Recipes</span>
-        <span class="recipes-sec__cta-divider" aria-hidden="true"></span>
-        <span class="recipes-sec__cta-icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
-        </span>
-      </a>
-    </div>
-  </div>
-</section>
+
 ===== /SECTION 7 RECIPES, uncomment when ready ===== -->
 <!-- ===== SECTION 8, FAQ ===== -->
 <section class="section faq-sec" id="faq" aria-labelledby="faq-h">
@@ -2820,7 +2800,7 @@
 <section class="section ctaSec" id="cta" aria-labelledby="cta-h">
   <div class="ctaSec__inner">
     <div class="ctaSec__panel">
-      <img class="ctaSec__video" src="assets/hero/after-green.png" loading="lazy" decoding="async" alt="">
+      <img class="ctaSec__video" src="assets/hero/after-green.png" loading="lazy" decoding="async" alt="ASCII art example">
       <div class="ctaSec__mask"></div>
       <div class="ctaSec__content">
         <p class="eyebrow" style="margin:0 0 12px;">/CREATE ART IN SECONDS</p>
@@ -3572,7 +3552,7 @@ window.addEventListener('DOMContentLoaded', function initCrtDialKitDeferred() {
      viewports. All remaining words fit comfortably in 2 lines. */
   const WORDS = [
     'ASCII Art',
-    'Braille Art',
+    'Text Art',
     'Block Art',
     'Terminal Art'
   ];
@@ -3670,7 +3650,7 @@ const COMMUNITY_POSTS = [
     let mediaHTML = '';
     if (p.media && p.type === 'vid') {
       // Image-only build: use the still .jpg poster instead of the .mp4 clip.
-      mediaHTML = '<img src="' + p.media.replace(/\.(mp4|webm|mov)$/i, '.jpg') + '" loading="lazy" decoding="async" alt="">';
+      mediaHTML = '<img src="' + p.media.replace(/\.(mp4|webm|mov)$/i, '.jpg') + '" loading="lazy" decoding="async" alt="ASCII art example">';
     } else if (p.media && p.type === 'img') {
       mediaHTML = '<img src="' + p.media + '" alt="Creation by @' + p.handle + '" loading="lazy">';
     }
@@ -3699,26 +3679,16 @@ const COMMUNITY_POSTS = [
    The recipe pre-applies the style; ?demo=1 tells the app to auto-load a
    random demo image so the user immediately sees the style on something. */
 const STYLES = [
-  { id: 'Characters', name: 'Characters, ASCII Art Generator', desc: 'Classic ASCII art, turn any image or video into ASCII using a configurable character ramp <span style="font-family:var(--font-display);opacity:0.85;">@#S08Xx+=-;:,.</span> mapped to brightness.', src: 'https://pub-76499eb758d942ca8ea20206de006180.r2.dev/style-pages/ascii-art/hero-after.jpg', recipe: { renderMode: 'characters' }, detail: '/app' },
-  { id: 'Dither',     name: 'Dither, Dithering Generator',     desc: 'Floyd–Steinberg, Atkinson, ordered/Bayer, halftone &amp; line dithers across 16 retro palettes (C64, Game Boy, PICO-8), with animated matrices.', src: 'https://pub-76499eb758d942ca8ea20206de006180.r2.dev/style-pages/dither/hero-after.jpg',    recipe: { renderMode: 'dither' }, detail: '/app' },
-  { id: 'Block',      name: 'Block Characters',                 desc: 'Half-block, quarter-block and full-block Unicode glyphs render dense, pixel-art-like detail, perfect for terminal aesthetics.',                       src: 'https://pub-76499eb758d942ca8ea20206de006180.r2.dev/style-pages/block/example-3.jpg',     recipe: { renderMode: 'block-chars' }, detail: '/app' },
-  { id: 'Pixelart',   name: 'Pixel Art Generator',              desc: 'Quantised colour blocks with subtle grid lines, turn photos into clean, posterised pixel-art tiles.',                                                  src: 'https://pub-76499eb758d942ca8ea20206de006180.r2.dev/style-pages/pixel-art/hero-after.jpg',  recipe: { renderMode: 'pixel' }, detail: '/app' },
-  { id: 'Mosaic',     name: 'Photo Mosaic',                     desc: 'Every cell becomes a coloured tile sampled from the original photo. Pick square, wide or tall shapes for different feels.',                            src: 'https://pub-76499eb758d942ca8ea20206de006180.r2.dev/style-pages/mosaic/example-1.jpg',    recipe: { renderMode: 'mosaic' }, detail: '/app' },
-  { id: 'Lego',       name: 'LEGO Bricks',                      desc: 'Posterised LEGO-style studded tiles with raised-dot highlights, looks like a brick mosaic of your photo.',                                            src: 'https://pub-76499eb758d942ca8ea20206de006180.r2.dev/effects/Lego/after.jpg',      recipe: { renderMode: 'lego' }, detail: '/app' },
-  { id: 'Disco',      name: 'Disco, Mirror Sphere',            desc: 'Glitter-tile rendering that wraps your image onto a mirror-ball sphere with bloom and lens flares.',                                                   src: 'https://pub-76499eb758d942ca8ea20206de006180.r2.dev/effects/Disco/after.jpg',     recipe: { renderMode: 'disco' }, detail: '/app' },
-  { id: 'Dots',       name: 'Dots, Halftone Print',            desc: 'Dot matrix mode draws filled circles instead of glyphs, circles scale with brightness for a halftone-print effect.',                                  src: 'https://pub-76499eb758d942ca8ea20206de006180.r2.dev/effects/Dots/after.jpg',      recipe: { renderMode: 'dots' }, detail: '/app' },
-  { id: 'Cross',      name: 'Cross, Crosshatch',               desc: 'Crosshatch glyphs <span style="font-family:var(--font-display);opacity:0.85;">✕</span> scale with brightness for a woven, cross-stitch texture across your photo.', src: 'https://pub-76499eb758d942ca8ea20206de006180.r2.dev/effects/Cross/after.jpg',     recipe: { renderMode: 'cross' }, detail: '/app' },
-  { id: 'Cube',       name: 'Voxel Cubes',                      desc: '3D isometric cubes with per-face shading, adjustable cell size and outline, turn a photo into voxel art.',                                            src: 'https://pub-76499eb758d942ca8ea20206de006180.r2.dev/effects/Cube/after.jpg',      recipe: { renderMode: '3d' }, detail: '/app' },
-  { id: 'Diamond',    name: 'Diamond Glyphs',                   desc: 'Sharp jewel-like diamond glyphs <span style="font-family:var(--font-display);opacity:0.85;">◆</span> with brightness-driven sizing.',                  src: 'https://pub-76499eb758d942ca8ea20206de006180.r2.dev/effects/Diamond/after.jpg',   recipe: { renderMode: 'diamond' }, detail: '/app' },
-  { id: 'Lines',      name: 'Lines, Vertical Strokes',         desc: 'Vertical line glyphs that read like rain or barcode static, minimal, graphic, hypnotic.',                                                              src: 'https://pub-76499eb758d942ca8ea20206de006180.r2.dev/effects/Lines/after.jpg',     recipe: { renderMode: 'lines' }, detail: '/app' },
-  { id: 'Diagonal',   name: 'Diagonal, Hatched Strokes',       desc: 'Slanted stroke glyphs build a hatched, engraved, woven texture across your photo.',                                                                     src: 'https://pub-76499eb758d942ca8ea20206de006180.r2.dev/effects/Diagonal/after.jpg',  recipe: { renderMode: 'diagonal' }, detail: '/app' },
-  { id: 'Mixed',      name: 'Mixed, Multi-Glyph Art',          desc: 'Multiple glyph pools blended per cell for a rich, textured ASCII render no single ramp can match.',                                                    src: 'https://pub-76499eb758d942ca8ea20206de006180.r2.dev/effects/Mixed/after.jpg',     recipe: { renderMode: 'mixed' }, detail: '/app' },
+  { id: 'Characters', name: 'Characters', desc: 'Classic ASCII art — characters mapped to brightness with a configurable ramp <span style="font-family:var(--font-display);opacity:0.85;">@#S08Xx+=-;:,.</span>', src: 'assets/hero/after-green.png', detail: '#tool' },
+  { id: 'Detailed', name: 'Detailed', desc: 'A dense character set for fine detail and smooth tonal gradients across your ASCII art.', src: 'assets/hero/after-detailed.png', detail: '#tool' },
+  { id: 'Block', name: 'Block Chars', desc: 'Half and full block glyphs (█▓▒░) for a bold, high-density pixel-block look.', src: 'assets/hero/after-blocks.png', detail: '#tool' },
+  { id: 'Minimal', name: 'Minimal', desc: 'A sparse character set for clean, minimal, high-contrast ASCII output.', src: 'assets/hero/after-minimal.png', detail: '#tool' },
 ];
 
 function styleHref(recipe) {
   const r = Object.assign({ v: 1 }, recipe);
   const b64 = btoa(JSON.stringify(r)).replace(/=+$/, '');
-  return '/app?r=' + b64 + '&demo=1';
+  return '#tool';
 }
 
 (function initStyles() {
@@ -3729,7 +3699,7 @@ function styleHref(recipe) {
     card.className = 'style-card style-card--' + String(s.id).toLowerCase();
     card.href = s.detail || styleHref(s.recipe);
     const media = s.isVideo
-      ? '<img src="' + s.src + '" loading="lazy" decoding="async" alt="">'
+      ? '<img src="' + s.src + '" loading="lazy" decoding="async" alt="ASCII art example">'
       : '<img src="' + s.src + '" alt="' + s.name + ' example" loading="lazy">';
     card.innerHTML =
       '<div class="style-card__media">' + media + '</div>' +
@@ -3748,7 +3718,7 @@ function styleHref(recipe) {
   coming.className = 'style-card style-card--coming';
   coming.innerHTML =
     '<h3 class="style-card__title">More coming soon...</h3>' +
-    '<p class="style-card__desc">If you have a specific style in mind and you would like to have it added to AsciiMagic, ping me or email me here.</p>' +
+    '<p class="style-card__desc">If you have a specific style in mind and you would like to have it added to Image to ASCII, ping me or email me here.</p>' +
     '<button type="button" class="style-card__email" id="coming-email-btn" aria-label="Copy email address">' +
       '<span class="style-card__email-label">hello@imagetoascii.app</span>' +
       '<span class="style-card__email-divider" aria-hidden="true"></span>' +
@@ -3809,9 +3779,9 @@ function styleHref(recipe) {
    image; the ticker scrolls horizontally and pauses on hover.
    =============================================================== */
 const USECASES = [
-  { title: 'Websites',    desc: 'Drop ASCII art and pixel-art renders into hero backgrounds, section dividers, loading states and 404 pages. Export PNG or use it as-is in any framework, the aesthetic stands out instantly from the standard SaaS landing template.', def: 'demos/demo-12.jpg', hover: 'demos/demo-21.jpg' },
+  { title: 'Websites',    desc: 'Drop ASCII art renders into hero backgrounds, section dividers, loading states and 404 pages. Export PNG or use it as-is in any framework, the aesthetic stands out instantly from the standard SaaS landing template.', def: 'demos/demo-12.jpg', hover: 'demos/demo-21.jpg' },
   { title: 'Wallpapers',  desc: 'Free ASCII wallpaper generator for desktop and phone. Drop in any source photo, pick a style, export at up to 4K, print-quality wallpapers in seconds, no upload, no watermark.', def: 'demos/demo-24.jpg', hover: 'demos/demo-29.jpg' },
-  { title: 'Posters',     desc: 'Print-ready ASCII art and pixel-art posters for events, gigs, zines and exhibitions. Mosaic and Pixel Art styles scale beautifully to A2 and A1 print, export at 4× resolution.', def: 'demos/demo-30.jpg', hover: 'demos/demo-7.jpg' },
+  { title: 'Posters',     desc: 'Print-ready ASCII art posters for events, gigs, zines and exhibitions. ASCII output scales cleanly for A2 and A1 print.', def: 'demos/demo-30.jpg', hover: 'demos/demo-7.jpg' },
 ];
 (function initUsecases() {
   const track = document.getElementById('usecases-track');
@@ -3823,7 +3793,7 @@ const USECASES = [
       card.className = 'usecase usecase--video';
     }
     const mediaTag = (src, cls) => u.isVideo
-      ? '<img class="' + cls + '" src="' + src + '" loading="lazy" decoding="async" alt="">'
+      ? '<img class="' + cls + '" src="' + src + '" loading="lazy" decoding="async" alt="ASCII art example">'
       : '<img class="' + cls + '" src="' + src + '" alt="' + u.title + ' use case example" loading="lazy">';
     card.innerHTML =
       '<div class="usecase__media">' +
