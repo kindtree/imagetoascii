@@ -398,6 +398,7 @@
      Shared section scaffolding: eyebrow / heading / lead
      ============================================================ */
   .ia-section { padding: 96px 0 0; position: relative; }
+  #learn { padding-bottom: 48px; }
   .ia-shell { max-width: var(--ia-artboard); margin: 0 auto; padding: 0 var(--ia-pad); }
   .ia-eyebrow {
     display: inline-block; font-family: var(--ia-display);
@@ -811,6 +812,7 @@
   .tool__btn--ghost:hover { background: rgba(255,255,255,.06); }
   .tool__status { font-size: .85rem; color: rgba(255,255,255,.6); min-height: 1.2em; margin-top: 2px; }
   .tool__status--err { color: #ff8a8a; }
+  .tool__loading[hidden] { display: none; }
   .tool__loading { display: flex; align-items: center; gap: 18px; margin-top: 16px; padding: 20px 22px; border: 1px solid rgba(255,255,255,.1); border-radius: 14px; background: linear-gradient(180deg,#0b0b12,#08080c); }
   .tool__loading-spin { font-family: ui-monospace, Menlo, monospace; font-size: 2.1rem; line-height: 1; color: #FF8A3C; width: 2rem; text-align: center; text-shadow: 0 0 16px rgba(255,138,60,.6); }
   .tool__loading-info { flex: 1 1 auto; min-width: 0; }
@@ -1018,35 +1020,6 @@
 
 
 
-<!-- ===================== ASK AI / CONTEXT.MD ===================== -->
-<section class="ia-section ia-ask" id="context-md" aria-labelledby="ask-h">
-  <div class="ia-ask-inner">
-    <div class="ia-ask-art" aria-hidden="true">
-      <img src="assets/hero/after-green.png" alt="ASCII art example" loading="lazy">
-    </div>
-    <div class="ia-ask-copy">
-      <p class="ia-eyebrow">ask-ai</p>
-      <h2 class="ia-h2" id="ask-h">Hand your AI the whole page</h2>
-      <p class="ia-lead">Don't feel like scrolling? Copy Context.md, paste into <a href="https://chatgpt.com" target="_blank" rel="noopener">ChatGPT</a> or <a href="https://claude.ai" target="_blank" rel="noopener">Claude</a>, it explains every style, control and export.</p>
-    </div>
-    <button class="ia-ask-btn" type="button" id="ia-context-btn" aria-label="Copy Context.md to clipboard">
-      <span class="ia-ask-btn-label">Context.MD</span>
-      <span class="ia-ask-btn-sep" aria-hidden="true"></span>
-      <span class="ia-ask-btn-icon" aria-hidden="true">
-        <svg class="ia-glyph ia-glyph--copy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <rect width="14" height="14" x="8" y="8" rx="2" ry="2"></rect>
-          <path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path>
-        </svg>
-        <svg class="ia-glyph ia-glyph--loading" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M21 12a9 9 0 1 1-6.219-8.56"></path>
-        </svg>
-        <svg class="ia-glyph ia-glyph--tick" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-          <polyline points="20 6 9 17 4 12"></polyline>
-        </svg>
-      </span>
-    </button>
-  </div>
-</section>
 
 <!-- ===================== ART STYLES (kept in order; hidden on the live page) ===================== -->
 <section class="ia-section ia-styles" id="styles" aria-labelledby="styles-h">
@@ -1418,37 +1391,7 @@
   document.addEventListener('keydown', e => { if (e.key === 'Escape' && menu.classList.contains('is-open')) close(); });
 })();
 
-/* ============================================================
-   Copy Context.md → clipboard (fetch once, cache, animate states).
-   ============================================================ */
-(function initContextCopy() {
-  const btn = document.getElementById('ia-context-btn');
-  if (!btn) return;
-  let cachedText = null, busy = false;
-  const labelEl = btn.querySelector('.ia-ask-btn-label');
-  const ORIG_LABEL = labelEl.textContent;
-  btn.addEventListener('click', async () => {
-    if (busy) return;
-    busy = true;
-    btn.classList.add('is-loading');
-    try {
-      if (!cachedText) {
-        const r = await fetch('/Context.md');
-        if (!r.ok) throw new Error('fetch failed');
-        cachedText = await r.text();
-      }
-      await navigator.clipboard.writeText(cachedText);
-      btn.classList.remove('is-loading');
-      btn.classList.add('is-copied');
-      labelEl.textContent = 'Copied';
-      setTimeout(() => { btn.classList.remove('is-copied'); labelEl.textContent = ORIG_LABEL; busy = false; }, 2000);
-    } catch (e) {
-      btn.classList.remove('is-loading');
-      labelEl.textContent = 'Copy failed';
-      setTimeout(() => { labelEl.textContent = ORIG_LABEL; busy = false; }, 2400);
-    }
-  });
-})();
+
 
 /* ============================================================
    Coming-soon email copy button (lives in the hidden styles grid;
