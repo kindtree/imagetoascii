@@ -2900,8 +2900,7 @@
         <div class="footer__sub">
           <h4 class="footer__col-title">Get started</h4>
           <ul>
-            <li><a href="#tool">Open the editor</a></li>
-            <li><a href="https://www.backgrounds.supply/" target="_blank" rel="noopener">Backgrounds Supply</a></li>
+            <li><a href="#tool">Open the tool</a></li>
           </ul>
         </div>
       </div>
@@ -3197,7 +3196,7 @@ window.__preloadAllEffectsOnce = (function () {
     }
     const subject = 'Image to ASCII, new use case submission';
     const bodyLines = [
-      'Hi Kailash,',
+      'Hi there,',
       '',
       'Here\'s a new use case for Image to ASCII.',
       '',
@@ -3664,69 +3663,7 @@ window.addEventListener('DOMContentLoaded', function initCrtDialKitDeferred() {
   });
 })();
 
-/* ===============================================================
-   SECTION 2, Community ticker. Renders 11 posts (doeshitte has 3
-   media so 13 cards) and loops them vertically using duplicated DOM.
-   Media is a placeholder until you provide downloaded files;
-   profile pics come from unavatar.io.
-   =============================================================== */
-/* Community ticker, each entry now carries its own media file + aspect
-   ratio. CSS reads `--ar` to set the card height: width stays uniform,
-   height adapts so portraits don't get cropped and landscape clips don't
-   leave a huge empty card. */
-const COMMUNITY_POSTS = [
-  { handle: 'mandouix',         url: 'https://x.com/mandouix/status/2036407080786243995',        media: 'demos/demo-3.jpg', type: 'img', ar: 1200/900  },
-  { handle: '92digitalartArt',  url: 'https://x.com/92digitalartArt/status/2040722619465384015', media: 'demos/demo-8.jpg', type: 'img', ar: 1200/675  },
-  { handle: 'BreejeAnadkat',    url: 'https://x.com/BreejeAnadkat/status/2040427480021155881',   media: 'demos/demo-1.jpg', type: 'img', ar: 1814/1080 },
-  { handle: 'jordanarchivess',  url: 'https://x.com/jordanarchivess/status/2034342164046795088', media: 'demos/demo-6.jpg', type: 'img', ar: 720/1280  },
-  { handle: 'uxsweta',          url: 'https://x.com/uxsweta/status/2049496428125339837',         media: 'demos/demo-12.jpg', type: 'img', ar: 960/1200  },
-  { handle: 'prem_uiux',        url: 'https://x.com/prem_uiux/status/2034257761060761662',       media: 'demos/demo-9.jpg', type: 'img', ar: 1720/1080 },
-  { handle: 'mandouix',         url: 'https://x.com/mandouix/status/2036669779285795120',        media: 'demos/demo-19.jpg', type: 'img', ar: 1200/900  },
-  { handle: '0xInk_',           url: 'https://x.com/0xInk_/status/2034108541293015067',          media: 'demos/demo-13.jpg', type: 'img', ar: 752/416   },
-  { handle: 'doeshitte',        url: 'https://x.com/doeshitte/status/2043261965477528016',       media: 'demos/demo-17.jpg', type: 'img', ar: 1080/1080 },
-  { handle: 'doeshitte',        url: 'https://x.com/doeshitte/status/2043261965477528016',       media: 'demos/demo-22.jpg', type: 'img', ar: 720/1280  },
-  { handle: 'doeshitte',        url: 'https://x.com/doeshitte/status/2043261965477528016',       media: 'demos/demo-25.jpg', type: 'img', ar: 1080/1350 },
-  { handle: 'mxxob10',          url: 'https://x.com/mxxob10/status/2037590035848139101',         media: 'demos/demo-28.jpg', type: 'img', ar: 1534/1080 },
-  { handle: 'uxsweta',          url: 'https://x.com/uxsweta/status/2056351598507696307',         media: 'demos/demo-24.jpg', type: 'img', ar: 800/1200  },
-];
-
-(function initCommunity() {
-  const track = document.getElementById('community-track');
-  if (!track) return;
-  /* Per design: media block + bottom row with handle on the left and an
-     external-link icon on the right. No overlay, no avatar, no placeholder
-     text, when no media file is provided, the card just shows a subtle
-     dark gradient backdrop. */
-  function renderCard(p) {
-    const a = document.createElement('a');
-    a.className = 'post';
-    a.href = p.url; a.target = '_blank'; a.rel = 'noopener noreferrer';
-    /* Per-card aspect ratio so portrait clips don't get cropped and wide
-       clips don't leave a vertically-stretched empty card. CSS uses
-       `aspect-ratio: var(--ar)` on .post__media to honour this. */
-    let mediaHTML = '';
-    if (p.media && p.type === 'vid') {
-      // Image-only build: use the still .jpg poster instead of the .mp4 clip.
-      mediaHTML = '<img src="' + p.media.replace(/\.(mp4|webm|mov)$/i, '.jpg') + '" loading="lazy" decoding="async" alt="ASCII art example">';
-    } else if (p.media && p.type === 'img') {
-      mediaHTML = '<img src="' + p.media + '" alt="Creation by @' + p.handle + '" loading="lazy">';
-    }
-    const arStyle = p.ar ? ' style="--ar:' + p.ar + ';"' : '';
-    a.innerHTML =
-      '<div class="post__media"' + arStyle + '>' + mediaHTML + '</div>' +
-      '<div class="post__row">' +
-        '<span class="post__handle">by @' + p.handle + '</span>' +
-        '<span class="post__icon" aria-hidden="true">' +
-          /* External-link icon (top-right arrow out of a box), matches design */
-          '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>' +
-        '</span>' +
-      '</div>';
-    return a;
-  }
-  for (let i = 0; i < 2; i++) {
-    COMMUNITY_POSTS.forEach(p => track.appendChild(renderCard(p)));
-  }
-})();
+/* (Community ticker removed — was competitor showcase data.) */
 
 /* ===============================================================
    SECTION 4, Styles grid. 10 single cards + 1 wide "Coming soon".
