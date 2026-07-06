@@ -183,7 +183,7 @@
   }
   .ia-rails::before, .ia-rails::after {
     content: ""; position: absolute; top: 0; bottom: 0; width: 1px;
-    background: var(--ia-phos-20);
+    background: repeating-linear-gradient(180deg, var(--ia-phos-20) 0 6px, transparent 6px 14px);
   }
   .ia-rails::before { left: var(--ia-pad); }
   .ia-rails::after  { right: var(--ia-pad); }
@@ -302,7 +302,17 @@
   /* ============================================================
      HERO  (compare slider → title row → subtitle)
      ============================================================ */
-  .ia-hero { position: relative; padding: 0 var(--ia-pad); max-width: var(--ia-artboard); margin: 0 auto; }
+  .ia-hero { position: relative; z-index: 6; padding: 0 var(--ia-pad); max-width: var(--ia-artboard); margin: 0 auto; }
+  /* Hero-only SOLID side rails. The rest of the page keeps the dashed .ia-rails;
+     the hero sits at z-index 6 (above the dashed rails at z5, below the sticky
+     nav at z100), so these opaque lines cover the dashed rails for the hero's
+     height only, aligned to the same --ia-pad gutters. */
+  .ia-hero::before, .ia-hero::after {
+    content: ""; position: absolute; top: 0; bottom: 0; width: 1px;
+    background: var(--ia-phos-20); pointer-events: none;
+  }
+  .ia-hero::before { left: var(--ia-pad); }
+  .ia-hero::after  { right: var(--ia-pad); }
   .ia-hero-stage { position: relative; }
   /* Full-viewport hairline under the slider so the rails read as "cut" here */
   .ia-hero-stage::after,
